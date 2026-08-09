@@ -74,6 +74,10 @@ enum PlantType {
 
 	P049PeaShooterDoubleReverse,
 
+	## 明日方舟干员（50 起）
+	P050Kroos = 50,		## 克洛丝（速射手）
+	P051Wisadel = 51,	## 维什戴尔（预留，投掷手）
+
 	## 模仿者
 	P999Imitater = 999,
 	## 发芽
@@ -93,6 +97,18 @@ enum PlacePlantInCell{
 	Float,	## 漂浮位置
 	Imitater,## 模仿者位置
 }
+
+#region 干员
+## 干员植物类型列表（明日方舟干员以 PlantType 形式注册，复用植物种植/卡片/格子管线）
+const OperatorPlantType:Array[PlantType] = [
+	PlantType.P050Kroos,
+	PlantType.P051Wisadel,
+]
+
+## 判断植物类型是否为干员
+static func is_operator_type(plant_type:PlantType)->bool:
+	return OperatorPlantType.has(plant_type)
+#endregion
 
 #endregion
 
@@ -521,6 +537,17 @@ const PlantInfo = {
 		PlantInfoAttribute.SunCost: 200,
 		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
 		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_049_pea_shooter_double_reverse.tscn")
+		},
+
+	## 明日方舟干员
+	## 克洛丝: SunCost 为部署费用(消耗部署点数,非阳光), CoolTime 为再部署时间
+	## 数值按 wiki 满级(精英1满级): HP1060/攻击375/部署费用10/再部署70s/攻击间隔1.0s(见场景与子弹)
+	PlantType.P050Kroos: {
+		PlantInfoAttribute.PlantName: "Kroos",
+		PlantInfoAttribute.CoolTime: 70.0,
+		PlantInfoAttribute.SunCost: 10,
+		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
+		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_001_kroos.tscn")
 		},
 
 	## 模仿者

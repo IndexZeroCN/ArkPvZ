@@ -1,7 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://em12la0rqibq"]
 
 [ext_resource type="Texture2D" uid="uid://cw8k7bqxg6s10" path="res://assets/image/ui/ui_main_game_menu/options_checkbox1.png" id="1_5qcbn"]
-[ext_resource type="FontFile" uid="uid://bjnvl0v2ws21u" path="res://assets/fonts/SIMSUN.TTC" id="1_d76qg"]
+[ext_resource type="FontVariation" uid="uid://db6pxu0mxlnjl" path="res://assets/fonts/MiSans_Regular.tres" id="1_d76qg"]
 [ext_resource type="Texture2D" uid="uid://q2gba6cd82mw" path="res://assets/image/ui/ui_main_game_menu/options_checkbox0.png" id="2_e2ehk"]
 [ext_resource type="Texture2D" uid="uid://damwsmpdph32t" path="res://assets/image/ui/ui_main_game_menu/options_sliderknob2.png" id="3_1f77c"]
 [ext_resource type="Texture2D" uid="uid://b3pdxhaofjedv" path="res://assets/image/ui/ui_main_game_menu/options_sliderslot.png" id="4_0hdwo"]

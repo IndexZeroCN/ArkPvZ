@@ -82,6 +82,11 @@ func judge_sun_enough(curr_sun_value):
 
 ## 判断卡片是否可以点击
 func judge_card_ready():
+	## 干员唯一性: 场上已有同类型干员时卡片不可点击
+	if is_operator_card and is_instance_valid(Global.main_game) and is_instance_valid(Global.main_game.operator_manager)\
+		and Global.main_game.operator_manager.get_operator_count_by_type(card_plant_type) > 0:
+		card_not_can_click()
+		return
 	# 阳光充足 且 卡片冷却完成
 	if is_sun_enough and not _is_cooling:
 		## 紫卡并且不能种植

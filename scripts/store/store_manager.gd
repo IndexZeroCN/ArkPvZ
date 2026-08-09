@@ -6,9 +6,9 @@ class_name StoreManager
 @onready var confirm_goods: ConfirmGoods = $ConfirmGoods
 
 ## 离开商店页信号
-signal siganl_exit_store
+signal signal_exit_store
 
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	Global.save_service.save_now()
 	for goods in all_goods:
@@ -19,7 +19,7 @@ func _ready() -> void:
 
 ## 离开商店
 func _on_store_main_menu_button_pressed() -> void:
-	siganl_exit_store.emit()
+	signal_exit_store.emit()
 	Global.save_service.save_now()
 	if get_tree().current_scene == self:
 		get_tree().change_scene_to_file(Global.main_scene_registry.MainScenesMap[MainSceneRegistry.MainScenes.StartMenu])

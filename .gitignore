@@ -3,3 +3,6 @@
 /android/
 .vscode
 assets
+
+# spine-godot GDExtension 二进制插件(官方下载)
+bin/

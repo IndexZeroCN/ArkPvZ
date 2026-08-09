@@ -64,7 +64,8 @@ func init_zombie_wave_manager(game_para:ResourceLevelData):
 		max_wave = game_para.max_wave
 
 	flag_progress_bar.init_flag_from_wave(max_wave_one_round)
-	progress_bar_segment_every_wave = 100.0 / (max_wave_one_round - 1)
+	## 防除零：单轮最大波次为 1 时按 1 计算
+	progress_bar_segment_every_wave = 100.0 / maxi(max_wave_one_round - 1, 1)
 
 	zombie_wave_create_manager.init_zombie_wave_create_manager(game_para)
 

@@ -84,6 +84,11 @@ var curr_plant :Array[CharacterRegistry.PlantType]= [
 	CharacterRegistry.PlantType.P1003WallNutBowlingBig,
 ]
 
+## 可选干员白名单（干员以 PlantType 表示，出现在选卡界面干员页）
+var curr_operator :Array[CharacterRegistry.PlantType]= [
+	CharacterRegistry.PlantType.P050Kroos,
+]
+
 var curr_zombie :Array[CharacterRegistry.ZombieType]= [
 	CharacterRegistry.ZombieType.Z001Norm,
 	CharacterRegistry.ZombieType.Z002Flag,

@@ -7,10 +7,14 @@ class_name CardSlotCandidate
 ## 卡片Grid
 @onready var grid_container_plant: GridContainer = $AllCardPage/GridContainerPlant
 @onready var grid_container_zombie: GridContainer = $AllCardPage/GridContainerZombie
+## 干员卡片Grid
+@onready var grid_container_operator: GridContainer = $AllCardPage/GridContainerOperator
 
 ## 所有的备选卡片
 var all_card_candidate_containers_plant:Dictionary[int, CardCandidateContainer] = {}
 var all_card_candidate_containers_zombie:Dictionary[int, CardCandidateContainer] = {}
+## 所有的干员备选卡片
+var all_card_candidate_containers_operator:Dictionary[int, CardCandidateContainer] = {}
 
 ## 所有的卡片页面列表
 var all_card_page_array:Array[GridContainer] =[]
@@ -46,6 +50,7 @@ var all_show_page_imitater:Array[GridContainer] =[]
 func _ready() -> void:
 	_init_card_slot_candidate_plant()
 	_init_card_slot_candidate_zombie()
+	_init_card_slot_candidate_operator()
 	_init_card_slot_candidate_imitater()
 
 	_init_card_page()
@@ -90,8 +95,13 @@ func _init_card_slot_candidate_plant():
 	## 当前页面的所有卡片占位
 	var all_card_selected_placeholder:Array
 	var curr_num_page:int = -1
+	## 植物卡片(不含干员, 干员单独一页)
+	var all_plant_keys:Array = []
+	for plant_type:CharacterRegistry.PlantType in AllCards.all_plant_card_prefabs:
+		if not CharacterRegistry.is_operator_type(plant_type):
+			all_plant_keys.append(plant_type)
 	#for i:int in Global.global_game_state.curr_plant.size():
-	for i:int in AllCards.all_plant_card_prefabs.size():
+	for i:int in all_plant_keys.size():
 		var page_i:int = int(float(i) / num_card_every_page)
 		if curr_num_page < page_i:
 			curr_num_page += 1
@@ -103,7 +113,7 @@ func _init_card_slot_candidate_plant():
 			all_card_selected_placeholder = new_grid_container.get_children()
 		## 当前植物类型对应的card
 		#var curr_plant_card = AllCards.all_plant_card_prefabs[Global.global_game_state.curr_plant[i]]
-		var curr_plant_card = AllCards.all_plant_card_prefabs[AllCards.all_plant_card_prefabs.keys()[i]]
+		var curr_plant_card = AllCards.all_plant_card_prefabs[all_plant_keys[i]]
 		var new_card = curr_plant_card.duplicate()
 		var card_candidate_container: CardCandidateContainer = SceneRegistry.CARD_CANDIDATE_CONTAINER.instantiate()
 
@@ -155,6 +165,47 @@ func _init_card_slot_candidate_zombie():
 
 	grid_container_zombie.queue_free()
 
+## 初始化生成干员待选卡槽（干员单独一页，仅本关卡允许使用干员时显示）
+func _init_card_slot_candidate_operator():
+	## 关卡不允许使用干员(或主游戏尚未就绪)则直接删除网格
+	if not is_instance_valid(Global.main_game) or not Global.main_game.game_para.is_can_use_operator:
+		grid_container_operator.queue_free()
+		return
+	## 每一页的卡片数量
+	var num_card_every_page = grid_container_operator.get_child_count()
+	all_card_page.remove_child(grid_container_operator)
+	## 当前页面的所有卡片占位
+	var all_card_selected_placeholder:Array
+	var curr_num_page:int = -1
+	for i:int in Global.global_game_state.curr_operator.size():
+		var page_i:int = int(float(i) / num_card_every_page)
+		if curr_num_page < page_i:
+			curr_num_page += 1
+			var new_grid_container = grid_container_operator.duplicate()
+			all_card_page.add_child(new_grid_container)
+			all_card_page_array.append(new_grid_container)
+			new_grid_container.visible = false
+			## 当前页面的所有卡片占位
+			all_card_selected_placeholder = new_grid_container.get_children()
+		## 当前干员类型对应的card(干员以 PlantType 注册)
+		var curr_operator_type:CharacterRegistry.PlantType = Global.global_game_state.curr_operator[i]
+		var curr_operator_card = AllCards.all_plant_card_prefabs[curr_operator_type]
+		var new_card = curr_operator_card.duplicate()
+		## 标记为干员卡片(消耗部署点数)
+		new_card.is_operator_card = true
+		var card_candidate_container: CardCandidateContainer = SceneRegistry.CARD_CANDIDATE_CONTAINER.instantiate()
+
+		card_candidate_container.init_card_in_seed_chooser(new_card)
+		all_card_selected_placeholder[curr_operator_card.card_id % num_card_every_page].add_child(card_candidate_container)
+		all_card_candidate_containers_operator[curr_operator_card.card_id] = card_candidate_container
+
+		card_candidate_container.visible = false
+
+	for operator_type:CharacterRegistry.PlantType in Global.global_game_state.curr_operator:
+		all_card_candidate_containers_operator[AllCards.plant_card_ids[operator_type]].visible = true
+
+	grid_container_operator.queue_free()
+
 ## 初始化生成模仿者待选卡槽
 func _init_card_slot_candidate_imitater():
 	## 每一页的卡片数量
@@ -163,8 +214,13 @@ func _init_card_slot_candidate_imitater():
 	## 当前页面的所有卡片占位
 	var all_card_selected_placeholder:Array
 	var curr_num_page_imitater:=-1
+	## 模仿者不含干员
+	var all_plant_keys:Array = []
+	for plant_type:CharacterRegistry.PlantType in AllCards.all_plant_card_prefabs:
+		if not CharacterRegistry.is_operator_type(plant_type):
+			all_plant_keys.append(plant_type)
 	#for i:int in Global.global_game_state.curr_plant.size():
-	for i:int in AllCards.all_plant_card_prefabs.size():
+	for i:int in all_plant_keys.size():
 		var page_i:int = int(float(i) / num_card_every_page)
 		if curr_num_page_imitater < page_i:
 			curr_num_page_imitater += 1
@@ -176,7 +232,7 @@ func _init_card_slot_candidate_imitater():
 			all_card_selected_placeholder = new_grid_container.get_children()
 		## 当前植物类型对应的card
 		#var curr_plant_card = AllCards.all_plant_card_prefabs[Global.global_game_state.curr_plant[i]]
-		var curr_plant_card = AllCards.all_plant_card_prefabs[AllCards.all_plant_card_prefabs.keys()[i]]
+		var curr_plant_card = AllCards.all_plant_card_prefabs[all_plant_keys[i]]
 		var new_card = curr_plant_card.duplicate()
 		new_card.is_imitater = true
 		var card_candidate_container: CardCandidateContainer = SceneRegistry.CARD_CANDIDATE_CONTAINER.instantiate()

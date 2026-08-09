@@ -20,6 +20,9 @@ func init_card_slot_norm(game_para:ResourceLevelData):
 	for i in card_slot_candidate.all_card_candidate_containers_zombie:
 		var card:Card = card_slot_candidate.all_card_candidate_containers_zombie[i].card
 		card.signal_card_click.connect(_on_card_click.bind(card))
+	for i in card_slot_candidate.all_card_candidate_containers_operator:
+		var card:Card = card_slot_candidate.all_card_candidate_containers_operator[i].card
+		card.signal_card_click.connect(_on_card_click.bind(card))
 	for i in card_slot_candidate.all_card_candidate_containers_plant_imitater:
 		var card:Card = card_slot_candidate.all_card_candidate_containers_plant_imitater[i].card
 		card.signal_card_click.connect(_on_imitater_card_click.bind(card))
@@ -40,13 +43,20 @@ func _on_re_card_button_pressed() -> void:
 				if not card_slot_candidate.card_imitater.is_be_choosed_imitater:
 					card_slot_candidate.all_card_candidate_containers_plant_imitater[AllCards.plant_card_ids[plant_type]].card._on_button_pressed()
 			else:
-				if not card_slot_candidate.all_card_candidate_containers_plant[AllCards.plant_card_ids[plant_type]].card.is_choosed_pre_card:
-					card_slot_candidate.all_card_candidate_containers_plant[AllCards.plant_card_ids[plant_type]].card._on_button_pressed()
+				if not get_card_candidate_container_by_plant_type(plant_type).card.is_choosed_pre_card:
+					get_card_candidate_container_by_plant_type(plant_type).card._on_button_pressed()
 
 		elif card_type_data.has("zombie_type"):
 			var zombie_type:CharacterRegistry.ZombieType = card_type_data["zombie_type"]
 			if not card_slot_candidate.all_card_candidate_containers_zombie[AllCards.zombie_card_ids[zombie_type]].card.is_choosed_pre_card:
 				card_slot_candidate.all_card_candidate_containers_zombie[AllCards.zombie_card_ids[zombie_type]].card._on_button_pressed()
+
+
+## 获取植物类型对应的待选卡槽容器(植物或干员)
+func get_card_candidate_container_by_plant_type(plant_type:CharacterRegistry.PlantType) -> CardCandidateContainer:
+	if CharacterRegistry.is_operator_type(plant_type):
+		return card_slot_candidate.all_card_candidate_containers_operator[AllCards.plant_card_ids[plant_type]]
+	return card_slot_candidate.all_card_candidate_containers_plant[AllCards.plant_card_ids[plant_type]]
 
 
 
@@ -86,8 +96,9 @@ func init_pre_choosed_card(card_type_list:Array[CharacterRegistry.PlantType], ca
 		var character_type:CharacterRegistry.CharacterType = GlobalUtils.get_character_type(plant_type, zombie_type)
 		match character_type:
 			CharacterRegistry.CharacterType.Plant:
-				card_slot_candidate.all_card_candidate_containers_plant[AllCards.plant_card_ids[plant_type]].card.visible = false
-				card_slot_candidate.all_card_candidate_containers_plant[AllCards.plant_card_ids[plant_type]].card.is_choosed_pre_card = true
+				## 干员与普通植物都从对应待选卡槽隐藏并预选
+				get_card_candidate_container_by_plant_type(plant_type).card.visible = false
+				get_card_candidate_container_by_plant_type(plant_type).card.is_choosed_pre_card = true
 				card = AllCards.all_plant_card_prefabs[plant_type].duplicate()
 			CharacterRegistry.CharacterType.Zombie:
 				card_slot_candidate.all_card_candidate_containers_zombie[AllCards.zombie_card_ids[zombie_type]].card.visible = false

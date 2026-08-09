@@ -5,7 +5,7 @@ class_name PVZButtonBase
 var original_pos
 var current_tween: Tween = null
 
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	## 连接信号
 	button_down.connect(_on_button_down)

@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dc1xvxus2co66"]
 
+[ext_resource type="Script" uid="uid://c8xa56yoe61ou" path="res://scripts/ui/start_menu/start_menu_button_hover.gd" id="85_script"]
+
 [ext_resource type="Script" uid="uid://dkbq8o27gtu37" path="res://scripts/ui/start_menu/start_menu_root.gd" id="1_2isde"]
 [ext_resource type="Texture2D" uid="uid://cd1em7514pqef" path="res://assets/image/ui/ui_start_menu/SelectorScreen_BG.jpg" id="1_s2p02"]
 [ext_resource type="Texture2D" uid="uid://s50psykd6k1t" path="res://assets/image/ui/ui_start_menu/SelectorScreen_BG_Right.png" id="2_j2mjb"]
@@ -61,7 +63,7 @@
 [ext_resource type="Texture2D" uid="uid://nufi5fifmvu1" path="res://assets/image/ui/ui_start_menu/SelectorScreen_WoodSign1.png" id="52_63h8x"]
 [ext_resource type="Texture2D" uid="uid://up3tsdg4wlss" path="res://assets/image/ui/ui_start_menu/SelectorScreen_WoodSign2.png" id="53_ry5e1"]
 [ext_resource type="Texture2D" uid="uid://xsu0epbjdx8o" path="res://assets/image/ui/ui_start_menu/SelectorScreen_Store.png" id="53_wymjr"]
-[ext_resource type="FontFile" uid="uid://dqb8lum530s2f" path="res://assets/fonts/方正少儿_GBK.ttf" id="54_343qg"]
+[ext_resource type="FontVariation" uid="uid://bdrlnt2ui4im1" path="res://assets/fonts/MiSans_Medium.tres" id="54_343qg"]
 [ext_resource type="Texture2D" uid="uid://c7hm6tgjy1fbs" path="res://assets/image/ui/ui_start_menu/SelectorScreen_StoreHighlight.png" id="54_ojqr6"]
 [ext_resource type="Texture2D" uid="uid://b0b3qkcasp6py" path="res://assets/image/ui/ui_start_menu/SelectorScreen_WoodSign2_press.png" id="54_yl4bl"]
 [ext_resource type="BitMap" uid="uid://mu5gublnox4q" path="res://assets/image/ui/ui_start_menu/SelectorScreen_WoodSign2_Mask.png" id="55_31n4o"]
@@ -1268,26 +1270,6 @@ _data = {
 &"RESET": SubResource("Animation_yl4bl")
 }
 
-[sub_resource type="GDScript" id="GDScript_mpctx"]
-script/source = "extends TextureButton
-
-
-@onready var mouse: TextureRect = $mouse
-@onready var default: TextureRect = $default
-
-func _ready() -> void:
-	texture_normal = null
-	_on_mouse_exited()
-
-func _on_mouse_entered() -> void:
-	mouse.visible = true
-	default.visible = false
-
-func _on_mouse_exited() -> void:
-	mouse.visible = false
-	default.visible = true
-"
-
 [sub_resource type="LabelSettings" id="LabelSettings_x7dp7"]
 font = ExtResource("54_343qg")
 font_size = 19
@@ -2114,7 +2096,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("83_tf8pn")
 texture_click_mask = ExtResource("84_mpctx")
 stretch_mode = 5
-script = SubResource("GDScript_mpctx")
+script = ExtResource("85_script")
 
 [node name="default" type="TextureRect" parent="BG_Right/CustomButton" unique_id=1479650694]
 layout_mode = 1

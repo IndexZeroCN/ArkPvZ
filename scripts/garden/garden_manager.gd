@@ -167,7 +167,7 @@ func _on_store_enter_key_pressed():
 	## 商店场景添加为子节点
 	var store_node:StoreManager = load(Global.main_scene_registry.MainScenesMap[MainSceneRegistry.MainScenes.Store]).instantiate()
 	canvas_layer_store.add_child(store_node)
-	store_node.siganl_exit_store.connect(_update_back_from_store)
+	store_node.signal_exit_store.connect(_update_back_from_store)
 
 
 ## 跳转到下一页背景

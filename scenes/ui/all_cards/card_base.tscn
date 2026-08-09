@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://em12la0rqibq" path="res://data/PVZ_theme.tres" id="1_5c0lc"]
 [ext_resource type="Script" uid="uid://dgc06cujbbbu8" path="res://scripts/ui/card/card_base.gd" id="2_dao7o"]
-[ext_resource type="Texture2D" uid="uid://bnlu4gj7hi2m2" path="res://resources/card_bg/01Norm.tres" id="3_5c0lc"]
+[ext_resource type="Texture2D" uid="uid://cdm356vgex30b" path="res://assets/image/ui/ui_card/SeedPacket_Larger.png" id="3_5c0lc"]
 
 [sub_resource type="SystemFont" id="SystemFont_fpdtd"]
 font_names = PackedStringArray("Sans-Serif")

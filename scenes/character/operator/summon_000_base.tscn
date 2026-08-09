@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/character/operator/operator_000_base.tscn" id="1_opr"]
+[ext_resource type="Script" path="res://scripts/character/operator/summon_000_base.gd" id="2_sum"]
+
+[node name="Summon000Base" instance=ExtResource("1_opr")]
+script = ExtResource("2_sum")

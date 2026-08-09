@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dw6btivnki0kt" path="res://assets/image/ui/ui_card/SeedPacketSilhouette.png" id="4_da020"]
 [ext_resource type="Texture2D" uid="uid://ck3qd7qu37g43" path="res://assets/image/ui/ui_trophy/AwardPickupGlow.png" id="5_ka0vb"]
 [ext_resource type="Texture2D" uid="uid://wkqjmktx0gr5" path="res://assets/image/ui/ui_trophy/moneybag_hi_res.png" id="6_6m7s1"]
-[ext_resource type="FontFile" uid="uid://dqb8lum530s2f" path="res://assets/fonts/方正少儿_GBK.ttf" id="7_ka0vb"]
+[ext_resource type="FontVariation" uid="uid://bdrlnt2ui4im1" path="res://assets/fonts/MiSans_Medium.tres" id="7_ka0vb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x628s"]
 texture = ExtResource("2_31flj")

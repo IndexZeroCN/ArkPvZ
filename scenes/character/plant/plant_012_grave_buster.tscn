@@ -44,7 +44,6 @@ anim_offset_max = 1.0
 
 [sub_resource type="GDScript" id="GDScript_xhurg"]
 script/source = "extends GPUParticles2D
-class_name GPUParticles2DGraveBuster
 
 ## 2秒后删除自身
 func free_self_after_two_sec():

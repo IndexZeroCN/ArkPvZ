@@ -4,7 +4,7 @@ class_name Stinky
 # TODO: 暂时先不写蜗牛了，感觉蜗牛好麻烦
 
 
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	pass # Replace with function body.
 

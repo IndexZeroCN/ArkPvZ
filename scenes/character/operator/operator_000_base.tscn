@@ -1,0 +1,232 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="PackedScene" uid="uid://c5cke4cm02um7" path="res://scenes/character/plant/plant_000_base.tscn" id="1_e772o"]
+[ext_resource type="Script" path="res://scripts/character/operator/operator_000_base.gd" id="2_opr"]
+[ext_resource type="Script" path="res://scripts/character/components/anim_component/component_anim_operator.gd" id="3_anim"]
+[ext_resource type="Script" path="res://scripts/character/components/skill_component/component_skill.gd" id="4_skill"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
+bg_color = Color(0, 0, 0, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
+bg_color = Color(0.35, 0.65, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skill_bg"]
+bg_color = Color(0, 0, 0, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skill_fill"]
+bg_color = Color(0.85, 0.95, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_placeholder"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0.36, 0.6, 0.82, 1, 0.2, 0.38, 0.55, 1, 0.1, 0.18, 0.28, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_placeholder"]
+width = 48
+height = 80
+fill = 1
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+gradient = SubResource("Gradient_placeholder")
+
+[sub_resource type="Gradient" id="Gradient_select"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.3, 0.75, 1, 0.9, 0.3, 0.75, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_select"]
+width = 56
+height = 14
+fill = 1
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+gradient = SubResource("Gradient_select")
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -5.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_attack"]
+resource_name = "attack"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 4.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_skill"]
+resource_name = "skill"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.12, 1.12), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_die"]
+resource_name = "die"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_idle"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_operator"]
+nodes/Idle/node = SubResource("AnimationNodeAnimation_idle")
+nodes/Idle/position = Vector2(120, 100)
+node_connections = [&"output", 0, &"Idle"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_operator"]
+_data = {
+&"attack": SubResource("Animation_attack"),
+&"die": SubResource("Animation_die"),
+&"idle": SubResource("Animation_idle"),
+&"skill": SubResource("Animation_skill")
+}
+
+[node name="Operator000Base" instance=ExtResource("1_e772o")]
+script = ExtResource("2_opr")
+
+[node name="AnimComponent" parent="." index="2"]
+script = ExtResource("3_anim")
+
+[node name="HpComponent" parent="." index="3"]
+max_hp = 1060
+
+[node name="HpControl" parent="HpComponent" index="0"]
+offset_top = -32.0
+offset_bottom = -32.0
+
+[node name="ProgressBarHp" parent="HpComponent/HpControl" index="0"]
+modulate = Color(1, 1, 1, 1)
+custom_minimum_size = Vector2(15, 2)
+offset_left = -7.5
+offset_top = -1.0
+offset_right = 7.5
+offset_bottom = 1.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="LabelHp" parent="HpComponent/HpControl" index="1"]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_operator")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_operator")
+anim_player = NodePath("../AnimationPlayer")
+active = false
+
+[node name="SkillComponent" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_skill")
+max_sp = 5
+sp_gain_per_attack = 1
+sp_recovery_type = 0
+is_auto_trigger = true
+
+[node name="SkillControl" type="Control" parent="SkillComponent"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_top = -30.0
+offset_bottom = -30.0
+mouse_filter = 2
+
+[node name="ProgressBarSkill" type="ProgressBar" parent="SkillComponent/SkillControl"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(15, 2)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.5
+offset_top = -1.0
+offset_right = 7.5
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_skill_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_skill_fill")
+max_value = 1.0
+value = 0.0
+show_percentage = false
+
+[node name="LabelSkill" type="Label" parent="SkillComponent/SkillControl"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -4.0
+offset_right = 25.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.75, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 8
+text = "0/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OperatorSprite" type="Node2D" parent="Body/BodyCorrect"]
+
+[node name="PlaceholderSprite" type="Sprite2D" parent="Body/BodyCorrect/OperatorSprite"]
+position = Vector2(0, -40)
+texture = SubResource("GradientTexture2D_placeholder")
+
+[node name="SelectMark" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -40)
+texture = SubResource("GradientTexture2D_select")

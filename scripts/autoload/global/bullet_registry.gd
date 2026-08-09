@@ -31,6 +31,7 @@ enum BulletType{
 	Bullet1002BowlingBomb,	## 爆炸保龄球
 	Bullet1003BowlingBig,	## 大保龄球
 
+	Bullet101KroosArrow = 101,	## 克洛丝箭矢（占位，待替换贴图）
 }
 
 
@@ -67,6 +68,8 @@ enum AttackMode {
 	BulletType.Bullet015WinterMelon :preload("res://scenes/bullet/bullet_015_winter_melon.tscn"),
 
 	BulletType.Bullet016CobCannon :preload("res://scenes/bullet/bullet_016_cob_cannon.tscn"),
+
+	BulletType.Bullet101KroosArrow : preload("res://scenes/bullet/bullet_101_kroos_arrow.tscn"),
 }
 
 ## 获取子弹场景方法

@@ -6,7 +6,7 @@ class_name StartMenuRoot
 @onready var user: User = $User
 
 
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	$Cloud/AnimationPlayer.play("Idle")
 	$BG_Right/Leaf/AnimationPlayer.play("Idle")

@@ -13,7 +13,7 @@
 [ext_resource type="BitMap" uid="uid://dpjf3mqsip8ql" path="res://assets/image/Almanac/Almanac_CloseButton_Mask.png" id="10_dyjda"]
 [ext_resource type="PackedScene" uid="uid://b72u5kwdpw4te" path="res://scenes/character/zombie/zombie_001_norm.tscn" id="11_2p4k2"]
 [ext_resource type="Script" uid="uid://parybxg7tb1k" path="res://scripts/ui/PVZ_button_base.gd" id="11_pn30t"]
-[ext_resource type="FontFile" uid="uid://bjnvl0v2ws21u" path="res://assets/fonts/SIMSUN.TTC" id="12_jlxhy"]
+[ext_resource type="FontVariation" uid="uid://db6pxu0mxlnjl" path="res://assets/fonts/MiSans_Regular.tres" id="12_jlxhy"]
 [ext_resource type="Texture2D" uid="uid://bqji4moxjit66" path="res://assets/image/Almanac/Almanac_PlantBack_New.png" id="12_u1nrc"]
 [ext_resource type="Script" uid="uid://dwfqmpx1wwbvb" path="res://scripts/Almanac/plant_page.gd" id="13_pt714"]
 [ext_resource type="PackedScene" uid="uid://dthq42y7g8j85" path="res://scenes/almanac/almanac_character_show_panel.tscn" id="14_ji74r"]

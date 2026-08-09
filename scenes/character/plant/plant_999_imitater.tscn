@@ -1,5 +1,7 @@
 [gd_scene load_steps=43 format=3 uid="uid://bq2ef6etyqxxt"]
 
+[ext_resource type="Script" uid="uid://bhcth87hf1nu2" path="res://scripts/character/plant/plant_999_imitater_effect.gd" id="3_effect"]
+
 [ext_resource type="PackedScene" uid="uid://c5cke4cm02um7" path="res://scenes/character/plant/plant_000_base.tscn" id="1_hjvtv"]
 [ext_resource type="Script" uid="uid://bbvpjixpt0wmh" path="res://scripts/character/plant/plant_999_imitater.gd" id="2_4e7mo"]
 [ext_resource type="Texture2D" uid="uid://c63tf7upqqxus" path="res://assets/reanim/Imitater_root2.png" id="2_a0vy4"]
@@ -61,24 +63,6 @@ nodes/TimeScale/position = Vector2(120, 140)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_65uuy")
 nodes/StateMachine/position = Vector2(-200, 140)
 node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"StateMachine"]
-
-[sub_resource type="GDScript" id="GDScript_3rp6v"]
-script/source = "extends Node2D
-
-@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
-@onready var gpu_particles_2d_2: GPUParticles2D = $GPUParticles2D2
-
-
-func activate_it():
-	reparent(owner.get_parent())
-	gpu_particles_2d.emitting = true
-	gpu_particles_2d_2.emitting = true
-
-	await gpu_particles_2d.finished
-	await gpu_particles_2d_2.finished
-
-	queue_free()
-"
 
 [sub_resource type="Curve" id="Curve_xia5t"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.555556, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -335,7 +319,7 @@ parameters/TimeScale/scale = 1.0
 parameters/StateMachine/BlendTree/TimeScale/scale = 0.5
 
 [node name="ImitaterEffect" type="Node2D" parent="." index="10"]
-script = SubResource("GDScript_3rp6v")
+script = ExtResource("3_effect")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="ImitaterEffect" index="0"]
 position = Vector2(0, -36)

@@ -319,12 +319,18 @@ func create_all_pot_on_fixed_mode():
 	plant_cell_remaining.shuffle()
 
 	for i in range(game_para.random_pot_num_on_fixed_mode.x):
+		if plant_cell_remaining.is_empty():
+			break
 		create_random_res_pot(plant_cell_remaining.pop_back(), ScaryPot.E_PotType.Random)
 
 	for i in range(game_para.random_pot_num_on_fixed_mode.y):
+		if plant_cell_remaining.is_empty():
+			break
 		create_random_res_pot(plant_cell_remaining.pop_back(), ScaryPot.E_PotType.Plant)
 
 	for i in range(game_para.random_pot_num_on_fixed_mode.z):
+		if plant_cell_remaining.is_empty():
+			break
 		create_random_res_pot(plant_cell_remaining.pop_back(), ScaryPot.E_PotType.Zombie)
 
 	print("剩余罐子数量：", plant_cell_remaining.size(), " 使用 随机类型 结果随机罐子填充")

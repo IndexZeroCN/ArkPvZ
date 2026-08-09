@@ -13,7 +13,7 @@ enum E_CardBg{
 
 ## 卡片背景对应资源
 var CradBgMap:Dictionary[E_CardBg, Resource] = {
-	E_CardBg.CB01Norm:load("res://resources/card_bg/01Norm.tres"),
+	E_CardBg.CB01Norm:load("res://assets/image/ui/ui_card/SeedPacket_Larger.png"),
 	E_CardBg.CB02Purple:load("res://resources/card_bg/02Purple.tres"),
 	E_CardBg.CB03Gray:load("res://resources/card_bg/03Gray.tres")
 }
@@ -47,6 +47,9 @@ var plant_condition:ResourcePlantCondition
 ## 是否为模仿者
 @export var is_imitater := false
 
+## 是否为干员卡片(消耗部署点数而非阳光, 由选卡/出战卡槽处理)
+@export var is_operator_card := false
+
 func _ready() -> void:
 	## 如果是植物,根据是否为紫卡更新背景
 	if card_plant_type != 0:
@@ -59,6 +62,10 @@ func _ready() -> void:
 
 
 		card_bg.texture = CradBgMap[curr_card_gb]
+
+	## 干员卡片成本文字使用蓝色区分(部署点数)
+	if is_operator_card:
+		cost.add_theme_color_override("font_color", Color(0.45, 0.8, 1))
 
 ## 卡片初始化参数
 enum E_CInitAttr{

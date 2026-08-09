@@ -131,7 +131,6 @@ func create_curr_wave_all_zombies(wave:int, is_big_wave:bool):
 						special_base_weight.append(0)
 					else:
 						special_base_weight.append(1)
-				print(special_base_weight)
 			## 如果没有冰道
 			if GlobalUtils.sum_arr(special_base_weight) == 0:
 				zombie_type = CharacterRegistry.ZombieType.Z013Zamboni
@@ -335,7 +334,7 @@ func spawn_sea_weed_zombies():
 		zombie_sea_weed.global_position.x = randf_range(500, 750)
 
 ## 珊瑚僵尸
-func _zombie_seaweed(z:Zombie001Norm):
+func _zombie_seaweed(z:Zombie000Base):
 	z.is_seaweed = true
 #endregion
 

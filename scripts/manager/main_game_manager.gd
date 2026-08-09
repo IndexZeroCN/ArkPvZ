@@ -12,7 +12,6 @@ class_name MainGameManager
 ## 所有僵尸死亡
 @export var test_death_all_zombie:=false:
 	set(value):
-		print("设置值")
 		EventBus.push_event("test_death_all_zombie")
 
 ## 游戏速度
@@ -33,6 +32,7 @@ class_name MainGameManager
 @onready var background_manager: BackgroundManager = %BackgroundManager
 @onready var day_suns_manager: DaySunsManagner = %DaySunsManager
 @onready var drop_item_manager: DropItemManager = %DropItemManager
+@onready var operator_manager: OperatorManager = %OperatorManager
 
 #endregion
 
@@ -241,6 +241,7 @@ func init_manager():
 	background_manager.init_manager()
 	drop_item_manager.init_manager()
 	day_suns_manager.init_manager()
+	operator_manager.init_manager()
 	print("info:管理器初始化完成")
 
 ## 信号连接

@@ -137,6 +137,20 @@ func set_choose_level(curr_game_mode: MainSceneRegistry.MainScenes, curr_level_p
 @export var is_shovel := true
 #endregion
 
+#region 干员参数
+@export_group("干员参数")
+## 本关卡是否可以使用干员（默认开启，可在选关参数中关闭）
+@export var is_can_use_operator: bool = true
+## 初始部署点数
+@export var operator_start_deploy_point: int = 10
+## 部署点数上限
+@export var operator_max_deploy_point: int = 99
+## 部署点数回复间隔(秒)，<=0 表示不回复
+@export var operator_regen_interval: float = 2.0
+## 干员撤退返还部署点数比例(0~1)
+@export var operator_retreat_refund_ratio: float = 0.7
+#endregion
+
 #region 罐子参数
 @export_group("罐子参数")
 ## 是否为罐子模式，影响胜利条件

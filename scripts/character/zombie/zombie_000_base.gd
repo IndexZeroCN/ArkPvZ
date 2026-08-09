@@ -446,8 +446,8 @@ func be_bomb(attack_value:int, is_cherry_bomb:bool = false):
 	hp_component.Hp_loss(attack_value,BulletRegistry.AttackMode.Penetration, false, false)
 	## 如果角色死亡
 	if is_death:
-		## 在在灰烬动画条件下
-		if is_cherry_bomb and (not is_swimming or not curr_be_attack_status != E_BeAttackStatusZombie.IsDownGround):
+		## 在在灰烬动画条件下（游泳/地下状态不播灰烬动画）
+		if is_cherry_bomb and not is_swimming and curr_be_attack_status != E_BeAttackStatusZombie.IsDownGround:
 			charred_component.play_charred_anim()
 		queue_free()
 	#await get_tree().process_frame

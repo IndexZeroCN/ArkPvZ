@@ -3,6 +3,7 @@ extends PanelContainer
 class_name CardSlotBattle
 
 @onready var curr_sun_value: Label = $SunLabelControl/CurrSunValue
+@onready var deploy_point_value: Label = %DeployPointValue
 @onready var card_placeholder_ori: TextureRect = $CardUiList/CardPlaceholder_ori
 @onready var card_ui_list: HBoxContainer = $CardUiList
 @onready var marker_2d_sun_target: Marker2D = %Marker2DSunTarget
@@ -18,13 +19,33 @@ var sun_value:
 		curr_sun_value.text = str(value)
 
 		for card in curr_cards:
-			card.judge_sun_enough(value)
+			## 干员卡片由部署点数管理器更新, 不在此判断
+			if not card.is_operator_card:
+				card.judge_sun_enough(value)
 
 func _ready() -> void:
 	Global.config_service.signal_change_disappear_spare_card_placeholder.connect(judge_disappear_add_card_bar)
 	EventBus.subscribe("test_change_sun_value", func(value): sun_value = value)
 	EventBus.subscribe("add_sun_value", func(value): sun_value+=value)
 	EventBus.subscribe("update_card_purple_sun_cost", update_card_purple_sun_cost)
+	## 部署点数更新(干员卡片成本判断与显示)
+	EventBus.subscribe("update_deploy_point", update_deploy_point_value)
+	## 干员部署/死亡后刷新干员卡片(唯一性置灰)
+	EventBus.subscribe("operator_deployed", _refresh_operator_cards)
+	EventBus.subscribe("operator_death", _refresh_operator_cards)
+
+## 干员部署/死亡时刷新干员卡片可点击状态
+func _refresh_operator_cards(_operator = null):
+	for card in curr_cards:
+		if card.is_operator_card:
+			card.judge_card_ready()
+
+## 更新部署点数显示与干员卡片可点击状态
+func update_deploy_point_value(value:int):
+	deploy_point_value.text = str(value)
+	for card in curr_cards:
+		if card.is_operator_card:
+			card.judge_sun_enough(value)
 
 
 ## 初始化出战卡槽，管理器调用
@@ -46,10 +67,15 @@ func main_game_refresh_card():
 	update_card_purple_sun_cost()
 	for i in range(curr_cards.size()):
 		var card:Card = curr_cards[i]
-		card.judge_sun_enough(sun_value)
+		## 干员卡片由部署点数判断(下方统一刷新), 植物卡片用阳光判断
+		if not card.is_operator_card:
+			card.judge_sun_enough(sun_value)
 		card.set_shortcut((i+1)%10)
 		if not card.signal_card_use_end.is_connected(card_use_end.bind(card)):
 			card.signal_card_use_end.connect(card_use_end.bind(card))
+	## 刷新干员卡片(部署点数)
+	if is_instance_valid(Global.main_game) and is_instance_valid(Global.main_game.operator_manager):
+		update_deploy_point_value(Global.main_game.operator_manager.deploy_point)
 	judge_disappear_add_card_bar()
 
 ## 开始下一轮出战卡槽更新数据
@@ -65,8 +91,12 @@ func start_next_game_card_slot_battle_update():
 
 ## 卡片种植后信号调用函数
 func card_use_end(card:Card):
-	## 减少阳光，卡片冷却
-	sun_value = sun_value - card.sun_cost
+	## 干员卡片消耗部署点数, 植物卡片消耗阳光; 均开始冷却
+	if card.is_operator_card:
+		if is_instance_valid(Global.main_game) and is_instance_valid(Global.main_game.operator_manager):
+			Global.main_game.operator_manager.use_deploy_point(card.sun_cost)
+	else:
+		sun_value = sun_value - card.sun_cost
 	card.card_cool()
 
 #region 控制台相关

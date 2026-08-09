@@ -56,12 +56,21 @@ func ensure_save_directory_exists(user_name: String) -> void:
 	else:
 		print("存在存档文件")
 
+## 用户名合法性校验：禁止路径分隔符等危险字符，防止目录穿越
+func _is_valid_user_name(user_name: String) -> bool:
+	if user_name.is_empty():
+		return false
+	for ch in "/\\:*?\"<>|":
+		if user_name.contains(ch):
+			return false
+	return not user_name.contains("..")
+
 ## 增加新用户接口
 func add_user(new_user_name: String) -> String:
 	new_user_name = new_user_name.strip_edges()
-	if new_user_name == "":
-		print("❌ 用户名不能为空")
-		return "用户名不能为空"
+	if not _is_valid_user_name(new_user_name):
+		print("❌ 用户名不合法: ", new_user_name)
+		return "用户名不合法（不能包含路径分隔符等特殊字符）"
 	if all_user_name.has(new_user_name):
 		print("❌ 用户已存在: ", new_user_name)
 		return "用户已存在"
@@ -100,9 +109,9 @@ func delete_user(user_name: String) -> String:
 func rename_user(old_name: String, new_name: String) -> String:
 	old_name = old_name.strip_edges()
 	new_name = new_name.strip_edges()
-	if new_name == "":
-		print("❌ 新用户名不能为空")
-		return "新用户名不能为空"
+	if not _is_valid_user_name(new_name):
+		print("❌ 新用户名不合法: ", new_name)
+		return "新用户名不合法（不能包含路径分隔符等特殊字符）"
 	if old_name == new_name:
 		print("❌ 新用户名不能与原用户名相同")
 		return "新用户名不能与原用户名相同"

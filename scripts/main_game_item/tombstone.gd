@@ -12,7 +12,7 @@ var plant_cell:PlantCell
 var new_zombie:Zombie000Base
 var row_col:Vector2i
 
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	_init_tombstone()
 

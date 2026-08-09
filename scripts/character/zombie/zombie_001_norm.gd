@@ -29,7 +29,7 @@ class_name Zombie001Norm
 ## 铁桶海草精灵
 @onready var sprite_seaweed_bucket: Sprite2D = $Body/BodyCorrect/Anim_bucket/Anim_bucket/ZombieSeaweed4
 
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	super()
 	_random_anim_status()

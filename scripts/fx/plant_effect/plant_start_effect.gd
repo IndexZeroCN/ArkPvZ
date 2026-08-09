@@ -4,7 +4,7 @@ class_name PlantStartEffect
 ## 种植植物时的特效，泥土或水粒子效果
 @onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
 @export var is_pool:=false
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	play_and_wait_particles(gpu_particles_2d)
 	

@@ -1,7 +1,7 @@
 extends Node2D
 class_name Splash
 
-# Called when the node enters the scene tree for the first time.
+# 进入场景树时执行（首次就绪）
 func _ready() -> void:
 	# 水花
 	SoundManager.play_other_SFX("zombie_entering_water")
