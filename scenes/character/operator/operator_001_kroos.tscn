@@ -4,18 +4,20 @@
 [ext_resource type="Script" path="res://scripts/character/operator/operator_001_kroos.gd" id="2_kroos"]
 [ext_resource type="Script" path="res://scripts/character/components/attack_behavior_component/component_attack_operator.gd" id="3_atk"]
 [ext_resource type="Script" path="res://scripts/character/components/detect_component/component_detect_operator.gd" id="4_det"]
-[ext_resource type="Texture2D" path="res://assets/image/operator/kroos/kroos_placeholder.png" id="5_tex"]
+[ext_resource type="Script" path="res://scripts/character/operator/operator_spine_sprite.gd" id="5_spine"]
 
 [node name="Operator001Kroos" node_paths=PackedStringArray("node2d_detect_in_slope") instance=ExtResource("1_opr")]
 script = ExtResource("2_kroos")
 plant_type = 50
+operator_id = "kroos"
 node2d_detect_in_slope = [NodePath("HurtBoxComponent/HurtBoxDetection")]
 
 [node name="AttackComponent" type="Node2D" parent="."]
 script = ExtResource("3_atk")
 attack_cd = 1.0
 attack_bullet_type = 101
-bullet_spawn_offset = Vector2(30, -50)
+bullet_spawn_offset = Vector2(86, -68)
+bullet_spawn_delay = 0.55
 
 [node name="BulletAttackCdTimer" type="Timer" parent="AttackComponent"]
 
@@ -23,10 +25,14 @@ bullet_spawn_offset = Vector2(30, -50)
 script = ExtResource("4_det")
 can_attack_zombie_status = 9
 
-[node name="KroosSprite" type="Sprite2D" parent="Body/BodyCorrect/OperatorSprite"]
-position = Vector2(0, -50)
-scale = Vector2(0.09, 0.09)
-texture = ExtResource("5_tex")
+[node name="KroosSpine" type="SpineSprite" parent="Body/BodyCorrect/OperatorSprite"]
+position = Vector2(0, 0)
+scale = Vector2(0.33, 0.33)
+script = ExtResource("5_spine")
+skel_path = "res://assets/image/operator/kroos/char_124_kroos.skel"
+atlas_path = "res://assets/image/operator/kroos/char_124_kroos.atlas"
+back_skel_path = "res://assets/image/operator/kroos/back/char_124_kroos.skel"
+back_atlas_path = "res://assets/image/operator/kroos/back/char_124_kroos.atlas"
 
 [node name="PlaceholderSprite" parent="Body/BodyCorrect/OperatorSprite"]
 visible = false

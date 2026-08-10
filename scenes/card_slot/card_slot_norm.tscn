@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dh1fkeo6gppr5" path="res://scripts/ui/card/card_slot/card_slot_norm/card_slot_battle.gd" id="3_073h5"]
 [ext_resource type="Texture2D" uid="uid://dw6btivnki0kt" path="res://assets/image/ui/ui_card/SeedPacketSilhouette.png" id="4_iq6sw"]
 [ext_resource type="Texture2D" uid="uid://bgy071auro307" path="res://assets/image/ui/ui_card/all_card/SeedChooser_Background.png" id="5_ek8kr"]
+[ext_resource type="FontFile" uid="uid://chbggpvaa8mux" path="res://assets/fonts/MiSans_Latin/MiSansLatin-Bold.ttf" id="5_nbi47"]
 [ext_resource type="Script" uid="uid://r3tnwf8ta1p5" path="res://scripts/ui/card/card_slot/card_slot_norm/card_slot_candidate.gd" id="6_13mad"]
 [ext_resource type="Texture2D" uid="uid://bb6ohgnxwvi02" path="res://assets/image/ui/ui_card/SeedChooser_Button2.png" id="7_6x7kl"]
 [ext_resource type="Texture2D" uid="uid://qdi7snnimhh0" path="res://assets/image/ui/ui_card/SeedChooser_Button2_Glow.png" id="8_w4c6e"]
@@ -16,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://csank6typjsgr" path="res://assets/image/ui/ui_card/SeedChooser_ImitaterAddOn.png" id="13_1iavu"]
 [ext_resource type="PackedScene" uid="uid://cjuiaaq33o5aa" path="res://scenes/ui/all_cards/card.tscn" id="14_8evrr"]
 [ext_resource type="Script" uid="uid://srlinm3cf7jt" path="res://scripts/ui/card/card_imitater.gd" id="15_0r41g"]
-[ext_resource type="Texture2D" uid="uid://cdm356vgex30b" path="res://assets/image/ui/ui_card/SeedPacket_Larger.png" id="15_v6er4"]
 [ext_resource type="Texture2D" uid="uid://d0hpo2yp78fwc" path="res://assets/image/plant/plantshadow.png" id="16_336fv"]
 [ext_resource type="Script" uid="uid://dx752kig120mj" path="res://scripts/character/components/body_character.gd" id="17_0r41g"]
 [ext_resource type="Texture2D" uid="uid://c63tf7upqqxus" path="res://assets/reanim/Imitater_root2.png" id="18_b6s1c"]
@@ -38,6 +38,12 @@ texture_margin_left = 78.0
 texture_margin_top = 10.0
 texture_margin_right = 12.0
 texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nm77f"]
+bg_color = Color(0.21950114, 0.21950093, 0.21950102, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x4ntg"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_nbi47"]
 font = ExtResource("26_336fv")
@@ -70,6 +76,7 @@ offset_top = -100.0
 offset_right = 140.0
 offset_bottom = -10.0
 mouse_filter = 1
+theme = ExtResource("1_b6s1c")
 theme_override_styles/panel = SubResource("StyleBoxTexture_x628s")
 script = ExtResource("3_073h5")
 
@@ -94,23 +101,77 @@ vertical_alignment = 1
 unique_name_in_owner = true
 position = Vector2(-39, 26)
 
-[node name="DeployPointControl" type="Control" parent="CardSlotBattle"]
+[node name="DeployPointControl" type="Control" parent="CardSlotBattle" unique_id=749381829]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="DeployPointValue" type="Label" parent="CardSlotBattle/DeployPointControl"]
+[node name="DeployPointValueBg" type="ColorRect" parent="CardSlotBattle/DeployPointControl" unique_id=1707796257]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -156.0
+offset_top = -9.0
+offset_right = -83.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07450981, 0.07450981, 0.07450981, 0.8745098)
+
+[node name="DeployPointValue" type="Label" parent="CardSlotBattle/DeployPointControl/DeployPointValueBg" unique_id=862105538]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 42.0
-offset_top = 51.0
-offset_right = 130.0
-offset_bottom = 79.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -4.75
+offset_bottom = 1.25
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
-theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 28
 text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="CardSlotBattle/DeployPointControl/DeployPointValueBg" unique_id=1222422993]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 6.0
+offset_right = 30.31856
+offset_bottom = 21.31856
+rotation = 0.7853982
+
+[node name="C" type="Label" parent="CardSlotBattle/DeployPointControl/DeployPointValueBg" unique_id=483730403]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 20.0
+offset_bottom = 27.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("5_nbi47")
+theme_override_font_sizes/font_size = 15
+text = "C"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeployPointValueProgressBar" type="ProgressBar" parent="CardSlotBattle/DeployPointControl/DeployPointValueBg" unique_id=182222358]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_nm77f")
+theme_override_styles/fill = SubResource("StyleBoxFlat_x4ntg")
+show_percentage = false
 
 [node name="CardUiList" type="HBoxContainer" parent="CardSlotBattle" unique_id=1653021286]
 custom_minimum_size = Vector2(0, 70)
@@ -637,7 +698,7 @@ texture = ExtResource("4_iq6sw")
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="GridContainerOperator" type="GridContainer" parent="CardSlotCandidate/AllCardPage"]
+[node name="GridContainerOperator" type="GridContainer" parent="CardSlotCandidate/AllCardPage" unique_id=1642019848]
 visible = false
 layout_mode = 0
 offset_left = 13.0
@@ -648,42 +709,42 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 0
 columns = 8
 
-[node name="CardPlaceholder" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=330798068]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="CardPlaceholder2" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder2" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=1322720005]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="CardPlaceholder3" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder3" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=784904058]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="CardPlaceholder4" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder4" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=1661676372]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="CardPlaceholder5" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder5" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=672101764]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="CardPlaceholder6" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder6" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=1079015012]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="CardPlaceholder7" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder7" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=832122500]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
 
-[node name="CardPlaceholder8" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator"]
+[node name="CardPlaceholder8" type="TextureRect" parent="CardSlotCandidate/AllCardPage/GridContainerOperator" unique_id=1408724867]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 2
 texture = ExtResource("4_iq6sw")
@@ -753,9 +814,6 @@ card_plant_type = 999
 curr_card_gb = 2
 cool_time = 0.0
 sun_cost = 0
-
-[node name="CardBg" parent="CardSlotCandidate/ImitaterBG/CardImitater" index="0"]
-texture = ExtResource("15_v6er4")
 
 [node name="Plant999Imitater" type="Node2D" parent="CardSlotCandidate/ImitaterBG/CardImitater/CardBg/CharacterStatic" index="0" unique_id=1198145327]
 position = Vector2(1, 15)

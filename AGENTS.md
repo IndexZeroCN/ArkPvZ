@@ -189,7 +189,7 @@ Character000Base (scenes/character/character_000_base.tscn)
 - **干员唯一性**：每种干员场上最多 1 个（卡片置灰 + 手持拦截，见 `OperatorManager.get_operator_count_by_type`）。
 - **攻击范围/方向**：干员为**有限格子范围**攻击（`DetectComponentOperator`，范围形状 `ATTACK_RANGE_SHAPE`），部署时按鼠标相对格子位置选择 4 向方向并显示范围预览（`hm_character`）；攻击朝目标发射跨行直线子弹。
 - **迷你血条/技能条**：头顶 15×2px 蓝色血条 + 紧挨其下的技能条，半透明黑背景，与植物僵尸的大血条样式不同。
-- **动画约定**：固定动画名 `idle/attack/skill/die`，`AnimComponentOperator`（基于 AnimationPlayer）播放，轨道作用于 `Body/BodyCorrect/OperatorSprite` 容器；素材为 Spine 3.8.99，当前用立绘占位，接入 spine-godot 插件步骤见文档 §2.3。**坑**：干员场景的 `AnimationTree` 仅为满足攻击组件基类的 `$"../AnimationTree"` 引用，必须显式 `active=false`（默认 active 会重置 OperatorSprite 的 modulate 导致形象透明）；动画轨道 `update` 用 0（continuous）否则不插值。
+- **动画约定**：固定动画名 `idle/attack/skill/die`，`AnimComponentOperator`（基于 AnimationPlayer）播放，轨道作用于 `Body/BodyCorrect/OperatorSprite` 容器；素材为 Spine 3.8.99，当前用立绘占位，Spine 模型接入/提取/运行全流程见 **§10 明日方舟 Spine 素材管线**。**坑**：干员场景的 `AnimationTree` 仅为满足攻击组件基类的 `$"../AnimationTree"` 引用，必须显式 `active=false`（默认 active 会重置 OperatorSprite 的 modulate 导致形象透明）；动画轨道 `update` 用 0（continuous）否则不插值。
 - 选卡界面干员页：`CardSlotCandidate` 的 `GridContainerOperator`，白名单 `Global.global_game_state.curr_operator`；植物/模仿者页会过滤掉干员类型。
 
 ## 7. 开发约定
@@ -236,3 +236,63 @@ Character000Base (scenes/character/character_000_base.tscn)
 - 出怪刷新列表禁止写 `Z021Bungi`（用 `is_bungi` 参数）；列表会按白名单自动过滤并打印 warning。
 - `docs/开发相关.md` 中个别描述已过时（如 `MainGameDate` 自动加载已移除），以代码为准。
 - `test_time_scale` 超过 8 会引发执行顺序问题。
+
+## 10. 明日方舟 Spine 素材管线（提取 → 转换 → 导入 → 运行）
+
+> 目标：从明日方舟客户端提取干员 Spine 模型（战斗/基建），导入 Godot 用 `SpineSprite` 播放。
+> 本管线已在克洛斯（char_124_kroos）上完整验证，素材在 `assets/image/operator/kroos/`，演示场景 `test/spine_demo.tscn`。
+
+### 10.1 运行时状态（先读，版本匹配是最大坑）
+
+- `bin/` 内为**自编译 spine-godot GDExtension（Spine Runtime 3.8）**：直接加载游戏原始 3.8.99 数据，**无需版本转换**。
+  - 构建来源：spine-runtimes 4.2 分支 commit `3653540` + [litwak913/spine38-godot-patches](https://github.com/litwak913/spine38-godot-patches) 补丁，godot-cpp 4.5，scons 构建（参考 [godot-spine38 博客](https://blog.goldenglow.dev/post/godot-spine38/)）。源码/构建产物在 `C:\Users\IndexZero\Desktop\arkspine\build38\`。
+- 原官方 **4.3** 版扩展备份在 `bin_backup_4.3/`。4.3 运行时**只接受 4.3.x 数据**，报错形如 `Skeleton version 4.2.11 does not match runtime version 4.3`。
+- 版本铁律：**3.8 运行时 ↔ 3.8 原始数据**（本项目现状）；4.2 运行时 ↔ 4.2 转换数据；4.2/4.3 二进制布局不兼容（改版本号会崩溃），转换器也不支持输出 4.3。
+
+### 10.2 提取（游戏资源 → skel/atlas/png）
+
+- 游戏目录：`D:\Program Files\Hypergryph Launcher\games\Arknights\Arknights_Data\StreamingAssets\AB\Windows\`
+- 战斗模型在 `chararts/char_<id>.ab`（克洛斯 = `char_124_kroos.ab`）；同一包内含基建模型（`build_char_124_kroos.*`）。
+- 步骤：
+  1. `python tools/spine_extract/extract_ab.py <ab路径> <输出目录>` —— 脚本内置方舟自定义压缩修复（伪 LZHAM = 字节序交换的 LZ4，官方 UnityPy 不支持）。
+  2. 配对规则（同一角色包内多套资源）：**战斗模型**选 `F_*` 前缀图集 + 较大 skel（动画 `Start/Idle/Attack/Die`）；`B_*` 前缀是低清变体；`build_*` 是基建（动画 `Default/Interact/Move/Relax/Sit/Sleep`）。
+  3. **alpha 合成**：战斗模型主纹理是不透明 DXT1（alpha 缺失），透明通道在独立 `'<名>[alpha]'` 纹理 → `python tools/spine_extract/merge_alpha.py <主>.png <alpha>.png`。基建模型（BC7）自带 alpha，跳过此步。
+  4. 质量说明：战斗 = 512×512 DXT1（有损）、基建 = 500×500 BC7（高质量）。这是游戏原始质量，**不存在更高清的图集**（`*_1` 大图是 AVG 立绘，非战斗图集，勿混用）。
+- 验证：3.8 二进制 skel 头部为 `[长度][hash串][长度]"3.8.99"`；atlas 首行为图集页名。
+
+### 10.3 转换（可选，3.x → 4.x）
+
+- `tools/spine_extract/SpineSkeletonDataConverter.exe <in.skel> <out.skel> -v 4.2.11`（支持 3.5~4.2，`-v` 必须完整 x.y.z；跨 3.x/4.x 自动转换 rotate/curve）。
+- **本项目不需要转换**（3.8 运行时直接加载原始数据）。仅当改用 4.2 运行时才需要。
+- 配套 `SpineAtlasDowngrade.exe` 用于 4.x→3.x 图集降级（本项目未用）。
+
+### 10.4 导入 Godot
+
+- 素材三件套 `.skel/.atlas/.png` 同名放入 `assets/image/operator/<角色>/`，编辑器扫描后自动导入（生成 `.import`）。
+- **改过 png/skel/atlas 后必须强制重导入**：删除对应 `.import` 文件 + `.godot/imported/` 缓存，再跑 `godot --headless --editor --quit`。**游戏模式不会重导入已变更文件**（换纹理后黑框/旧图就是这原因）。
+- 扩展注册：`.godot/extension_list.cfg` 内一行 `res://bin/spine_godot_extension.gdextension`（编辑器扫描自动维护）。**别在项目内放第二份 `.gdextension`**（备份目录也要移出项目），否则双注册报 `Attempt to register extension class ... already registered`。
+- 图集导入时的 `Failed loading resource: ...png` 报错是导入顺序问题（图集先于 png 导入），非致命，重跑一次编辑器导入即可。
+
+### 10.5 运行（SpineSprite）
+
+- 运行时加载（推荐，不依赖导入状态），完整示例见 `test/spine_demo.gd`：
+  ```gdscript
+  var skel_res = SpineSkeletonFileResource.new()
+  skel_res.load_from_file("res://assets/image/operator/kroos/char_124_kroos.skel")
+  var atlas_res = SpineAtlasResource.new()
+  atlas_res.load_from_atlas_file("res://assets/image/operator/kroos/char_124_kroos.atlas")
+  var data_res = SpineSkeletonDataResource.new()
+  data_res.skeleton_file_res = skel_res
+  data_res.atlas_res = atlas_res
+  var sprite = SpineSprite.new()
+  sprite.skeleton_data_res = data_res
+  sprite.get_animation_state().set_animation("Idle", true, 0)  # (动画名, 循环, 轨道)
+  add_child(sprite)
+  ```
+- 动画名：战斗 `Idle/Attack/Die/Start/Default`；基建 `Relax`=待机（`Default` 是 **0 秒静态姿势**，不是待机）。
+- 验证：`godot --headless --path . --script res://test/spine_check.gd`（加载+播放冒烟）。
+- 3.8 移植版 API 差异：**没有** `get_animation_count()`/`get_animation_names()` 绑定；`set_animation(name, loop, track)` 参数顺序如此。
+
+### 10.6 接入干员（结合 §6.9）
+
+- 干员渲染层约定固定动画名 `idle/attack/skill/die`（AnimationPlayer 管线）。接入 Spine 时把 `SpineSprite` 挂到 `OperatorSprite` 容器替换立绘占位，通过 `get_animation_state()` 播放对应动作，并按 §10.5 的 `set_animation` 与 AnimComponentOperator 的状态机联动（如受击/部署播 `Start`、阵亡播 `Die`）。

@@ -9,6 +9,10 @@ signal signal_operator_shoot
 ## 子弹发射点(相对干员本体的偏移)
 @export var bullet_spawn_offset: Vector2 = Vector2(30, -50)
 
+## 箭矢发射延迟(秒): 攻击动画开始后多久发射, 与动画中"松手"时刻对齐
+## 校准工具: res://test/kroos_attack_calibrate.tscn
+@export var bullet_spawn_delay: float = 0.55
+
 ## 攻击间隔后触发执行攻击
 func _on_bullet_attack_cd_timer_timeout() -> void:
 	var target_zombie: Zombie000Base = null
@@ -17,6 +21,15 @@ func _on_bullet_attack_cd_timer_timeout() -> void:
 	## 目标已消失则本次不攻击
 	if not is_instance_valid(target_zombie):
 		return
+	## 先播放攻击动画(Spine Attack), 动画与射击的时序分离
+	if owner is Operator000Base:
+		(owner as Operator000Base).anim_operator.play_attack()
+	## 延迟到动画中"松手"时刻再发射箭矢(对齐动画时序, 可在校准场景调整)
+	if bullet_spawn_delay > 0.0:
+		await get_tree().create_timer(bullet_spawn_delay).timeout
+		## 等待期间干员可能已死亡/撤退, 目标可能已消失
+		if not is_instance_valid(owner) or not is_instance_valid(target_zombie):
+			return
 
 	## 从干员本体获取本次攻击参数(连射数/伤害倍率)
 	var attack_paras: Dictionary = {}
@@ -29,13 +42,16 @@ func _on_bullet_attack_cd_timer_timeout() -> void:
 		shoot_arrow_at_target(target_zombie, multiplier)
 	## 发射完一轮子弹, 广播(连接技能组件回复技能点)
 	signal_operator_shoot.emit()
-	## 播放攻击动画
-	if owner is Operator000Base:
-		(owner as Operator000Base).anim_operator.play_attack()
 
 ## 朝目标僵尸发射一发子弹(直线, 跨行)
 func shoot_arrow_at_target(target_zombie: Zombie000Base, multiplier: float):
-	var spawn_pos: Vector2 = owner.global_position + bullet_spawn_offset
+	## 干员转身/朝左(OperatorSprite.scale.x 为负)时, 发射点 x 镜像(与形象一起转)
+	var offset: Vector2 = bullet_spawn_offset
+	if owner is Operator000Base:
+		var operator_sprite: Node2D = (owner as Operator000Base).get_operator_sprite()
+		if is_instance_valid(operator_sprite):
+			offset.x = abs(offset.x) if operator_sprite.scale.x >= 0.0 else -abs(offset.x)
+	var spawn_pos: Vector2 = owner.global_position + offset
 	var dir: Vector2 = (target_zombie.hurt_box_component.global_position - spawn_pos).normalized()
 	if dir == Vector2.ZERO:
 		dir = Vector2.RIGHT

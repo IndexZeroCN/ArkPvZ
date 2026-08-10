@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/operator/operator_menu.gd" id="1_menu"]
+[ext_resource type="Script" path="res://scripts/operator/operator_menu_range_icon.gd" id="2_range"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.09, 0.13, 0.2, 0.95)
@@ -95,6 +96,12 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_btn_disabled")
 text = "撤退"
+
+[node name="RangeIcon" type="Control" parent="CloseArea/MenuPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 45)
+layout_mode = 2
+script = ExtResource("2_range")
 
 [connection signal="pressed" from="CloseArea" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="CloseArea/MenuPanel/VBox/SkillButton" to="." method="_on_skill_button_pressed"]

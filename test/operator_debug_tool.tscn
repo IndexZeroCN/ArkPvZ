@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b5wtiase7fdle"]
+
+[ext_resource type="Script" uid="uid://o2d2ym08kw0c" path="res://test/operator_debug_tool.gd" id="1_tool"]
+[ext_resource type="Script" uid="uid://cdq4mflgmx167" path="res://scripts/character/operator/operator_spine_sprite.gd" id="2_spine"]
+
+[node name="OperatorDebugTool" type="Node2D" unique_id=1764732774]
+script = ExtResource("1_tool")
+
+[node name="OpSpine" type="SpineSprite" parent="." unique_id=719346356]
+position = Vector2(400, 300)
+script = ExtResource("2_spine")
+
+[node name="Bullets" type="Node2D" parent="." unique_id=106608707]

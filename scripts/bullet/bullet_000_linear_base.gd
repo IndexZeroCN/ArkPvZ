@@ -5,6 +5,9 @@ class_name BulletLinear000Base
 ## 线性移动组件
 @onready var movement_component: BulletMovementLinear = $MovementComponent
 
+## 是否无视斜坡(干员子弹等方舟风格: 直线飞行不撞坡, 屋顶可直接穿过)
+var ignore_slope := false
+
 ## 对僵尸敌人造成伤害,直线类子弹重写
 func _attack_zombie(zombie:Zombie000Base):
 	## 从后面攻击僵尸的子弹，正常伤害类型子弹攻击类型修改为真实
@@ -38,7 +41,9 @@ func change_y(target_y:float):
 func _on_area_2d_attack_area_entered(area: Area2D) -> void:
 	## 线性子弹判断是否攻击到斜坡,非穿透子弹
 	if area.owner is Slope:
-		#if bullet_mode !=BulletRegistry.AttackMode.Penetration:
+		## 干员子弹等无视斜坡: 直线飞行不撞坡(方舟风格, 见 ignore_slope)
+		if ignore_slope:
+			return
 		var slope:Slope = area.owner
 		## 如果方向与斜面法向量夹角小于90度
 		if direction.dot(slope.normal_vector_slope) < 0:

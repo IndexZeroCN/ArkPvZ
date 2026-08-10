@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="PackedScene" uid="uid://c5cke4cm02um7" path="res://scenes/character/plant/plant_000_base.tscn" id="1_e772o"]
 [ext_resource type="Script" path="res://scripts/character/operator/operator_000_base.gd" id="2_opr"]
@@ -6,16 +6,26 @@
 [ext_resource type="Script" path="res://scripts/character/components/skill_component/component_skill.gd" id="4_skill"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_bg"]
-bg_color = Color(0, 0, 0, 0.5)
+bg_color = Color(0.12, 0.12, 0.14, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.04, 0.04, 0.06, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hp_fill"]
-bg_color = Color(0.35, 0.65, 1, 1)
+bg_color = Color(0.43, 0.745, 0.894, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skill_bg"]
-bg_color = Color(0, 0, 0, 0.5)
+bg_color = Color(0.12, 0.12, 0.14, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.04, 0.04, 0.06, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skill_fill"]
-bg_color = Color(0.85, 0.95, 1, 1)
+bg_color = Color(0.616, 0.69, 0.298, 1)
 
 [sub_resource type="Gradient" id="Gradient_placeholder"]
 offsets = PackedFloat32Array(0, 0.6, 1)
@@ -41,87 +51,6 @@ fill_from = Vector2(0, 0)
 fill_to = Vector2(0, 1)
 gradient = SubResource("Gradient_select")
 
-[sub_resource type="Animation" id="Animation_idle"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:position:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -5.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_attack"]
-resource_name = "attack"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.12, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 4.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_skill"]
-resource_name = "skill"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.12, 1.12), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_die"]
-resource_name = "die"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body/BodyCorrect/OperatorSprite:modulate:a")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 0.0]
-}
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_idle"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_operator"]
-nodes/Idle/node = SubResource("AnimationNodeAnimation_idle")
-nodes/Idle/position = Vector2(120, 100)
-node_connections = [&"output", 0, &"Idle"]
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_operator"]
-_data = {
-&"attack": SubResource("Animation_attack"),
-&"die": SubResource("Animation_die"),
-&"idle": SubResource("Animation_idle"),
-&"skill": SubResource("Animation_skill")
-}
-
 [node name="Operator000Base" instance=ExtResource("1_e772o")]
 script = ExtResource("2_opr")
 
@@ -132,16 +61,17 @@ script = ExtResource("3_anim")
 max_hp = 1060
 
 [node name="HpControl" parent="HpComponent" index="0"]
-offset_top = -32.0
-offset_bottom = -32.0
+z_index = 20
+offset_top = -7.0
+offset_bottom = -7.0
 
 [node name="ProgressBarHp" parent="HpComponent/HpControl" index="0"]
 modulate = Color(1, 1, 1, 1)
-custom_minimum_size = Vector2(15, 2)
-offset_left = -7.5
-offset_top = -1.0
-offset_right = 7.5
-offset_bottom = 1.0
+custom_minimum_size = Vector2(85, 4)
+offset_left = -42.5
+offset_top = -2.0
+offset_right = 42.5
+offset_bottom = 2.0
 theme_override_styles/background = SubResource("StyleBoxFlat_hp_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hp_fill")
 max_value = 1.0
@@ -152,13 +82,8 @@ show_percentage = false
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_operator")
-}
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendTree_operator")
-anim_player = NodePath("../AnimationPlayer")
 active = false
 
 [node name="SkillComponent" type="Node2D" parent="."]
@@ -171,25 +96,26 @@ is_auto_trigger = true
 
 [node name="SkillControl" type="Control" parent="SkillComponent"]
 unique_name_in_owner = true
+z_index = 20
 layout_mode = 3
 anchors_preset = 0
-offset_top = -30.0
-offset_bottom = -30.0
+offset_top = -2.0
+offset_bottom = -2.0
 mouse_filter = 2
 
 [node name="ProgressBarSkill" type="ProgressBar" parent="SkillComponent/SkillControl"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(15, 2)
+custom_minimum_size = Vector2(85, 4)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -7.5
-offset_top = -1.0
-offset_right = 7.5
-offset_bottom = 1.0
+offset_left = -42.5
+offset_top = -2.0
+offset_right = 42.5
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -221,6 +147,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="OperatorSprite" type="Node2D" parent="Body/BodyCorrect"]
+position = Vector2(0, 20)
 
 [node name="PlaceholderSprite" type="Sprite2D" parent="Body/BodyCorrect/OperatorSprite"]
 position = Vector2(0, -40)

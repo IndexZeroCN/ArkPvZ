@@ -14,6 +14,7 @@ signal signal_close
 @onready var name_label: Label = %NameLabel
 @onready var skill_button: Button = %SkillButton
 @onready var retreat_button: Button = %RetreatButton
+@onready var range_icon: OperatorMenuRangeIcon = %RangeIcon
 
 ## 当前菜单绑定的干员
 var curr_operator: Operator000Base
@@ -32,6 +33,8 @@ func open_menu(operator: Operator000Base):
 	## 按钮可用状态(召唤物默认禁用)
 	skill_button.disabled = not operator.is_can_manual_skill
 	retreat_button.disabled = not operator.is_can_retreat
+	## 攻击范围小图标(点亮范围格)
+	range_icon.set_range_shape(DetectComponentOperator.ATTACK_RANGE_SHAPE)
 	## 定位在干员头顶上方(世界坐标转屏幕坐标)
 	var screen_pos: Vector2 = operator.get_global_transform_with_canvas().origin
 	menu_panel.position = screen_pos + Vector2(20, -84)

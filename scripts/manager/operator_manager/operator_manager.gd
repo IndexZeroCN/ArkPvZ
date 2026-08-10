@@ -65,6 +65,14 @@ func add_deploy_point(value: int):
 func use_deploy_point(value: int):
 	deploy_point -= value
 
+## 下一费回复进度(0~1): 无回复(间隔<=0)或 DP 已满(无下一费)时返回 1.0(满条)
+func get_deploy_point_progress() -> float:
+	if game_para.operator_regen_interval <= 0:
+		return 1.0
+	if deploy_point >= game_para.operator_max_deploy_point:
+		return 1.0
+	return clampf(deploy_point_regen_timer / game_para.operator_regen_interval, 0.0, 1.0)
+
 #region 干员登记
 func _on_operator_deployed(operator: Operator000Base):
 	all_operators.append(operator)

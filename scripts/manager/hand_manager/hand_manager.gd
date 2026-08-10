@@ -72,8 +72,10 @@ func _on_click_cell(plant_cell:PlantCell):
 		E_HandManagerStatus.Null:
 			hm_null.click_cell(plant_cell)
 		E_HandManagerStatus.Character:
-			hm_character.click_cell(plant_cell)
-			curr_hm_status = E_HandManagerStatus.Null
+			## 干员两段部署: 第一段(放置)不结束手持, 第二段(确认方向)结束
+			var hand_done: bool = hm_character.click_cell(plant_cell)
+			if hand_done:
+				curr_hm_status = E_HandManagerStatus.Null
 		E_HandManagerStatus.Item:
 			hm_item.click_cell(plant_cell)
 			curr_hm_status = E_HandManagerStatus.Null
@@ -104,6 +106,17 @@ func _on_cell_mouse_exit(plant_cell:PlantCell):
 func _input(event):
 	## 当前手持状态不为空且鼠标点击事件
 	if curr_hm_status != E_HandManagerStatus.Null and event is InputEventMouseButton:
+		## 干员方向选择阶段: 左键点击任意处=确认方向, 右键=取消部署
+		if curr_hm_status == E_HandManagerStatus.Character and hm_character.is_operator_dir_selecting:
+			if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+				## 若点在格子上, 由 _on_click_cell 走 click_cell 确认; 点空白处在此确认
+				if not curr_plant_cell:
+					hm_character.confirm_operator_direction()
+					curr_hm_status = E_HandManagerStatus.Null
+			elif event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+				hm_character.cancel_operator_direction()
+				curr_hm_status = E_HandManagerStatus.Null
+			return
 		## 右键点击 或左鍵点击空白
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed or\
 		event.button_index == MOUSE_BUTTON_LEFT and event.pressed and not curr_plant_cell:

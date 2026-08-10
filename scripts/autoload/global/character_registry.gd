@@ -546,7 +546,7 @@ const PlantInfo = {
 		PlantInfoAttribute.PlantName: "Kroos",
 		PlantInfoAttribute.CoolTime: 70.0,
 		PlantInfoAttribute.SunCost: 10,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
+		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/050_kroos_operator.tres"),
 		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_001_kroos.tscn")
 		},
 

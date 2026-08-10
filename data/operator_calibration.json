@@ -1,0 +1,16 @@
+{
+	"_shared": {
+		"container_y": 20.0,
+		"hp_bar_len": 82.0,
+		"hp_bar_w": 4.5,
+		"hp_bar_y": 15.0,
+		"scale": 0.3,
+		"spine_x": 0.0,
+		"spine_y": -20.0
+	},
+	"kroos": {
+		"delay": 0.55,
+		"spawn_x": 75.0,
+		"spawn_y": -60.0
+	}
+}

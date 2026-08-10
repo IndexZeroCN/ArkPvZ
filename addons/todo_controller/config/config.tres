@@ -103,6 +103,7 @@ script_list_meta = {
 "res://scripts/character/components/detect_component/component_detect.gd": [-1, -1],
 "res://scripts/character/components/detect_component/component_detect_operator.gd": [-1, -1],
 "res://scripts/character/components/detect_component/component_detect_squash.gd": [-1, -1],
+"res://scripts/character/components/detect_component/operator_range_preview.gd": [-1, -1],
 "res://scripts/character/components/drop_body/ZombieArm1Drop.gd": [-1, -1],
 "res://scripts/character/components/drop_body/ZombieDropBase.gd": [-1, -1],
 "res://scripts/character/components/drop_body/ZombieHandDrop.gd": [-1, -1],
@@ -124,6 +125,8 @@ script_list_meta = {
 "res://scripts/character/components/zombie_death_bomb/zombie_death_bomb.gd": [-1, -1],
 "res://scripts/character/operator/operator_000_base.gd": [-1, -1],
 "res://scripts/character/operator/operator_001_kroos.gd": [-1, -1],
+"res://scripts/character/operator/operator_calibration.gd": [-1, -1],
+"res://scripts/character/operator/operator_spine_sprite.gd": [-1, -1],
 "res://scripts/character/operator/summon_000_base.gd": [-1, -1],
 "res://scripts/character/plant/plant_000_base.gd": [-1, -1],
 "res://scripts/character/plant/plant_000_down_base.gd": [-1, -1],
@@ -294,6 +297,7 @@ script_list_meta = {
 "res://scripts/manager/zombie_manager/zm_zombie_wave_refresh_manager.gd": [-1, -1],
 "res://scripts/manager/zombie_manager/zombie_manager.gd": [-1, -1],
 "res://scripts/operator/operator_menu.gd": [-1, -1],
+"res://scripts/operator/operator_menu_range_icon.gd": [-1, -1],
 "res://scripts/resources/crazy_dave_dialog_detail_resource.gd": [-1, -1],
 "res://scripts/resources/crazy_dave_dialog_resource.gd": [-1, -1],
 "res://scripts/resources/level/level_data.gd": [-1, -1],
@@ -355,7 +359,13 @@ script_list_meta = {
 "res://scripts/ui/ui_main_game_menu/canvas_layer_control.gd": [-1, -1],
 "res://scripts/ui/ui_main_game_menu/main_game_menu_option_dialog.gd": [-1, -1],
 "res://scripts/util/image_combiner.gd": [-1, -1],
-"res://test/spine_check.gd": [-1, -1]
+"res://test/operator_back_view.gd": [-1, -1],
+"res://test/operator_debug_tool.gd": [-1, -1],
+"res://test/operator_spine_check.gd": [-1, -1],
+"res://test/project_check.gd": [-1, -1],
+"res://test/range_preview_check.gd": [-1, -1],
+"res://test/spine_check.gd": [-1, -1],
+"res://test/spine_demo.gd": [-1, -1]
 }
 line_number_show = true
 complete_path_show = true

@@ -4,6 +4,7 @@ class_name CardSlotBattle
 
 @onready var curr_sun_value: Label = $SunLabelControl/CurrSunValue
 @onready var deploy_point_value: Label = %DeployPointValue
+@onready var deploy_point_value_progress_bar: ProgressBar = %DeployPointValueProgressBar
 @onready var card_placeholder_ori: TextureRect = $CardUiList/CardPlaceholder_ori
 @onready var card_ui_list: HBoxContainer = $CardUiList
 @onready var marker_2d_sun_target: Marker2D = %Marker2DSunTarget
@@ -30,9 +31,25 @@ func _ready() -> void:
 	EventBus.subscribe("update_card_purple_sun_cost", update_card_purple_sun_cost)
 	## 部署点数更新(干员卡片成本判断与显示)
 	EventBus.subscribe("update_deploy_point", update_deploy_point_value)
-	## 干员部署/死亡后刷新干员卡片(唯一性置灰)
+	## 干员部署后刷新干员卡片(唯一性置灰); 撤退/死亡后开始再部署冷却
 	EventBus.subscribe("operator_deployed", _refresh_operator_cards)
-	EventBus.subscribe("operator_death", _refresh_operator_cards)
+	EventBus.subscribe("operator_retreat", _on_operator_retreat_or_death)
+	EventBus.subscribe("operator_death", _on_operator_retreat_or_death)
+
+func _process(_delta: float) -> void:
+	## 部署点数回复进度条跟进(满 100 时 OperatorManager 会 +1 费, 条随之清零重新涨)
+	## 仅在游戏阶段且有干员管理器时更新; 无回复/DP 已满 → 满条
+	if is_instance_valid(Global.main_game) and is_instance_valid(Global.main_game.operator_manager):
+		deploy_point_value_progress_bar.value = Global.main_game.operator_manager.get_deploy_point_progress() * 100.0
+
+## 干员撤退/死亡: 刷新卡片状态并开始再部署冷却(部署时不冷却)
+func _on_operator_retreat_or_death(operator):
+	_refresh_operator_cards(operator)
+	if operator is Operator000Base:
+		for card in curr_cards:
+			if card.is_operator_card and card.card_plant_type == operator.plant_type:
+				card.card_cool()
+				return
 
 ## 干员部署/死亡时刷新干员卡片可点击状态
 func _refresh_operator_cards(_operator = null):
@@ -91,13 +108,13 @@ func start_next_game_card_slot_battle_update():
 
 ## 卡片种植后信号调用函数
 func card_use_end(card:Card):
-	## 干员卡片消耗部署点数, 植物卡片消耗阳光; 均开始冷却
+	## 干员卡片消耗部署点数(部署不开始冷却, 撤退/死亡后才开始计再部署CD); 植物卡片消耗阳光并冷却
 	if card.is_operator_card:
 		if is_instance_valid(Global.main_game) and is_instance_valid(Global.main_game.operator_manager):
 			Global.main_game.operator_manager.use_deploy_point(card.sun_cost)
 	else:
 		sun_value = sun_value - card.sun_cost
-	card.card_cool()
+		card.card_cool()
 
 #region 控制台相关
 ## 是否显示多余卡槽
