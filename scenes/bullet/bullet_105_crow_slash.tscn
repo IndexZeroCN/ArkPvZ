@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://cit8bsc5op7f0" path="res://scenes/bullet/bullet_000_linear_base.tscn" id="1_amknu"]
+[ext_resource type="Script" path="res://scripts/bullet/bullet_105_crow_slash.gd" id="2_crow"]
+
+[node name="Bullet105CrowSlash" instance=ExtResource("1_amknu")]
+script = ExtResource("2_crow")
+bullet_type = 105
+attack_value = 650
+speed = 600.0
+
+[node name="BulletShadow" parent="." index="0"]
+visible = false
+
+[node name="BulletBody" parent="Body" index="0"]
+visible = false

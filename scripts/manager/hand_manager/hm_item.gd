@@ -44,7 +44,13 @@ func mouse_enter(plant_cell:PlantCell):
 			## 获取当前格子植物数量
 			curr_shovel_look_plant_num = plant_cell.get_curr_plant_num()
 			if curr_shovel_look_plant_num >= 1:
-				plant_be_shovel_look = plant_cell.return_plant_be_shovel_look()
+				## 干员不能被铲子铲: 若候选植物是干员则不进入铲除高亮(铲子对干员无效)
+				var candidate: Plant000Base = plant_cell.return_plant_be_shovel_look()
+				if candidate is Operator000Base:
+					plant_be_shovel_look = null
+					curr_shovel_look_plant_num = 0
+					return
+				plant_be_shovel_look = candidate
 				plant_be_shovel_look.be_shovel_look()
 
 ## 鼠标移出cell
@@ -66,8 +72,8 @@ func mouse_exit(plant_cell:PlantCell):
 func click_cell(plant_cell:PlantCell):
 	match curr_hm_item_status:
 		E_HmItemStatus.Shovel:
-			## 如果有被铲子关注的植物
-			if plant_be_shovel_look:
+			## 如果有被铲子关注的植物(干员不可被铲, mouse_enter 已排除, 此处双保险)
+			if plant_be_shovel_look and not (plant_be_shovel_look is Operator000Base):
 				SoundManager.play_other_SFX("plant2")
 				plant_be_shovel_look.be_shovel_kill()
 

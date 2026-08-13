@@ -32,6 +32,10 @@ enum BulletType{
 	Bullet1003BowlingBig,	## 大保龄球
 
 	Bullet101KroosArrow = 101,	## 克洛丝箭矢（占位，待替换贴图）
+	Bullet102WisdelShell = 102,	## 维什戴尔炮弹（投掷手，命中溅射+余震）
+	Bullet103WisdelSkill2Shell = 103,	## 维什戴尔二技能炮弹（从天而降）
+	Bullet104MyrtleHit = 104,	## 桃金娘近战挥击（无弹体贴图）
+	Bullet105CrowSlash = 105,	## 羽毛笔近战斩击（无弹体贴图，命中低血敌人增伤并上报击杀）
 }
 
 
@@ -70,6 +74,10 @@ enum AttackMode {
 	BulletType.Bullet016CobCannon :preload("res://scenes/bullet/bullet_016_cob_cannon.tscn"),
 
 	BulletType.Bullet101KroosArrow : preload("res://scenes/bullet/bullet_101_kroos_arrow.tscn"),
+	BulletType.Bullet102WisdelShell : preload("res://scenes/bullet/bullet_102_wisdel_shell.tscn"),
+	BulletType.Bullet103WisdelSkill2Shell : preload("res://scenes/bullet/bullet_103_wisdel_skill2_shell.tscn"),
+	BulletType.Bullet104MyrtleHit : preload("res://scenes/bullet/bullet_104_myrtle_hit.tscn"),
+	BulletType.Bullet105CrowSlash : preload("res://scenes/bullet/bullet_105_crow_slash.tscn"),
 }
 
 ## 获取子弹场景方法

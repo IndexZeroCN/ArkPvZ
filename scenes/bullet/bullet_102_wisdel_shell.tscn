@@ -1,0 +1,32 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="PackedScene" uid="uid://cit8bsc5op7f0" path="res://scenes/bullet/bullet_000_linear_base.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/bullet/bullet_102_wisdel_shell.gd" id="2_shell"]
+[ext_resource type="Script" path="res://scripts/bullet/component/trail_comet.gd" id="4_trail"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_spatter"]
+radius = 84.0
+
+[node name="Bullet102WisdelShell" instance=ExtResource("1_base")]
+script = ExtResource("2_shell")
+bullet_type = 102
+attack_value = 809
+speed = 620.0
+can_attack_zombie_status = 1
+
+[node name="BulletShadow" parent="." index="0"]
+visible = false
+
+[node name="Trail" type="Node2D" parent="."]
+script = ExtResource("4_trail")
+max_points = 64
+head_width = 15.0
+
+[node name="SpatterArea" type="Node2D" parent="."]
+
+[node name="Area2DSpatter" type="Area2D" parent="SpatterArea"]
+collision_layer = 8
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpatterArea/Area2DSpatter"]
+shape = SubResource("CircleShape2D_spatter")

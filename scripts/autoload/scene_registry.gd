@@ -49,6 +49,10 @@ const SPLASH = preload("res://scenes/item/game_scenes_item/splash.tscn")
 var FIRE = load("res://scenes/fx/fire.tscn")
 ## 黄油特效
 const BUTTER_SPLAT = preload("res://scenes/fx/butter_splat.tscn")
+## 魂灵之影攻击射线特效
+const WISDEL_SHADOW_BEAM = preload("res://scenes/fx/wisdel_shadow_beam.tscn")
+## 樱桃炸弹爆炸特效(维什戴尔三技能命中敌人时播放)
+const CHERRY_BOMB_EFFECT = preload("res://scenes/fx/cherry_bomb_effect.tscn")
 
 ## 阳光
 var SUN = load("res://scenes/item/game_scenes_item/sun.tscn")

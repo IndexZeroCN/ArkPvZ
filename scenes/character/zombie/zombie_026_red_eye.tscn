@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://b72u5kwdpw4te" path="res://scenes/character/zombie/zombie_001_norm.tscn" id="1_8hk1y"]
+[ext_resource type="Script" path="res://scripts/character/zombie/zombie_026_red_eye.gd" id="2_8hk1y"]
+
+[node name="Zombie026RedEye" instance=ExtResource("1_8hk1y")]
+script = ExtResource("2_8hk1y")
+zombie_type = 26
+
+[node name="HpComponent" parent="." index="4"]
+max_hp = 20000

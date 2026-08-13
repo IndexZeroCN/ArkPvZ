@@ -36,6 +36,8 @@ var curr_operator_dir:Operator000Base.E_AttackDirection = Operator000Base.E_Atta
 var operator_range_preview:OperatorRangePreview
 ## OperatorSprite 相对干员根的偏移(Body/BodyCorrect 链, 虚影放格子时补上, 保证与真实干员 y 对齐)
 var operator_sprite_offset := Vector2.ZERO
+## 干员攻击范围形状(部署预览用, 从临时干员实例获取, 兼容不同干员的不同范围)
+var operator_range_shape: Array[Vector2i] = []
 
 ## 干员两段部署: 第一段仅确定位置(只放预览虚影, 不创建), 第二段按鼠标朝向确定方向(显示范围), 确认后才真正创建干员并播放上场动画
 var is_operator_dir_selecting := false
@@ -111,6 +113,8 @@ func _create_operator_hand_static():
 	## OperatorSprite 相对干员根的偏移(Body/BodyCorrect 链): 虚影(OperatorSprite 副本)放在格子时要补上,
 	## 否则与真实干员的 OperatorSprite 位置差 Body+BodyCorrect+OperatorSprite 的偏移, y 没对齐
 	operator_sprite_offset = (operator_temp.get_node("Body/BodyCorrect/OperatorSprite") as Node2D).global_position
+	## 攻击范围形状(部署预览与检测一致, 不同干员范围不同)
+	operator_range_shape = (operator_temp as Operator000Base).get_attack_range_shape()
 	## 取战斗形象容器复制(含内部精灵, 尺寸与部署后一致)
 	characte_static = operator_temp.get_node("Body/BodyCorrect/OperatorSprite").duplicate()
 	operator_temp.free()
@@ -143,11 +147,14 @@ func _update_shadow_back_visual() -> void:
 			break
 
 ## 创建干员攻击范围预览节点(格子连续多边形+45度条纹, 部署阶段显示; 已存在则复用)
+## 挂主游戏场景根(世界画布, 与草坪同一坐标空间与缩放, 多边形世界坐标直接对应)——
+## 与干员菜单(operator_menu)的范围预览一致; 不挂 TemporaryCharacter(CanvasLayerTemp),
+## 避免不同 Canvas 变换链导致范围与草坪错位/条纹宽度随分辨率异常
 func _create_operator_range_preview():
 	if not is_instance_valid(operator_range_preview):
 		operator_range_preview = OperatorRangePreview.new()
-		operator_range_preview.z_index = -1
-		temporary_character.add_child(operator_range_preview)
+		operator_range_preview.z_index = 0
+		get_tree().current_scene.add_child(operator_range_preview)
 	operator_range_preview.visible = true
 
 ## 更新干员范围预览(基于真实草坪格子节点生成范围, 与草坪完全对齐; 矩形边长=网格间距补上空隙)
@@ -165,7 +172,7 @@ func _update_operator_range_preview(cell: PlantCell = null):
 	## 网格间距(相邻格子中心距离, 用作矩形边长 = 自动补上格间空隙)
 	var spacing: Vector2 = DetectComponentOperator.get_grid_spacing(operator_cell)
 	## 范围格子中心: 与检测共用真实网格生成逻辑(与草坪完全对齐; 越界格跳过)
-	var range_cells: Array[Vector2] = DetectComponentOperator.get_range_cells_on_grid(curr_operator_dir, operator_cell)
+	var range_cells: Array[Vector2] = DetectComponentOperator.get_range_cells_on_grid(curr_operator_dir, operator_cell, operator_range_shape)
 	operator_range_preview.set_range_cells(range_cells, spacing, base_pos)
 
 ## 隐藏干员范围预览
@@ -191,16 +198,9 @@ func _update_operator_dir_if_operator():
 		_update_shadow_back_visual()
 		_update_operator_range_preview()
 		return
-	## 第一段: 方向固定为右, 显示朝右的攻击范围(锚点 = 虚影所在格)
+	## 第一段: 方向固定为右, 不显示攻击范围(第二次部署/方向选择阶段才显示)
 	curr_operator_dir = Operator000Base.E_AttackDirection.Right
-	if not is_shadow_in_cell or not is_instance_valid(curr_plant_cell):
-		_hide_operator_range_preview()
-		return
-	if not is_instance_valid(operator_range_preview):
-		_create_operator_range_preview()
-	operator_range_preview.visible = true
-	operator_range_preview.show_hint = false
-	_update_operator_range_preview(curr_plant_cell)
+	_hide_operator_range_preview()
 
 ## 按鼠标相对格心的方位(象限)确定部署方向
 func _dir_from_offset(cell_center: Vector2, mouse_pos: Vector2) -> Operator000Base.E_AttackDirection:
@@ -224,7 +224,7 @@ func _enter_operator_dir_select(plant_cell: PlantCell):
 	## 进入方向选择: 虚影素材重置为正面(方向初始为右)
 	_update_shadow_back_visual()
 	_create_operator_range_preview()
-	operator_range_preview.show_hint = true
+	operator_range_preview.show_hint = false
 	_update_operator_range_preview()
 
 ## 确认方向(第二段点击): 在目标格真正创建干员(播放上场动画), 结束手持并扣部署点
@@ -235,6 +235,9 @@ func confirm_operator_direction():
 		if plant is Operator000Base:
 			created = plant as Operator000Base
 			created.set_attack_direction(curr_operator_dir)
+			## 传入选卡时选择的技能(维什戴尔等多技能干员; 无该方法(克洛丝)则跳过)
+			if created.has_method("apply_operator_skill"):
+				created.apply_operator_skill(curr_card.operator_skill_id)
 			## 上场动画由 ready_norm 自动播放(Spine Start → Idle)
 	_clean_operator_dir_select()
 	## 创建成功才扣部署点; 失败(格子被占等)不扣费不冷却, 由手持状态切换统一清理
@@ -273,6 +276,7 @@ func _clear_curr_data():
 	is_shadow_in_cell = false
 	curr_plant_cell = null
 	curr_operator_dir = Operator000Base.E_AttackDirection.Right
+	operator_range_shape = []
 	## 清理干员方向选择阶段
 	_clean_operator_dir_select()
 	## 清除干员范围预览
@@ -314,8 +318,8 @@ func _update_cell_shadow(plant_cell:PlantCell, curr_characte_static_shadow:Node2
 		## 如果是判定是否可以种植植物
 		if plant_condition.judge_is_can_plant(plant_cell, curr_card.card_plant_type):
 			curr_characte_static_shadow.global_position = plant_cell.get_new_plant_static_shadow_global_position(plant_condition.place_plant_in_cell) + operator_sprite_offset
-			## 干员预览虚影不透明(100), 植物/僵尸保持半透明
-			curr_characte_static_shadow.modulate.a = 1.0 if CharacterRegistry.is_operator_type(curr_card.card_plant_type) else 0.5
+			## 干员第一段预览虚影带一点透明度(60%), 植物/僵尸保持原半透明
+			curr_characte_static_shadow.modulate.a = 0.6 if CharacterRegistry.is_operator_type(curr_card.card_plant_type) else 0.5
 			return true
 		else:
 			curr_characte_static_shadow.modulate.a = 0

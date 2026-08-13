@@ -34,6 +34,9 @@ func _ready() -> void:
 		character_static.material = IMITATER.duplicate()
 		for child in character_static.get_children():
 			GlobalUtils.node_use_parent_material(child)
+	## 干员整卡: 整卡图已含角色立绘, 隐藏静态角色节点(避免背景+角色叠图)
+	if is_operator_card:
+		character_static.visible = false
 
 ## 设置卡片为图鉴卡片
 func set_almanac_card():

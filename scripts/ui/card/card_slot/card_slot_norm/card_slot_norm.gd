@@ -9,10 +9,16 @@ class_name CardSlotNorm
 ## 出战卡槽节点
 @onready var card_slot_battle: CardSlotBattle = $CardSlotBattle
 
+## 技能选择面板当前等待选择技能的干员卡(多技能干员, 仿模仿者)
+var _skill_choose_card: Card = null
 
 ## 初始化出战卡槽，管理器调用
 func init_card_slot_norm(game_para:ResourceLevelData):
 	card_slot_battle.init_card_slot_battle(game_para.max_choosed_card_num, game_para.start_sun)
+
+	## 干员技能选择面板回调(选定技能后放入出战卡槽)
+	card_slot_candidate.signal_skill_choosed.connect(_on_skill_choosed)
+	card_slot_candidate.signal_skill_choose_close.connect(_on_operator_skill_card_close)
 
 	for i in card_slot_candidate.all_card_candidate_containers_plant:
 		var card:Card = card_slot_candidate.all_card_candidate_containers_plant[i].card
@@ -44,6 +50,10 @@ func _on_re_card_button_pressed() -> void:
 					card_slot_candidate.all_card_candidate_containers_plant_imitater[AllCards.plant_card_ids[plant_type]].card._on_button_pressed()
 			else:
 				if not get_card_candidate_container_by_plant_type(plant_type).card.is_choosed_pre_card:
+					## 干员恢复所选技能(避免再次弹出技能选择面板)
+					if card_type_data.has("operator_skill_id"):
+						get_card_candidate_container_by_plant_type(plant_type).card.operator_skill_id = card_type_data["operator_skill_id"]
+						get_card_candidate_container_by_plant_type(plant_type).card.is_skill_choosed = true
 					get_card_candidate_container_by_plant_type(plant_type).card._on_button_pressed()
 
 		elif card_type_data.has("zombie_type"):
@@ -78,6 +88,9 @@ func _on_texture_button_pressed() -> void:
 			card_type_data["plant_type"] = card.card_plant_type
 			if card.is_imitater:
 				card_type_data["is_imitater"] = true
+			## 干员保存所选技能(重选时恢复)
+			if card.is_operator_card:
+				card_type_data["operator_skill_id"] = card.operator_skill_id
 		elif card.card_zombie_type != CharacterRegistry.ZombieType.Null:
 			card_type_data["zombie_type"] = card.card_zombie_type
 		else:
@@ -119,9 +132,33 @@ func _on_card_click(card:Card):
 		and Global.main_game.main_game_progress != MainGameManager.E_MainGameProgress.RE_CHOOSE_CARD:
 		return
 	SoundManager.play_other_SFX("tap")
+	## 多技能干员(维什戴尔): 未选择技能时先弹出技能选择面板, 选定后才放入出战卡槽(仿模仿者)
+	if card.is_multi_skill_operator and not card.is_skill_choosed:
+		_skill_choose_card = card
+		card_slot_candidate.operator_skill_card_appear(card.card_plant_type)
+		return
+	_do_card_click(card)
+
+## 技能选择面板选定技能后的回调(由 CardSlotCandidate 触发)
+func _on_skill_choosed(skill_id: int):
+	if is_instance_valid(_skill_choose_card):
+		_skill_choose_card.operator_skill_id = skill_id
+		_skill_choose_card.is_skill_choosed = true
+		_do_card_click(_skill_choose_card)
+	_skill_choose_card = null
+
+## 技能选择面板关闭(未选择技能, 卡片不放入出战卡槽)
+func _on_operator_skill_card_close():
+	_skill_choose_card = null
+
+## 卡片放入/移出出战卡槽的实际逻辑
+func _do_card_click(card:Card):
 	# 如果card被选择，取消选取，后面的card向前移动
 	if card.is_choosed_pre_card:
 		card.is_choosed_pre_card = false
+		## 多技能干员取消选择后, 下次点击重新弹技能面板
+		if card.is_multi_skill_operator:
+			card.is_skill_choosed = false
 		var card_idx = card_slot_battle.curr_cards.find(card)
 		card_slot_battle.curr_cards.erase(card)
 		for i in range(card_idx, card_slot_battle.curr_cards.size()):

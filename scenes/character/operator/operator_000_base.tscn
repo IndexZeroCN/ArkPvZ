@@ -61,7 +61,8 @@ script = ExtResource("3_anim")
 max_hp = 1060
 
 [node name="HpControl" parent="HpComponent" index="0"]
-z_index = 20
+z_index = 1000
+z_as_relative = false
 offset_top = -7.0
 offset_bottom = -7.0
 
@@ -96,7 +97,8 @@ is_auto_trigger = true
 
 [node name="SkillControl" type="Control" parent="SkillComponent"]
 unique_name_in_owner = true
-z_index = 20
+z_index = 1000
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
 offset_top = -2.0

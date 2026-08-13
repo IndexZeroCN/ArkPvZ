@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://cit8bsc5op7f0" path="res://scenes/bullet/bullet_000_linear_base.tscn" id="1_amknu"]
+[ext_resource type="Script" path="res://scripts/bullet/bullet_104_myrtle_hit.gd" id="2_hit"]
+
+[node name="Bullet104MyrtleHit" instance=ExtResource("1_amknu")]
+script = ExtResource("2_hit")
+bullet_type = 104
+attack_value = 520
+speed = 600.0
+
+[node name="BulletShadow" parent="." index="0"]
+visible = false
+
+[node name="BulletBody" parent="Body" index="0"]
+visible = false

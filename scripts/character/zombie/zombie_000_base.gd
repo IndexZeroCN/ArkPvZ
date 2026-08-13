@@ -512,17 +512,19 @@ func jump_be_stop(_plant:Plant000Base):
 
 
 #region 黄油
-## 黄油糊脸
+## 黄油糊脸(或静默停顿)
 ##[butter_time:float]:黄油糊脸时间
-func be_butter(butter_time:float=4):
+##[show_splat:bool]:是否显示黄油贴图; false = 静默停顿(如魂灵之影的1秒停顿, 不糊黄油)
+func be_butter(butter_time:float=4, show_splat:bool=true):
 	if not is_death:
-		## 黄油节点
-		if not is_instance_valid(butter_splat):
-			butter_splat = SceneRegistry.BUTTER_SPLAT.instantiate()
-			# 将精灵添加到当前场景中
-			add_child(butter_splat)
-		butter_splat.visible = true
-		butter_splat.global_position = head_node.to_global(Vector2(20, 10))
+		## 黄油节点(仅 show_splat 时创建/显示)
+		if show_splat:
+			if not is_instance_valid(butter_splat):
+				butter_splat = SceneRegistry.BUTTER_SPLAT.instantiate()
+				# 将精灵添加到当前场景中
+				add_child(butter_splat)
+			butter_splat.visible = true
+			butter_splat.global_position = head_node.to_global(Vector2(20, 10))
 
 		## 更新速度
 		update_speed_factor(0.0, E_Influence_Speed_Factor.Butter)
@@ -539,7 +541,8 @@ func death_stop_butter():
 ## 黄油时间计时器结束
 func _on_butter_timer_timeout() -> void:
 	update_speed_factor(1.0, E_Influence_Speed_Factor.Butter)
-	butter_splat.visible = false
+	if is_instance_valid(butter_splat):
+		butter_splat.visible = false
 #endregion
 
 #region 僵尸吃大蒜换行

@@ -20,6 +20,7 @@ bullet_spawn_offset = Vector2(86, -68)
 bullet_spawn_delay = 0.55
 
 [node name="BulletAttackCdTimer" type="Timer" parent="AttackComponent"]
+one_shot = true
 
 [node name="DetectComponent" type="Node2D" parent="AttackComponent"]
 script = ExtResource("4_det")

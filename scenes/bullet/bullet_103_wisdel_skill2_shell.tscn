@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/bullet/bullet_102_wisdel_shell.tscn" id="1_shell"]
+[ext_resource type="Script" path="res://scripts/bullet/bullet_103_wisdel_skill2_shell.gd" id="2_skill2_shell"]
+
+[node name="Bullet103WisdelSkill2Shell" instance=ExtResource("1_shell")]
+script = ExtResource("2_skill2_shell")
+bullet_type = 103
+fall_duration = 0.35

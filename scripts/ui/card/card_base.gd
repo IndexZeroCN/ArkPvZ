@@ -50,6 +50,14 @@ var plant_condition:ResourcePlantCondition
 ## 是否为干员卡片(消耗部署点数而非阳光, 由选卡/出战卡槽处理)
 @export var is_operator_card := false
 
+## 干员所选技能(选卡时通过技能选择面板选择, 出战时写入干员; 默认一技能)
+@export var operator_skill_id: int = 1
+
+## 是否为多技能干员(选卡时点击卡片弹出技能选择面板, 如维什戴尔)
+@export var is_multi_skill_operator := false
+## 选卡时是否已选择技能(多技能干员未选择技能时点击卡片先弹面板)
+var is_skill_choosed := false
+
 func _ready() -> void:
 	## 如果是植物,根据是否为紫卡更新背景
 	if card_plant_type != 0:
@@ -60,12 +68,28 @@ func _ready() -> void:
 		if is_imitater:
 			curr_card_gb = E_CardBg.CB03Gray
 
+		## 干员完整卡牌图优先(整卡一体代替"背景+图案", 如克洛斯桌面卡牌)
+		var full_card: Texture2D = get_operator_full_card_texture()
+		if full_card != null:
+			card_bg.texture = full_card
+		else:
+			card_bg.texture = CradBgMap[curr_card_gb]
 
-		card_bg.texture = CradBgMap[curr_card_gb]
-
-	## 干员卡片成本文字使用蓝色区分(部署点数)
+	## 干员卡片部署费用: 与植物卡牌样式一致(黑/字号10/右对齐), 仅向左偏移 2px
 	if is_operator_card:
-		cost.add_theme_color_override("font_color", Color(0.45, 0.8, 1))
+		cost.add_theme_color_override("font_color", Color(0, 0, 0, 1))
+		cost.add_theme_font_size_override("font_size", 10)
+		cost.anchor_left = 0.05
+		cost.anchor_right = 0.65
+		cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		cost.offset_left -= 2.0
+
+## 干员完整卡牌图(整卡一体, 代替原"背景+图案"组合)
+## 数据源: CharacterRegistry.PlantInfo 的 OperatorCardBg 字段(新增干员在此登记, 无需改代码)
+func get_operator_full_card_texture() -> Texture2D:
+	if CharacterRegistry.is_operator_type(card_plant_type):
+		return Global.character_registry.get_plant_info(card_plant_type, CharacterRegistry.PlantInfoAttribute.OperatorCardBg)
+	return null
 
 ## 卡片初始化参数
 enum E_CInitAttr{

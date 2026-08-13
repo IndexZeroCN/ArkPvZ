@@ -200,7 +200,8 @@ func create_plant(plant_type:CharacterRegistry.PlantType, is_imitater:=false, is
 	plant_in_cell[plant_condition.place_plant_in_cell] = plant
 	plant.signal_character_death.connect(one_plant_free.bind(plant))
 
-	if is_plant_start_effect:
+	## 种植特效(泥土/水粒子 + plant1 音效); 干员落地只有部署音效(ready_norm 播放), 不创建种植特效
+	if is_plant_start_effect and not (plant is Operator000Base):
 		## 种植特效
 		var plant_start_effect_scene:Node2D
 		## 当前地形为水或者睡莲
@@ -242,6 +243,13 @@ func get_new_plant_static_shadow_global_position(place_plant_in_cell:CharacterRe
 ## 植物死亡
 func one_plant_free(plant:Plant000Base):
 	var curr_plant_condition :ResourcePlantCondition = Global.character_registry.get_plant_info(plant.plant_type, CharacterRegistry.PlantInfoAttribute.PlantConditionResource)
+	## 召唤物(魂灵等)无 plant_condition 资源(plant_type=0, 未登记): 只清空对应容器位置,
+	## 不发植物数量信号(召唤物创建时未计入 curr_plant_num), 跳过 down/玉米炮特殊处理
+	if curr_plant_condition == null:
+		for place in plant_in_cell:
+			if plant_in_cell[place] == plant:
+				plant_in_cell[place] = null
+		return
 
 	if is_instance_valid(ladder):
 		if curr_plant_condition.place_plant_in_cell in [CharacterRegistry.PlacePlantInCell.Down, CharacterRegistry.PlacePlantInCell.Norm, CharacterRegistry.PlacePlantInCell.Shell]:

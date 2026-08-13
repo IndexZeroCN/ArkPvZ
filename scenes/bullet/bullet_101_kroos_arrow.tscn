@@ -1,20 +1,23 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="PackedScene" uid="uid://cit8bsc5op7f0" path="res://scenes/bullet/bullet_000_linear_base.tscn" id="1_amknu"]
 [ext_resource type="Script" path="res://scripts/bullet/bullet_101_kroos_arrow.gd" id="2_arrow"]
-[ext_resource type="Script" path="res://scripts/bullet/component/arrow_visual.gd" id="3_visual"]
+[ext_resource type="Texture2D" path="res://assets/image/operator/kroos/bullet/projectile_arrow.png" id="3_arrow_tex"]
+[ext_resource type="Script" path="res://scripts/bullet/component/trail_comet.gd" id="4_trail"]
 
 [node name="Bullet101KroosArrow" instance=ExtResource("1_amknu")]
 script = ExtResource("2_arrow")
 bullet_type = 101
-attack_value = 375
+attack_value = 396
 speed = 900.0
 
 [node name="BulletShadow" parent="." index="0"]
 visible = false
 
 [node name="BulletBody" parent="Body" index="0"]
-texture = null
+texture = ExtResource("3_arrow_tex")
 
-[node name="ArrowVisual" type="Node2D" parent="Body"]
-script = ExtResource("3_visual")
+[node name="Trail" type="Node2D" parent="."]
+script = ExtResource("4_trail")
+max_points = 56
+head_width = 6.0

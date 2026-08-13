@@ -101,6 +101,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		## 手持卡片/铲子时交由手持系统处理, 不响应
 		if main_game.hand_manager.curr_hm_status != HandManager.E_HandManagerStatus.Null:
 			return
+		## 点击落在菜单按钮(技能/撤退)上时, 按钮已处理, 不关闭菜单(防止事件穿透)
+		if is_instance_valid(menu) and menu.visible and menu.is_click_on_button(event.position):
+			return
 		var clicked_operator: Operator000Base = get_operator_under_mouse()
 		if is_instance_valid(clicked_operator):
 			## 点击已选中干员则取消选中, 否则选中
@@ -171,10 +174,15 @@ func _on_menu_use_skill():
 		if not curr_selected_operator.use_skill():
 			## 技能未就绪
 			SoundManager.play_other_SFX("buzzer")
+			return
+	## 技能触发成功: 关闭菜单(方舟原版点击技能后菜单消失, 干员取消选中)
+	deselect_operator()
 
 func _on_menu_retreat():
 	if is_instance_valid(curr_selected_operator):
 		curr_selected_operator.retreat()
+	## 撤退后干员移除, 关闭菜单(否则菜单残留)
+	deselect_operator()
 
 func _on_menu_close():
 	deselect_operator()

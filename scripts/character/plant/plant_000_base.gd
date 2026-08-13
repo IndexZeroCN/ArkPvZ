@@ -61,7 +61,8 @@ func _ready() -> void:
 	if is_imitater_material:
 		plant_imitater_update_body()
 
-	if plant_type == 0:
+	## 召唤物(Summon000Base)以 plant_type=0 部署(不占干员类型), 跳过植物类型检查
+	if plant_type == 0 and not (self is Operator000Base and (self as Operator000Base).is_summon):
 		push_error(name, "植物类型未赋值")
 
 ## 植物初始化属性

@@ -214,7 +214,35 @@ const SFXCharacterMap := {
 	&"imp":[
 		preload("res://assets/audio/SFX/zombie/imp.ogg"),
 		preload("res://assets/audio/SFX/zombie/imp2.ogg")
-	]
+	],
+
+	## -------------------------------干员(明日方舟同人)-------------------------------
+	## 克洛斯攻击(用户选定: 方舟 p_atk_crossbow_n 弩)
+	&"KroosAttack": preload("res://assets/audio/SFX/operator/kroos_attack.wav"),
+	## 维什戴尔普通攻击炮弹发射(用户选定)
+	&"WisdelAttackShot": preload("res://assets/audio/SFX/operator/wisdel_attack_shot.wav"),
+	## 维什戴尔攻击前动画开始(用户选定)
+	&"WisdelAttackAnimStart": preload("res://assets/audio/SFX/operator/wisdel_attack_anim_start.wav"),
+	## 维什戴尔三技能启动音效(用户选定: 方舟 p_atk_chngun_h)
+	&"WisdelSkill3Start": preload("res://assets/audio/SFX/operator/wisdel_skill3_start.wav"),
+	## 维什戴尔三技能攻击前动画开始(用户选定)
+	&"WisdelSkill3AnimStart": preload("res://assets/audio/SFX/operator/wisdel_skill3_anim_start.wav"),
+	## 维什戴尔受击(敌人被攻击命中, 用户选定)
+	&"WisdelHit": preload("res://assets/audio/SFX/operator/wisdel_hit.wav"),
+	## 维什戴尔撤退(非死亡, 用户选定)
+	&"WisdelRetreat": preload("res://assets/audio/SFX/operator/wisdel_retreat.wav"),
+	## 魂灵攻击(用户选定)
+	&"ShadowAttack": preload("res://assets/audio/SFX/operator/shadow_attack.wav"),
+	## 魂灵受击(敌人被攻击命中, 用户选定)
+	&"ShadowHit": preload("res://assets/audio/SFX/operator/shadow_hit.wav"),
+	## 魂灵撤退(用户选定)
+	&"ShadowRetreat": preload("res://assets/audio/SFX/operator/shadow_retreat.wav"),
+	## 默认部署音效(无专属部署音效的干员使用, 用户选定 b_char_set)
+	&"OperatorDeploy": preload("res://assets/audio/SFX/operator/operator_deploy_default.wav"),
+	## 默认干员死亡音效(无专属死亡音效的干员使用, 用户选定 b_char_dead)
+	&"OperatorDeath": preload("res://assets/audio/SFX/operator/operator_death_default.wav"),
+	## 默认技能发动音效(无专属技能发动音效的干员使用, 用户选定 b_char_atkboost)
+	&"OperatorSkill": preload("res://assets/audio/SFX/operator/operator_skill_default.wav")
 }
 
 ## 戴夫音效字典
@@ -295,10 +323,41 @@ func play_bullet_attack_SFX(type_bullet_sfx:TypeBulletSFX):
 	var sfx_selected = sfx_array.pick_random()
 	play_sfx_with_pool(sfx_selected)
 
-## 播放植物\僵尸相关音效
+## 干员音效配置表(调试界面 operator_sfx_tool 设置, data/operator_sfx_config.json: 键 -> 候选文件名)
+var _operator_sfx_config: Dictionary = {}
+var _operator_sfx_config_loaded := false
+
+## 读取干员音效配置(懒加载)
+func _load_operator_sfx_config() -> void:
+	if _operator_sfx_config_loaded:
+		return
+	_operator_sfx_config_loaded = true
+	var f := FileAccess.open("res://data/operator_sfx_config.json", FileAccess.READ)
+	if f != null:
+		var parsed: Variant = JSON.parse_string(f.get_as_text())
+		if parsed is Dictionary:
+			_operator_sfx_config = parsed
+		f.close()
+
+## 获取干员音效配置覆盖(调试界面设置; 无配置返回 null 用默认)
+func _get_operator_sfx_override(option: StringName) -> AudioStream:
+	_load_operator_sfx_config()
+	var file: String = _operator_sfx_config.get(option, "")
+	if file.is_empty():
+		return null
+	return load("res://assets/audio/SFX/operator_pick/%s" % file)
+
+## 播放植物\僵尸相关音效(干员音效支持调试配置覆盖)
 func play_character_SFX(option:StringName):
-	var sfx_resource:AudioStream
-	if SFXCharacterMap[option] is Array:
+	var sfx_resource: AudioStream
+	## 调试配置覆盖(operator_sfx_tool 设置): 配置了即播放(即使该键未注册默认音频, 如"默认部署/死亡/技能发动")
+	var override_stream: AudioStream = _get_operator_sfx_override(option)
+	if override_stream != null:
+		sfx_resource = override_stream
+	elif not SFXCharacterMap.has(option):
+		## 未配置且未注册的键(干员音效钩子返回空等)静默跳过
+		return null
+	elif SFXCharacterMap[option] is Array:
 		sfx_resource = SFXCharacterMap[option].pick_random()
 	else:
 		sfx_resource = SFXCharacterMap[option]

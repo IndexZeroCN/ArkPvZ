@@ -268,6 +268,9 @@ func _judge_enemy_is_can_be_attack(enemy:Character000Base)->bool:
 	if enemy is Plant000Base:
 		## 如果当前植物可以被攻击到
 		if enemy.curr_be_attack_status & can_attack_plant_status:
+			## 干员阻挡数: 已满则新僵尸穿过(不停止啃食)
+			if enemy is Operator000Base and (enemy as Operator000Base).is_block_full():
+				return false
 			## 梯子
 			if is_attack_ladder_plant:
 				return true

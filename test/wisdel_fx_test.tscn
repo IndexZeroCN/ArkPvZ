@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ouqxcddph53"]
+
+[ext_resource type="Script" path="res://test/wisdel_fx_test.gd" id="1_test"]
+
+[node name="WisdelFxTest" type="Node2D" unique_id=805247834]
+script = ExtResource("1_test")
+
+[node name="Background" type="ColorRect" parent="." unique_id=122493811]
+z_index = -100
+offset_right = 1066.0
+offset_bottom = 600.0
+color = Color(0.07, 0.07, 0.1, 1)
+
+[node name="GridLine" type="Line2D" parent="." unique_id=2121029138]
+z_index = -99
+points = PackedVector2Array(0, 300, 1066, 300)
+width = 1.0
+default_color = Color(1, 1, 1, 0.08)
+
+[node name="Label" type="Label" parent="." unique_id=1047602629]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 800.0
+offset_bottom = 60.0
+text = "维什戴尔特效测试 — 中央爆炸已播放 / 每2秒发射炮弹 / 点击播放爆炸"

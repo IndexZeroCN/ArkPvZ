@@ -1,4 +1,4 @@
-[gd_scene load_steps=785 format=3 uid="uid://bb24ydyvk8c3u"]
+[gd_scene load_steps=789 format=3 uid="uid://bb24ydyvk8c3u"]
 
 [ext_resource type="Script" uid="uid://bh1ixrlfb6jr4" path="res://scripts/ui/card/all_cards.gd" id="1_qtbte"]
 [ext_resource type="PackedScene" uid="uid://cjuiaaq33o5aa" path="res://scenes/ui/all_cards/card.tscn" id="2_5pqky"]
@@ -764,7 +764,24 @@
 [ext_resource type="Texture2D" uid="uid://gldq722ai80h" path="res://assets/reanim/Zombie_gargantuar_outerarm_lower.png" id="690_sjapr"]
 [ext_resource type="Texture2D" uid="uid://31dd0gjuua82" path="res://assets/reanim/Zombie_gargantuar_outerarm_hand.png" id="691_repef"]
 [ext_resource type="Texture2D" uid="uid://ctttwt3gwhpal" path="res://assets/reanim/Zombie_gargantuar_innerarm_thumb.png" id="692_odne4"]
-[ext_resource type="Texture2D" path="res://assets/image/operator/kroos/kroos_placeholder.png" id="700_kroos"]
+[ext_resource type="Texture2D" path="res://assets/image/operator/kroos/kroos_card_full.png" id="700_kroos"]
+[ext_resource type="Texture2D" path="res://assets/image/operator/wisdel/wisdel_card_full.png" id="701_wisdel_card"]
+[ext_resource type="Texture2D" path="res://assets/image/operator/myrtle/myrtle_card_full.png" id="702_myrtle_card"]
+
+[sub_resource type="Gradient" id="Gradient_redeye"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(1, 0.15, 0.1, 0.95, 1, 0.05, 0.05, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_redeye"]
+gradient = SubResource("Gradient_redeye")
+width = 34
+height = 34
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_redeye"]
+blend_mode = 1
 
 [sub_resource type="CurveTexture" id="CurveTexture_p2ylm"]
 
@@ -954,6 +971,8 @@ all_plant_card_prefabs = {
 47: NodePath("PlantCards/Card47"),
 48: NodePath("PlantCards/Card48"),
 49: NodePath("PlantCards2/Card4"),
+50: NodePath("PlantCards2/Card5"),
+51: NodePath("PlantCards2/Card6"),
 1001: NodePath("PlantCards2/Card"),
 1002: NodePath("PlantCards2/Card2"),
 1003: NodePath("PlantCards2/Card3")
@@ -1036,6 +1055,8 @@ plant_card_ids = Dictionary[int, int]({
 47: 46,
 48: 47,
 49: 51,
+50: 52,
+51: 53,
 1001: 48,
 1002: 49,
 1003: 50
@@ -6598,7 +6619,10 @@ card_plant_type = 50
 is_operator_card = true
 
 [node name="CardBg" parent="PlantCards2/Card5" index="0"]
-texture = ExtResource("3_m4n4y")
+texture = ExtResource("700_kroos")
+
+[node name="CharacterStatic" parent="PlantCards2/Card5/CardBg" index="1"]
+visible = false
 
 [node name="KroosStatic" type="Node2D" parent="PlantCards2/Card5/CardBg/CharacterStatic" index="0"]
 position = Vector2(1, 14)
@@ -6610,6 +6634,42 @@ scale = Vector2(0.04, 0.04)
 
 [node name="KroosSprite" type="Sprite2D" parent="PlantCards2/Card5/CardBg/CharacterStatic/KroosStatic/Body/BodyCorrect"]
 texture = ExtResource("700_kroos")
+
+[node name="Card6" parent="PlantCards2" instance=ExtResource("2_5pqky")]
+layout_mode = 2
+card_id = 51
+card_plant_type = 51
+is_operator_card = true
+is_multi_skill_operator = true
+
+[node name="CardBg" parent="PlantCards2/Card6" index="0"]
+texture = ExtResource("701_wisdel_card")
+
+[node name="CharacterStatic" parent="PlantCards2/Card6/CardBg" index="1"]
+visible = false
+
+[node name="Card7" parent="PlantCards2" instance=ExtResource("2_5pqky")]
+layout_mode = 2
+card_id = 52
+card_plant_type = 52
+is_operator_card = true
+is_multi_skill_operator = true
+
+[node name="CardBg" parent="PlantCards2/Card7" index="0"]
+texture = ExtResource("702_myrtle_card")
+
+[node name="CharacterStatic" parent="PlantCards2/Card7/CardBg" index="1"]
+visible = false
+
+[node name="Card8" parent="PlantCards2" instance=ExtResource("2_5pqky")]
+layout_mode = 2
+card_id = 53
+card_plant_type = 53
+is_operator_card = true
+is_multi_skill_operator = true
+
+[node name="CharacterStatic" parent="PlantCards2/Card8/CardBg" index="1"]
+visible = false
 
 [node name="ZombieCards" type="GridContainer" parent="."]
 unique_name_in_owner = true
@@ -11615,6 +11675,91 @@ visible = false
 
 [node name="Card26" parent="ZombieCards" instance=ExtResource("2_5pqky")]
 layout_mode = 2
+card_id = 25
+card_zombie_type = 26
+cool_time = 0.0
+sun_cost = 100
+
+[node name="CardBg" parent="ZombieCards/Card26" index="0"]
+texture = ExtResource("3_m4n4y")
+
+[node name="Zombie026RedEye" type="Node2D" parent="ZombieCards/Card26/CardBg/CharacterStatic" index="0"]
+position = Vector2(2, 17)
+scale = Vector2(0.3, 0.3)
+
+[node name="Body" type="Node2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye"]
+
+[node name="BodyCorrect" type="Node2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body"]
+position = Vector2(-46, -121)
+rotation = 0.0601815
+
+[node name="Anim_innerarm1" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(23.9, 47.1)
+rotation = 6.18196
+texture = ExtResource("198_d7fc1")
+centered = false
+
+[node name="Zombie_neck" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(29.4, 34)
+rotation = 0.001745
+scale = Vector2(0.838, 0.798)
+texture = ExtResource("203_3svsw")
+centered = false
+
+[node name="Anim_head1" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(6.7, 8.8)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("204_guhh7")
+centered = false
+
+[node name="RedEyeGlow" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect/Anim_head1"]
+position = Vector2(39, 25)
+texture = SubResource("GradientTexture2D_redeye")
+material = SubResource("CanvasItemMaterial_redeye")
+
+[node name="Zombie_innerleg_upper" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(44.1, 76.8)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("206_7ny8r")
+centered = false
+
+[node name="Zombie_innerleg_foot" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(35.3, 105.8)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("208_k5sko")
+centered = false
+
+[node name="Zombie_outerleg_upper" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(54.8, 67.8)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("209_a810k")
+centered = false
+
+[node name="Zombie_outerleg_foot" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(44.6, 109.3)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("210_2248j")
+centered = false
+
+[node name="Zombie_body" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(28.9, 33.8)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("212_20o7m")
+centered = false
+
+[node name="Zombie_outerarm_hand" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(32.9, 83.1)
+rotation = 6.23083
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("221_f80r2")
+centered = false
+
+[node name="Zombie_outerarm_upper" type="Sprite2D" parent="ZombieCards/Card26/CardBg/CharacterStatic/Zombie026RedEye/Body/BodyCorrect"]
+position = Vector2(42.7, 42.5)
+rotation = 6.23083
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("222_kfuv8")
+centered = false
 
 [node name="ZombieCards2" type="GridContainer" parent="."]
 unique_name_in_owner = true

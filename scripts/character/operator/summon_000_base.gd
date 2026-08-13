@@ -14,3 +14,7 @@ func ready_norm():
 	super()
 	## 召唤物不需要部署点数(若有plant_type也强制为0)
 	pass
+
+## 召唤物由干员技能部署, 不播放部署音效(避免与技能音效重叠)
+func get_deploy_sfx() -> StringName:
+	return &""

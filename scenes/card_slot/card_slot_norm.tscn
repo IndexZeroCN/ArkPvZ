@@ -111,9 +111,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -156.0
-offset_top = -9.0
+offset_top = -5.0
 offset_right = -83.0
-offset_bottom = -43.0
+offset_bottom = -39.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.07450981, 0.07450981, 0.07450981, 0.8745098)
@@ -1222,6 +1222,66 @@ mouse_default_cursor_shape = 2
 text = "下一页"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AllOperatorSkillCard" type="Control" parent="CardSlotCandidate" unique_id=948691198]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="CardSlotCandidate/AllOperatorSkillCard" unique_id=1976830272]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.0
+offset_top = -240.0
+offset_right = 235.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0ika2")
+
+[node name="SkillList" type="VBoxContainer" parent="CardSlotCandidate/AllOperatorSkillCard/Panel" unique_id=377791430]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = 36.0
+offset_right = -36.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="CardSlotCandidate/AllOperatorSkillCard/Panel/SkillList" unique_id=2076026745]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("26_336fv")
+theme_override_font_sizes/font_size = 22
+text = "选择技能"
+horizontal_alignment = 1
+
+[node name="SkillButtonList" type="VBoxContainer" parent="CardSlotCandidate/AllOperatorSkillCard/Panel/SkillList" unique_id=318652022]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="CloseButton" type="Button" parent="CardSlotCandidate/AllOperatorSkillCard/Panel/SkillList" unique_id=306805865]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
+text = "取消"
 
 [node name="TemporaryCard" type="Control" parent="." unique_id=1519159820]
 z_index = 50

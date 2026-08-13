@@ -33,6 +33,14 @@ var all_show_page:Array[GridContainer] =[]
 ## 模仿者卡片Grid
 @onready var grid_container_plant_imitater: GridContainer = $AllImitaterCard/Panel/AllCardPageImitater/GridContainerPlantImitater
 
+## 干员技能选择面板(多技能干员选卡时弹出, 仿模仿者)
+@onready var all_operator_skill_card: Control = %AllOperatorSkillCard
+
+## 技能选择完成信号(参数: 所选技能id)
+signal signal_skill_choosed(skill_id:int)
+## 技能选择面板关闭信号(未选择技能)
+signal signal_skill_choose_close
+
 
 ## 所有的模仿者备选卡片
 var all_card_candidate_containers_plant_imitater:Dictionary[int, CardCandidateContainer] = {}
@@ -59,6 +67,11 @@ func _ready() -> void:
 	all_card_page_array_imitater[0].visible = true
 
 	card_imitater.signal_card_click.connect(imitater_card_slot_appear)
+
+	## 干员技能选择面板: 关闭按钮连接(技能按钮由 operator_skill_card_appear 按干员注册数据动态生成)
+	$AllOperatorSkillCard/Panel/SkillList/CloseButton.pressed.connect(_on_skill_close_button_pressed)
+	## 防御性隐藏: 编辑器自动保存可能丢掉 tscn 里的 visible=false(默认值被省略), 开局会显示空技能页
+	all_operator_skill_card.visible = false
 
 ## 初始化卡片页面，计算可以显示的页面
 func _init_card_page():
@@ -196,7 +209,8 @@ func _init_card_slot_candidate_operator():
 		var card_candidate_container: CardCandidateContainer = SceneRegistry.CARD_CANDIDATE_CONTAINER.instantiate()
 
 		card_candidate_container.init_card_in_seed_chooser(new_card)
-		all_card_selected_placeholder[curr_operator_card.card_id % num_card_every_page].add_child(card_candidate_container)
+		## 按白名单顺序占位(第1个干员在第1位, 第2个在第2位... 不用 card_id, 避免与植物页共用编号导致错位)
+		all_card_selected_placeholder[i % num_card_every_page].add_child(card_candidate_container)
 		all_card_candidate_containers_operator[curr_operator_card.card_id] = card_candidate_container
 
 		card_candidate_container.visible = false
@@ -283,6 +297,55 @@ func imitater_be_choosed() -> void:
 ## 模仿者卡片被选中取消时
 func imitater_be_choosed_cancel() -> void:
 	card_imitater.imitater_card_be_choosed_cancal()
+
+#region 干员技能选择面板(多技能干员, 仿模仿者; 技能按钮按注册表数据动态生成)
+## 技能按钮列表容器(代码动态填充, 见 _build_skill_buttons)
+@onready var skill_button_list: VBoxContainer = $AllOperatorSkillCard/Panel/SkillList/SkillButtonList
+
+## 显示技能选择面板(点击多技能干员卡时, 按该干员注册的可选技能动态生成按钮)
+func operator_skill_card_appear(operator_type: CharacterRegistry.PlantType):
+	_build_skill_buttons(operator_type)
+	all_operator_skill_card.visible = true
+
+## 按注册表 OperatorSkills 动态生成技能按钮(新多技能干员只需登记数据, 无需改面板)
+func _build_skill_buttons(operator_type: CharacterRegistry.PlantType):
+	for child in skill_button_list.get_children():
+		child.queue_free()
+	var skills: Variant = Global.character_registry.get_plant_info(operator_type, CharacterRegistry.PlantInfoAttribute.OperatorSkills)
+	if not skills is Dictionary:
+		return
+	var skill_ids: Array = (skills as Dictionary).keys()
+	skill_ids.sort()
+	for skill_id in skill_ids:
+		var skill: Variant = (skills as Dictionary)[skill_id]
+		if not skill is Dictionary:
+			continue
+		var button := Button.new()
+		button.custom_minimum_size = Vector2(0, 92)
+		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		button.add_theme_constant_override("icon_max_width", 44)
+		button.add_theme_font_size_override("font_size", 15)
+		button.text = str(skill.get("name", "")) + "\n" + str(skill.get("desc", ""))
+		button.icon = skill.get("icon", null)
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		var pressed_skill_id: int = int(skill_id)
+		button.pressed.connect(_on_skill_button_pressed.bind(pressed_skill_id))
+		skill_button_list.add_child(button)
+
+## 隐藏技能选择面板
+func operator_skill_card_disappear():
+	all_operator_skill_card.visible = false
+
+## 技能被选择: 隐藏面板并通知选卡槽(放入出战卡槽)
+func _on_skill_button_pressed(skill_id: int):
+	operator_skill_card_disappear()
+	signal_skill_choosed.emit(skill_id)
+
+## 面板关闭(未选择技能): 卡片不放入出战卡槽
+func _on_skill_close_button_pressed():
+	operator_skill_card_disappear()
+	signal_skill_choose_close.emit()
+#endregion
 
 
 

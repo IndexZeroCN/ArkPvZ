@@ -13,6 +13,12 @@ enum PlantInfoAttribute{
 	SunCost,		## 阳光消耗
 	PlantScenes,	## 植物场景预加载
 	PlantConditionResource,	## 植物种植条件资源预加载
+	OperatorCardBg,	## 干员完整卡牌图(整卡一体背景, 代替"背景+图案"; 仅干员使用, 新增干员在此登记)
+	OperatorDisplayName,	## 干员显示名(中文, 调试工具/界面显示; 仅干员)
+	OperatorBulletScene,	## 干员攻击子弹场景(调试工具与出战使用; 仅干员)
+	OperatorAttackAnims,	## 干员攻击动画候选名(数组, 素材无单 Attack 时用; 仅干员)
+	OperatorAttackModes,	## 干员攻击模式配置(调试工具模拟技能用; 仅干员): {显示名: {count, mult, is_skill3}}
+	OperatorSkills,	## 干员可选技能列表(多技能干员选卡技能面板数据; 仅干员): {技能id: {name, desc, icon}}
 }
 
 ## 植物类型
@@ -76,7 +82,9 @@ enum PlantType {
 
 	## 明日方舟干员（50 起）
 	P050Kroos = 50,		## 克洛丝（速射手）
-	P051Wisadel = 51,	## 维什戴尔（预留，投掷手）
+	P051Wisadel = 51,	## 维什戴尔（投掷手）
+	P052Myrtle = 52,	## 桃金娘（先锋·执旗手）
+	P053Crow = 53,		## 羽毛笔（近卫·收割者）
 
 	## 模仿者
 	P999Imitater = 999,
@@ -103,6 +111,8 @@ enum PlacePlantInCell{
 const OperatorPlantType:Array[PlantType] = [
 	PlantType.P050Kroos,
 	PlantType.P051Wisadel,
+	PlantType.P052Myrtle,
+	PlantType.P053Crow,
 ]
 
 ## 判断植物类型是否为干员
@@ -146,6 +156,8 @@ enum ZombieType {
 	Z023Catapult,
 	Z024Gargantuar,
 	Z025Imp,
+
+	Z026RedEye,	## 红眼普通僵尸(血量=普通僵尸10倍, 自创变体)
 
 	Z1001BobsledSingle=1001,	## 单个雪橇车僵尸
 	}
@@ -541,14 +553,119 @@ const PlantInfo = {
 
 	## 明日方舟干员
 	## 克洛丝: SunCost 为部署费用(消耗部署点数,非阳光), CoolTime 为再部署时间
-	## 数值按 wiki 满级(精英1满级): HP1060/攻击375/部署费用10/再部署70s/攻击间隔1.0s(见场景与子弹)
+	## 数值按 wiki 满级(精英1满级+满潜): HP1060/攻击396(375+潜能21)/部署费用8(10-潜能2&6各1)/再部署66s(70-潜能3的4s)/攻击间隔1.0s(见场景与子弹)
 	PlantType.P050Kroos: {
 		PlantInfoAttribute.PlantName: "Kroos",
-		PlantInfoAttribute.CoolTime: 70.0,
-		PlantInfoAttribute.SunCost: 10,
+		PlantInfoAttribute.OperatorDisplayName: "克洛丝",
+		PlantInfoAttribute.CoolTime: 66.0,
+		PlantInfoAttribute.SunCost: 8,
 		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/050_kroos_operator.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_001_kroos.tscn")
+		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_001_kroos.tscn"),
+		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/kroos/kroos_card_full.png"),
+		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_101_kroos_arrow.tscn"),
+		PlantInfoAttribute.OperatorAttackAnims : ["Attack"],
+		PlantInfoAttribute.OperatorAttackModes : {
+			"普通": {"count": 1, "mult": 1.0},
+			"二技能·2连射": {"count": 2, "mult": 1.0},
 		},
+		},
+	## 维什戴尔(投掷手, ★6): 满级(精英2 90)+满潜+信赖加成
+	## HP1888/攻击809(687满级+32潜能+90信赖)/部署费用23(25-潜能2&6各1)/再部署70s(基础, 满潜-4=66s, 按需求取70)/攻击间隔2.1s(见场景与子弹)
+	PlantType.P051Wisadel: {
+		PlantInfoAttribute.PlantName: "Wisadel",
+		PlantInfoAttribute.OperatorDisplayName: "维什戴尔",
+		PlantInfoAttribute.CoolTime: 70.0,
+		PlantInfoAttribute.SunCost: 23,
+		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/051_wisdel_operator.tres"),
+		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_002_wisdel.tscn"),
+		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/wisdel/wisdel_card_full.png"),
+		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_102_wisdel_shell.tscn"),
+		PlantInfoAttribute.OperatorAttackAnims : ["Attack_A", "Attack_B", "Attack_C"],
+		PlantInfoAttribute.OperatorAttackModes : {
+			"普通": {"count": 1, "mult": 1.0},
+			"二技能·3连发": {"count": 3, "mult": 1.35},
+			"二技能·过载4连发": {"count": 4, "mult": 0.8},
+			"三技能·爆炸": {"count": 1, "mult": (1.0 + 1.8) * 2.2, "is_skill3": true},
+		},
+		## 选卡技能选择面板数据(desc 每行不超过约20个汉字, 保证面板内完整显示)
+		PlantInfoAttribute.OperatorSkills : {
+			1: {
+				"name": "定点清算",
+				"desc": "攻击回复·自动触发\n下次攻击额外2次余震并晕眩1.5秒\n溅射扩大，余震伤害提升至120%",
+				"icon": preload("res://assets/image/operator/wisdel/skill_icon_1.png"),
+			},
+			2: {
+				"name": "饱和复仇",
+				"desc": "自动回复·手动触发·可随时关闭\n攻击力+35%，攻击间隔缩短，攻击3名敌人\n过载：80%攻击力4连发随机索敌",
+				"icon": preload("res://assets/image/operator/wisdel/skill_icon_2.png"),
+			},
+			3: {
+				"name": "爆裂黎明",
+				"desc": "自动回复·手动触发·可随时停止\n攻击力+180%，召唤2个魂灵之影\n6发弹药，攻击时攻击力提升至220%",
+				"icon": preload("res://assets/image/operator/wisdel/skill_icon_3.png"),
+			},
+		},
+		},
+	## 桃金娘(先锋·执旗手, ★4): 满级(精英2 70)+满潜
+	## HP1565(精英2满级)/攻击520(精英2满级)/部署费用8(基础10-潜能2&6各1)/再部署66s(70-潜能3的4s)/攻击间隔1.3s(见场景与子弹)
+	PlantType.P052Myrtle: {
+		PlantInfoAttribute.PlantName: "Myrtle",
+		PlantInfoAttribute.OperatorDisplayName: "桃金娘",
+		PlantInfoAttribute.CoolTime: 66.0,
+		PlantInfoAttribute.SunCost: 8,
+		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/052_myrtle_operator.tres"),
+		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_003_myrtle.tscn"),
+		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/myrtle/myrtle_card_full.png"),
+		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_104_myrtle_hit.tscn"),
+		PlantInfoAttribute.OperatorAttackAnims : ["Attack"],
+		PlantInfoAttribute.OperatorAttackModes : {
+			"普通": {"count": 1, "mult": 1.0},
+		},
+		## 选卡技能选择面板数据(desc 每行不超过约20个汉字, 保证面板内完整显示)
+		PlantInfoAttribute.OperatorSkills : {
+			1: {
+				"name": "支援号令·β型",
+				"desc": "自动回复·手动触发\n停止攻击，8秒内回复14点部署费用",
+				"icon": preload("res://assets/image/operator/myrtle/skill_icon_1.png"),
+			},
+			2: {
+				"name": "治愈之翼",
+				"desc": "自动回复·手动触发\n停止攻击，16秒内回复16点部署费用\n并每秒治疗一名友方50%攻击力",
+				"icon": preload("res://assets/image/operator/myrtle/skill_icon_2.png"),
+			},
+		},
+		},
+	## 羽毛笔(近卫·收割者, ★5): 满级(精英2 80)+满潜
+	## HP2250(精英2满级)/攻击650(精英2满级, 信赖+75暂不计入)/部署费用20(基础22-潜能2&6各1)/再部署60s(70-潜能3的4s-潜能5的6s)/攻击间隔1.3s/阻挡数2(见场景与子弹)
+	PlantType.P053Crow: {
+		PlantInfoAttribute.PlantName: "Crow",
+		PlantInfoAttribute.OperatorDisplayName: "羽毛笔",
+		PlantInfoAttribute.CoolTime: 60.0,
+		PlantInfoAttribute.SunCost: 20,
+		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/053_crow_operator.tres"),
+		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_004_crow.tscn"),
+		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/crow/crow_card_full.png"),
+		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_105_crow_slash.tscn"),
+		PlantInfoAttribute.OperatorAttackAnims : ["Attack"],
+		PlantInfoAttribute.OperatorAttackModes : {
+			"普通": {"count": 1, "mult": 1.0},
+			"一技能·2连击": {"count": 2, "mult": 1.65},
+			"二技能·收割": {"count": 1, "mult": 1.7},
+		},
+		## 选卡技能选择面板数据(desc 每行不超过约20个汉字, 保证面板内完整显示)
+		PlantInfoAttribute.OperatorSkills : {
+			1: {
+				"name": "高速切割",
+				"desc": "攻击回复·自动触发\n下次攻击攻击力提升至165%\n并连续攻击两次",
+				"icon": preload("res://assets/image/operator/crow/skill_icon_1.png"),
+			},
+			2: {
+				"name": "收割",
+				"desc": "自动回复·手动触发\n攻击力+70%，攻击间隔缩短\n对低于50%生命敌人伤害额外+50%",
+				"icon": preload("res://assets/image/operator/crow/skill_icon_2.png"),
+			},
+		},
+	},
 
 	## 模仿者
 	PlantType.P999Imitater:{
@@ -782,6 +899,15 @@ const ZombieInfo = {
 		ZombieInfoAttribute.SunCost: 50,
 		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_025_imp.tscn"),
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
+	},
+
+	## 红眼普通僵尸(自创变体): 血量=普通僵尸10倍(2700), 眼睛发红光
+	ZombieType.Z026RedEye:{
+		ZombieInfoAttribute.ZombieName: "ZombieRedEye",
+		ZombieInfoAttribute.CoolTime: 0.0,
+		ZombieInfoAttribute.SunCost: 100,
+		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_026_red_eye.tscn"),
+		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 
 	## 单独雪橇僵尸

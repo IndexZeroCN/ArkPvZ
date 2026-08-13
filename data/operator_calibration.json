@@ -1,16 +1,41 @@
 {
 	"_shared": {
 		"container_y": 20.0,
-		"hp_bar_len": 82.0,
+		"hp_bar_len": 81.0,
 		"hp_bar_w": 4.5,
 		"hp_bar_y": 15.0,
-		"scale": 0.3,
+		"scale": 0.29,
 		"spine_x": 0.0,
 		"spine_y": -20.0
 	},
 	"kroos": {
+		"bullet_scale": 0.2,
 		"delay": 0.55,
 		"spawn_x": 75.0,
-		"spawn_y": -60.0
+		"spawn_y": -60.0,
+		"speed": 1500.0,
+		"trail_color": [
+			1.0,
+			1.0,
+			1.0
+		],
+		"trail_len": 8.0,
+		"trail_style": 1.0,
+		"trail_width": 4.0
+	},
+	"wisdel": {
+		"bullet_scale": 1.0,
+		"delay": 0.4,
+		"spawn_x": 3.0,
+		"spawn_y": -56.0,
+		"speed": 2000.0,
+		"trail_color": [
+			0.39453125,
+			0.0323638916015625,
+			0.0574194900691509
+		],
+		"trail_len": 10,
+		"trail_style": 0,
+		"trail_width": 15.0
 	}
 }

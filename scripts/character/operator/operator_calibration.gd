@@ -102,8 +102,32 @@ static func _apply_hp_bar_config(operator_root: Node, shared: Dictionary) -> voi
 			bar.offset_right = bar_len * 0.5
 			bar.offset_top = -bar_w * 0.5
 			bar.offset_bottom = bar_w * 0.5
-	## 技能条水平镜像: fill 从右往左增长(攒SP右端长), 与血条掉血方向(右端缩)一致, 两条方向不相反
+	## 技能条与血条同侧变化: 都 scale.x=-1 镜像(攒 SP 右端先亮, 掉血左端先空/右端保持, 两者方向一致)
 	## pivot_offset 设为中心, 否则镜像以左上角为轴会整体偏到左边
-	if skill_bar is ProgressBar:
-		skill_bar.pivot_offset = Vector2(bar_len * 0.5, bar_w * 0.5)
-		skill_bar.scale.x = -1.0
+	for bar in [hp_bar, skill_bar]:
+		if bar is ProgressBar:
+			(bar as ProgressBar).pivot_offset = Vector2(bar_len * 0.5, bar_w * 0.5)
+			bar.scale.x = -1.0
+
+## 把子弹视觉参数(拖尾长度/颜色/样式, 子弹大小)应用到子弹(component_attack_operator 发射时调用)
+## JSON 键: trail_len(int) / trail_color([r,g,b] 主色) / trail_style(0双层 1单层 2发光) / bullet_scale(float)
+## 干员无该键时不动对应项(如维什戴尔无子弹素材, 不写 bullet_scale 即不缩放)
+static func apply_to_bullet(bullet: Node, operator_id: String) -> void:
+	var calib := get_calibration(operator_id)
+	if calib.is_empty():
+		return
+	var trail: Node = bullet.get_node_or_null("Trail")
+	if is_instance_valid(trail) and trail.has_method("setup"):
+		var color := Color(0.7, 0.08, 0.12)
+		var tc: Variant = calib.get("trail_color")
+		if tc is Array and tc.size() >= 3:
+			color = Color(float(tc[0]), float(tc[1]), float(tc[2]))
+		trail.call("setup",
+			int(calib.get("trail_len", 56)),
+			color,
+			int(calib.get("trail_style", 0)),
+			float(calib.get("trail_width", -1.0)))
+	if calib.has("bullet_scale"):
+		var body: Node = bullet.get_node_or_null("Body/BulletBody")
+		if is_instance_valid(body):
+			body.set("scale", Vector2.ONE * float(calib["bullet_scale"]))

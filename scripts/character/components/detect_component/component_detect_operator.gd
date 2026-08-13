@@ -5,12 +5,19 @@ class_name DetectComponentOperator
 ## 继承 DetectComponent(兼容攻击组件的类型判断与信号), 覆盖检测逻辑
 
 ## 攻击范围形状: (行偏移, 列偏移), 以干员所在格为基准
-## 克洛丝(速射手满级)范围: 3行x4列, 干员在中间行最左列
+## 默认(克洛丝, 速射手满级)范围: 3行x4列, 干员在中间行最左列
+## 其他干员覆盖 Operator000Base.get_attack_range_shape() 返回自己的形状
 const ATTACK_RANGE_SHAPE: Array[Vector2i] = [
 	Vector2i(-1, 0), Vector2i(-1, 1), Vector2i(-1, 2), Vector2i(-1, 3),
 	Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2), Vector2i(0, 3),
 	Vector2i(1, 0), Vector2i(1, 1), Vector2i(1, 2), Vector2i(1, 3),
 ]
+
+## 默认草坪格子尺寸(像素, 兜底值; 有真实植物格时用真实网格间距)
+const GRID_CELL_SIZE := Vector2(76, 95)
+
+## 索敌轮询间隔(秒): 干员狙击式攻击需要快速反应, 比普通植物射线检测更频繁
+const POLL_INTERVAL := 0.05
 
 ## 将(行,列)偏移按方向转换为世界偏移(格子尺寸换算)
 static func get_world_delta(offset: Vector2i, direction: Operator000Base.E_AttackDirection, cell_size: Vector2) -> Vector2:
@@ -58,14 +65,39 @@ static func get_grid_spacing(cell: PlantCell) -> Vector2:
 		spacing.y = cell.global_position.y - all_cells[rc.x - 1][rc.y].global_position.y
 	return spacing
 
+## 僵尸是否在范围格子集合内(格子级菱形判定; 行=zombie.lane, 列=x 映射到列索引)
+## 菱形范围必须格子级判定——用整个范围的 x 跨度会把菱形补成矩形(每行都按干员行的列数命中)
+static func is_zombie_in_range_rcs(zombie: Zombie000Base, rc_set: Dictionary, spacing_x: float) -> bool:
+	var all_cells: Array = Global.main_game.plant_cell_manager.all_plant_cells
+	if zombie.lane < 0 or zombie.lane >= all_cells.size() or all_cells[zombie.lane].is_empty():
+		return false
+	var row0_cell: PlantCell = all_cells[zombie.lane][0]
+	var col0_cx: float = row0_cell.global_position.x + row0_cell.size.x * 0.5
+	var col_idx: int = int(round((zombie.global_position.x - col0_cx) / spacing_x))
+	return rc_set.has(Vector2i(zombie.lane, col_idx))
+
+## 按方向生成攻击范围格子的行列索引(真实植物格网格), 越界跳过
+## 用于格子级检测(菱形范围内才命中, 避免用整个范围 x 跨度把菱形补成矩形)
+static func get_range_rcs_on_grid(direction: Operator000Base.E_AttackDirection, operator_cell: PlantCell, shape: Array[Vector2i] = ATTACK_RANGE_SHAPE) -> Array[Vector2i]:
+	var rcs: Array[Vector2i] = []
+	var rc: Vector2i = operator_cell.row_col
+	var total: Vector2i = Global.main_game.plant_cell_manager.row_col
+	for offset: Vector2i in shape:
+		var target_rc: Vector2i = rc + rotate_offset(offset, direction)
+		if target_rc.x < 0 or target_rc.y < 0\
+			or target_rc.x >= total.x or target_rc.y >= total.y:
+			continue
+		rcs.append(target_rc)
+	return rcs
+
 ## 按方向生成攻击范围格子中心(真实植物格网格, 与部署预览完全一致)
-## 越界的格子跳过; 干员所在格是否在内取决于 ATTACK_RANGE_SHAPE 是否含 (0,0)
-static func get_range_cells_on_grid(direction: Operator000Base.E_AttackDirection, operator_cell: PlantCell) -> Array[Vector2]:
+## 越界的格子跳过; 干员所在格是否在内取决于 shape 是否含 (0,0)
+static func get_range_cells_on_grid(direction: Operator000Base.E_AttackDirection, operator_cell: PlantCell, shape: Array[Vector2i] = ATTACK_RANGE_SHAPE) -> Array[Vector2]:
 	var centers: Array[Vector2] = []
 	var rc: Vector2i = operator_cell.row_col
 	var total: Vector2i = Global.main_game.plant_cell_manager.row_col
 	var all_cells: Array = Global.main_game.plant_cell_manager.all_plant_cells
-	for offset: Vector2i in ATTACK_RANGE_SHAPE:
+	for offset: Vector2i in shape:
 		var target_rc: Vector2i = rc + rotate_offset(offset, direction)
 		if target_rc.x < 0 or target_rc.y < 0\
 			or target_rc.x >= total.x or target_rc.y >= total.y:
@@ -75,9 +107,9 @@ static func get_range_cells_on_grid(direction: Operator000Base.E_AttackDirection
 	return centers
 
 ## 按方向生成攻击范围格子中心(世界坐标), 供干员本体与部署预览共用
-static func get_range_cells_by_direction(direction: Operator000Base.E_AttackDirection, base_pos: Vector2, cell_size: Vector2) -> Array[Vector2]:
+static func get_range_cells_by_direction(direction: Operator000Base.E_AttackDirection, base_pos: Vector2, cell_size: Vector2, shape: Array[Vector2i] = ATTACK_RANGE_SHAPE) -> Array[Vector2]:
 	var cells: Array[Vector2] = []
-	for offset: Vector2i in ATTACK_RANGE_SHAPE:
+	for offset: Vector2i in shape:
 		cells.append(base_pos + get_world_delta(offset, direction, cell_size))
 	return cells
 
@@ -98,7 +130,7 @@ func _process(delta: float) -> void:
 	if not is_enabling:
 		return
 	_check_timer += delta
-	if _check_timer < 0.1:
+	if _check_timer < POLL_INTERVAL:
 		return
 	_check_timer = 0.0
 	judge_have_enemy()
@@ -114,20 +146,18 @@ func judge_have_enemy():
 		_clear_target()
 		return
 
-	var cell_size: Vector2 = _owner_operator.plant_cell.size
-	var range_cells: Array[Vector2] = _owner_operator.get_attack_range_cells()
 	var operator_pos: Vector2 = _owner_operator.global_position
 
 	## 行方向按"僵尸所在 lane"判断(僵尸行网格与植物格网格间距不同, 像素矩形会随行数偏移而漏检, 见 docs 踩坑)
 	var operator_lane: int = _owner_operator.plant_cell.row_col.x
 	var lane_offsets: Array[int] = _get_lane_offsets(_owner_operator.attack_direction)
-	## x 方向用范围像素跨度: 取格子中心 ± 半个网格间距(与预览矩形边界一致)
-	var min_x := INF
-	var max_x := -INF
-	var half_x: float = get_grid_spacing(_owner_operator.plant_cell).x * 0.5
-	for c: Vector2 in range_cells:
-		min_x = minf(min_x, c.x - half_x)
-		max_x = maxf(max_x, c.x + half_x)
+	## 格子级判定: 范围格子(行,列)集合。菱形范围必须格子级判定——
+	## 用整个范围的 x 跨度(min_x/max_x)会把菱形补成矩形(每行都按干员行的列数命中)
+	var rc_set: Dictionary = {}
+	for target_rc: Vector2i in get_range_rcs_on_grid(
+		_owner_operator.attack_direction, _owner_operator.plant_cell, _owner_operator.get_attack_range_shape()):
+		rc_set[target_rc] = true
+	var spacing_x: float = get_grid_spacing(_owner_operator.plant_cell).x
 
 	var closest_zombie: Zombie000Base = null
 	var closest_dist: float = INF
@@ -140,9 +170,9 @@ func judge_have_enemy():
 		## 行过滤(按 lane, 与像素错位无关)
 		if not (zombie.lane - operator_lane) in lane_offsets:
 			continue
-		## x 范围过滤(与预览矩形边界一致)
+		## 格子级范围过滤: 僵尸(行,列)在菱形范围格子集合内才命中
 		var zombie_pos: Vector2 = zombie.global_position
-		if zombie_pos.x < min_x or zombie_pos.x > max_x:
+		if not is_zombie_in_range_rcs(zombie, rc_set, spacing_x):
 			continue
 		var dist: float = zombie_pos.distance_squared_to(operator_pos)
 		if dist < closest_dist:
@@ -166,16 +196,18 @@ func _update_operator_visual():
 		return
 	_owner_operator.update_visual_for_target(curr_target_zombie)
 
-## 按方向返回攻击范围覆盖的 lane 偏移(相对干员所在行)
+## 按方向返回攻击范围覆盖的 lane 偏移(相对干员所在行), 由范围形状(旋转后)的行偏移动态计算
+## 支持不同干员的不同范围形状(克洛丝 3 行 / 维什戴尔 5 行等)
 func _get_lane_offsets(direction: Operator000Base.E_AttackDirection) -> Array[int]:
-	match direction:
-		Operator000Base.E_AttackDirection.Up:
-			return [0, -1, -2, -3]
-		Operator000Base.E_AttackDirection.Down:
-			return [0, 1, 2, 3]
-		## Right/Left: 3 行(上下各 1)
-		_:
-			return [-1, 0, 1]
+	var offsets: Array[int] = []
+	if not is_instance_valid(_owner_operator):
+		return [-1, 0, 1]
+	var shape: Array[Vector2i] = _owner_operator.get_attack_range_shape()
+	for offset: Vector2i in shape:
+		var rotated: Vector2i = rotate_offset(offset, direction)
+		if not offsets.has(rotated.x):
+			offsets.append(rotated.x)
+	return offsets
 
 func _clear_target():
 	curr_target_zombie = null

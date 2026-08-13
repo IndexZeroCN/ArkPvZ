@@ -10,7 +10,7 @@
 
 ## 1. 项目概述
 
-使用 **Godot 4.6.2**（纯 GDScript，无 C#）对原版《植物大战僵尸》(PVZ) 的高保真复刻，除了僵王和部分小游戏外已基本实现全部原版内容。支持冒险/迷你游戏/解密/生存/自定义关卡、花园、图鉴、商店、多用户存档、罐子模式、"我是僵尸"模式等。
+使用 **Godot 4.7.1**（纯 GDScript，无 C#）对原版《植物大战僵尸》(PVZ) 的高保真复刻，除了僵王和部分小游戏外已基本实现全部原版内容。支持冒险/迷你游戏/解密/生存/自定义关卡、花园、图鉴、商店、多用户存档、罐子模式、"我是僵尸"模式等。
 
 - 许可：**自定义非商用许可**（禁止任何商业用途），详见 `LICENSE`。
 - 版权注意：原版资源（图片、音频等）因版权问题**不包含在本仓库中**，代码仍通过 `res://assets/...` 引用它们。因此**克隆仓库后直接运行会报大量缺失资源错误**，需要先从 QQ 群/大版本更新视频简介获取完整 `assets/` 目录（见 `.gitignore` 中 `assets` 条目）。
@@ -20,7 +20,7 @@
 
 | 项 | 值 |
 |---|---|
-| 引擎 | Godot 4.6.2（`project.godot` 中 `config/features=PackedStringArray("4.6", "GL Compatibility")`） |
+| 引擎 | Godot 4.7.1（`project.godot` 中 `config/features=PackedStringArray("4.7", "GL Compatibility")`；本机编辑器 `D:\Godot\Godot_v4.7.1-stable_win64.exe`） |
 | 语言 | GDScript（`.gd`），`class_name` 全局类型大量使用 |
 | 渲染 | `gl_compatibility`（桌面与移动端一致） |
 | 视口 | 1066×600，stretch mode `canvas_items` |
@@ -33,7 +33,7 @@
 ## 3. 运行与构建
 
 ```bash
-# 打开项目（需已安装 Godot 4.6.x）
+# 打开项目（需已安装 Godot 4.7.x，headless 编译验证用 `Godot_v4.7.1-stable_win64.exe --headless --path . --editor --quit`，退出时可能因 spine GDExtension 报段错误，属既有问题，不影响导入/编译结果）
 godot --path . --editor        # 编辑器
 godot --path .                 # 直接运行（进入开始菜单）
 ```
@@ -187,10 +187,46 @@ Character000Base (scenes/character/character_000_base.tscn)
 - **技能**：`SkillComponent`（`scripts/character/components/skill_component/`）管理技能条（HP 条上方），支持攻击/时间回复、自动/手动触发；子类重写 `_on_skill_use()`、`get_attack_paras()` 实现技能效果与连射/暴击。
 - **点击交互**：`OperatorManager._unhandled_input` 物理点查询选中干员，弹出 `scenes/operator/operator_menu.tscn`（撤退返还 70% DP 复用 `be_shovel_kill()`，技能按钮手动触发）；召唤物默认禁用撤退/手动技能。
 - **干员唯一性**：每种干员场上最多 1 个（卡片置灰 + 手持拦截，见 `OperatorManager.get_operator_count_by_type`）。
-- **攻击范围/方向**：干员为**有限格子范围**攻击（`DetectComponentOperator`，范围形状 `ATTACK_RANGE_SHAPE`），部署时按鼠标相对格子位置选择 4 向方向并显示范围预览（`hm_character`）；攻击朝目标发射跨行直线子弹。
-- **迷你血条/技能条**：头顶 15×2px 蓝色血条 + 紧挨其下的技能条，半透明黑背景，与植物僵尸的大血条样式不同。
+- **攻击范围/方向**：干员为**有限格子范围**攻击（`DetectComponentOperator`，范围形状 `ATTACK_RANGE_SHAPE`），部署时按鼠标相对格子位置选择 4 向方向并显示范围预览（`hm_character`）；攻击朝目标发射跨行直线子弹。**范围形状用 `O/X` 网格表述**（`O`=干员自身格，`X`=攻击覆盖格，每行左对齐；如克洛丝速射手 3×4 为 `XXXX/OXXX/XXXX` 的 3 行、桃金娘执旗手为 `OX` 自身+前方一格，维什戴尔 5×5 菱形为 `XXX/XXXX/OXXXX/XXXX/XXX`，见 docs §3.1/§4.1/§5.1）；`get_attack_range_shape()` 返回 `Array[Vector2i]`（`(行偏移, 列偏移)`，`(0,0)` 为自身格）。
+- **阻挡数**：干员 `Operator000Base.block_count`（默认 1，近卫/重装等后续覆盖为 2~3）；`DetectComponent._judge_enemy_is_can_be_attack` 对干员调用 `is_block_full()`——已阻挡僵尸数 ≥ `block_count` 时新僵尸**穿过不停止**（`get_blocked_zombie_count()` 统计 `zombie.is_attack` 且 `detect_component.enemy_can_be_attacked == self` 的僵尸）。桃金娘执旗手特性"技能发动期间阻挡数变为0"用**禁用受击盒**实现（`_set_blocking(false)` → `hurt_box_component.disable_component(Character)`），僵尸检测不到她 → 已在啃食的僵尸也停止啃食继续移动穿过。
+- **攻击周期（`AttackComponentOperator`，one-shot 计时器 + 每轮手动武装）**：索敌 → 播攻击动画 → 等 `bullet_spawn_delay`（与动画"松手"时刻对齐）→ 按 `get_attack_paras()` 连射（`burst_interval` 间隔，二连发两箭可辨）→ 广播 `signal_operator_shoot`（技能点回复）。保证：索敌后**立即攻击**（无基类随机初始延迟）、下一轮间隔 = `max(攻击间隔, 攻击动画时长)`（**攻击动画一定播完才开始下一轮**）、计时器到点目标过期时**立即重新索敌一次**（不整轮跳过）、无目标时快速重试（`RETRY_INTERVAL=0.25s`）。计时器在干员场景里必须 `one_shot = true`。
+- **技能选择面板（多技能干员选卡）**：数据驱动——注册表 `PlantInfoAttribute.OperatorSkills`（`{技能id: {name, desc, icon}}`，desc 每行 ≤ 约20个汉字）登记，`CardSlotCandidate.operator_skill_card_appear(类型)` 动态生成按钮（面板结构：`AllOperatorSkillCard` 全屏覆盖 + 居中 `Panel`(470×480) + `SkillList`(内缩 **36px**，内腔 398×408，避开面板 ~30px 装饰边框) + `SkillButtonList`，标题 22 号字、按钮 15 号字），**新多技能干员只登记数据不改面板**。注意 `AllOperatorSkillCard` 必须 `visible = false` 且 `_ready` 防御性隐藏——编辑器自动保存会省略默认值行，丢掉后开局显示空技能页。
+- **范围预览统一挂世界画布**：`OperatorRangePreview`（部署预览 `hm_character` 与干员菜单 `operator_menu` 都挂主游戏场景根、**z_index=0**，低于植物行 z=10 避免盖在干员脸上），多边形即世界坐标，条纹 shader（`operator_range_stripes.gdshader`）在世界坐标空间计算，**随分辨率同步缩放**（任何窗口尺寸下条纹与草坪相对宽度一致）；不要挂 `CanvasLayerTemp` 等图层画布。
+- **迷你血条/技能条**：头顶 15×2px 蓝色血条 + 紧挨其下的技能条，半透明黑背景，与植物僵尸的大血条样式不同。血条/技能条 `Control` 设 `z_as_relative=false` + `z_index=1000` 全局置顶，避免被其他干员身体覆盖（见 `operator_000_base.tscn` 的 `HpControl`/`SkillControl`）。
 - **动画约定**：固定动画名 `idle/attack/skill/die`，`AnimComponentOperator`（基于 AnimationPlayer）播放，轨道作用于 `Body/BodyCorrect/OperatorSprite` 容器；素材为 Spine 3.8.99，当前用立绘占位，Spine 模型接入/提取/运行全流程见 **§10 明日方舟 Spine 素材管线**。**坑**：干员场景的 `AnimationTree` 仅为满足攻击组件基类的 `$"../AnimationTree"` 引用，必须显式 `active=false`（默认 active 会重置 OperatorSprite 的 modulate 导致形象透明）；动画轨道 `update` 用 0（continuous）否则不插值。
 - 选卡界面干员页：`CardSlotCandidate` 的 `GridContainerOperator`，白名单 `Global.global_game_state.curr_operator`；植物/模仿者页会过滤掉干员类型。
+
+### 6.10 添加干员总流程（以克洛丝为模板，详见 docs/明日方舟干员系统.md）
+
+1. **素材准备（必做第 1 步，每次添加干员都必须先做，禁止用占位立绘代替提交）**：
+   - **先从游戏目录提取 Spine 正/背面双素材**：用 **ArkUnpacker**（`tools/ArkUnpacker-v5.1.0.exe -m ab --spine --image --text`）解 `chararts/char_<id>.ab`，输出 `BattleFront/`（正）与 `BattleBack/`（背）两套；正面三件套 `skel/atlas/png` 放 `assets/image/operator/<干员id>/`（id = 素材文件夹名 = 场景 `operator_id` = 校准 JSON 键），背面放 `<id>/back/` 子目录。（旧 `extract_ab.py` 需 UnityPy 且同名覆盖只留正面，**勿用**）
+   - **alpha 合成**：战斗模型主纹理 alpha 分离在 `'<名>[alpha]'` 纹理 → `python tools/spine_extract/merge_alpha.py <主>.png <alpha>.png`（覆盖主图；需 Pillow，用项目内隔离 venv 安装后跑）
+   - 改过素材后**强制重导入**（删对应 `.import` + `.godot/imported/` 缓存，跑 `godot --headless --editor --quit`；删 `.import` 后**首次跑会因 png 尚未导入报 preload "no resource loaders"，再跑一次即恢复**）
+2. **数值**（wiki **满级 + 满潜五档累加**；"满级"= 该干员可达的最高精英阶段满级：★3 精英1满级、★4~6 精英2满级等，见 docs §1.8 星级等级上限表）：
+   - `scripts/autoload/global/character_registry.gd`：`PlantType` 枚举（P050 起）+ `OperatorPlantType` + `PlantInfo` 登记（`SunCost`=部署费用、`CoolTime`=再部署、`PlantConditionResource`、`PlantScenes`）
+   - **数据驱动字段（干员卡牌/调试工具/出战通用，必登记）**：`OperatorDisplayName`（中文显示名）、`OperatorCardBg`（整卡图）、`OperatorBulletScene`（攻击子弹场景）、`OperatorAttackAnims`（攻击动画候选，无单 Attack 素材时用）、`OperatorAttackModes`（攻击模式表，调试工具模拟技能用：`{显示名: {count, mult, is_skill3}}`）；**多技能干员另登记 `OperatorSkills`**（选卡技能选择面板数据：`{技能id: {name, desc, icon}}`，desc 每行 ≤ 约20个汉字）
+   - 场景 `HpComponent.max_hp`、子弹场景 `attack_value`（攻击力）、`AttackComponent.attack_cd`（攻击间隔）
+3. **场景与脚本**：从 `operator_000_base.tscn` 新建继承场景，脚本 `extends Operator000Base`，设 `plant_type`、`operator_id`；重写 `get_attack_paras()`（连射/暴击天赋）、`_on_skill_use()`（技能效果）
+4. **Spine 接入**：场景 `Body/BodyCorrect/OperatorSprite` 下挂 `OperatorSpineSprite`（`skel_path`/`atlas_path` + `back_skel_path`/`back_atlas_path`）；动画名**可配置**（`anim_name_idle/enter/die` + `attack_anim_names` 多攻击动画随机，克洛丝默认 `Idle/Attack/Start/Die`，维什戴尔 `Idle/Attack_A~C/Start/Die`，见 `docs/明日方舟干员系统.md` §4.5）；**`AnimationTree` 必须 `active=false`**
+5. **攻击/检测**：`AttackComponentOperator`（`attack_cd`/`attack_bullet_type`/`bullet_spawn_offset`/`bullet_spawn_delay`）+ `DetectComponentOperator`（范围形状默认克洛丝 3×4，不同干员覆盖 `Operator000Base.get_attack_range_shape()`，如维什戴尔 5×5 菱形；干员唯一性/无视屋顶/转身逻辑在基类无需改）
+6. **校准**：跑 `test/operator_debug_tool.tscn` 调发射延迟/发射点/血条尺寸 → **「应用」**写 `data/operator_calibration.json`（游戏运行时读取覆盖，不写场景文件）；工具已通用化（显示名/子弹/攻击动画/攻击模式均从注册表读取），仅需在工具脚本 `OPERATOR_GAME_VALUES` 登记校准初始值（JSON 无此干员时回退）
+7. **卡片与白名单**：`scenes/autoload/all_cards.tscn` 的 `PlantCards2` 加一个**默认状态**的 `Card` 实例（`card_plant_type` + `is_operator_card = true`；多技能干员额外设 `is_multi_skill_operator = true`）；**卡牌背景/角色隐藏由代码自动处理**（`CardBase.get_operator_full_card_texture()` 读注册表 `OperatorCardBg` 设置整卡、`Card._ready` 自动隐藏静态角色，无需手工覆盖 CardBg/CharacterStatic）；`Global.global_game_state.curr_operator` 加入白名单
+8. **音效（可选）**：默认部署/死亡/技能发动音效由基类 `Operator000Base` 的 `get_deploy_sfx()`/`get_death_sfx()`/`get_skill_use_sfx()` 钩子提供（默认键 `OperatorDeploy`/`OperatorDeath`/`OperatorSkill`，无专属音效的干员自动使用）；有专属音效时覆盖钩子返回专属键（如维什戴尔三技能返回空、由 `_skill3_activate` 播 `WisdelSkill3Start`）
+9. **验证**：`godot --headless --editor --quit` 编译零错误；`test/operator_spine_check.gd`（干员场景冒烟）、`test/operator_back_view.tscn`（正/背面朝向查看）；进游戏实测部署（两段式）/攻击/技能/转身/撤退
+
+**新增干员文件速查（必改清单）**：
+
+| # | 文件 | 改动 |
+|---|---|---|
+| 1 | `scripts/autoload/global/character_registry.gd` | `PlantType` 枚举（P052 起）+ `OperatorPlantType` 加入 + `PlantInfo` 登记（数值 + `OperatorDisplayName`/`OperatorCardBg`/`OperatorBulletScene`/`OperatorAttackAnims`/`OperatorAttackModes`；多技能干员加 `OperatorSkills`） |
+| 2 | `assets/image/operator/<id>/` | Spine 素材三件套（skel/atlas/png，背面放 `back/` 子目录）+ 整卡图（卡牌用） |
+| 3 | `scenes/character/operator/operator_0XX_xxx.tscn` + `scripts/character/operator/operator_0XX_xxx.gd` | 从 `operator_000_base` 继承；`plant_type`/`operator_id`；`HpComponent.max_hp`、`AttackComponentOperator`（`attack_cd`/`attack_bullet_type`/发射点）、`DetectComponentOperator`；重写 `get_attack_paras()`/`_on_skill_use()`/`get_attack_range_shape()`；Spine 挂 `OperatorSprite` 下 |
+| 4 | `scenes/autoload/all_cards.tscn` | `PlantCards2` 加一个**默认状态** `Card` 实例（`card_plant_type` + `is_operator_card=true`；多技能干员加 `is_multi_skill_operator=true`）；背景/角色隐藏由代码自动处理，**无需覆盖** |
+| 5 | `scripts/autoload/global/global_game_state.gd` | `curr_operator` 白名单加入 |
+| 6 | `test/operator_debug_tool.gd` | `OPERATOR_GAME_VALUES` 登记校准初始值（JSON 无此干员时回退）；其余（显示名/子弹/动画/攻击模式）自动从注册表读 |
+| 7 | 音效（可选） | wav 放 `assets/audio/SFX/operator/` + `SFXCharacterMap` 注册键；覆盖 `get_deploy_sfx()`/`get_death_sfx()`/`get_skill_use_sfx()` 返回专属键（无专属用默认键） |
+
+> 召唤物（如魂灵之影）：继承 `Summon000Base`（无部署音效/默认不可撤退可改），由干员脚本 `_spawn_shadow` 创建并登记；撤退/死亡需从主人的召唤列表移除（见 `summon_002_wisdel_shadow.gd`）。
 
 ## 7. 开发约定
 
@@ -217,7 +253,7 @@ Character000Base (scenes/character/character_000_base.tscn)
 - **新增植物**：从 `plant_000_base.tscn`（底部植物用 `plant_000_down_base.tscn`）新建继承场景 → 新建脚本 `extends Plant000Base` 并设置 `plant_type` → 在 `CharacterRegistry` 的 `PlantType` 枚举 + `PlantInfo` 字典登记（含场景、冷却、阳光、种植条件）→ 种植条件资源放 `resources/character_resource/plant_condition/` → 卡片资源加入 `AllCards`。
 - **新增僵尸**：从 `zombie_000_base.tscn` 新建继承场景 → 设置 `zombie_type` → 动画轨道上按文档添加方法调用（移动开头 `MoveComponent._walking_start()`、死亡结尾 `Zombie000Base._fade_and_remove()`、攻击时 `AttackComponent.attack_once()`）→ 在 `ZombieInfo` 登记（含行类型）→ 按需加入 `GlobalReadData` 自然刷怪白名单。新僵尸动画请参照 `docs/开发相关.md` 的"新僵尸"小节（影子/身体/掉手掉头/防具血量阶段等节点要求）。
 - **新增子弹**：见 §6.5 与 `docs/子弹说明文档.md`。
-- **新增干员**：见 `docs/明日方舟干员系统.md` §5（枚举+PlantInfo 登记 → 从 `operator_000_base.tscn` 继承场景/脚本 → `idle/attack/skill/die` 动画 → `get_attack_paras()`/`_on_skill_use()` → AllCards 卡片 → `curr_operator` 白名单）。
+- **新增干员**：按 **§6.10 添加干员总流程**（素材提取/正背面双素材 → wiki 满级+满潜数值 → 枚举+PlantInfo 登记 → 继承场景/脚本 → Spine 接入 → 攻击/检测组件 → 调试工具校准写 JSON → 卡片+白名单 → 验证），详见 `docs/明日方舟干员系统.md`。
 - **新增关卡**：创建 `ResourceLevelData` 资源（.tres），放 `level_game_para/` 即可在自定义关卡中使用。
 
 ## 8. 编辑器插件（addons/）
@@ -236,6 +272,22 @@ Character000Base (scenes/character/character_000_base.tscn)
 - 出怪刷新列表禁止写 `Z021Bungi`（用 `is_bungi` 参数）；列表会按白名单自动过滤并打印 warning。
 - `docs/开发相关.md` 中个别描述已过时（如 `MainGameDate` 自动加载已移除），以代码为准。
 - `test_time_scale` 超过 8 会引发执行顺序问题。
+- **Godot 4.7 Container 最小尺寸钳制**：VBox/HBox 等容器的实际尺寸会被钳制为**不小于其组合最小尺寸**（子节点最小宽高之和），即使锚点/offset 给了更小的目标值——内容过宽/过高会把容器（乃至按钮文本）撑出面板边框。做固定尺寸面板时先确保内容最小尺寸小于容器内腔（缩短文本/减小字号/加高面板），不要指望锚点把内容压回去（见 `docs/开发相关.md` 坑 24）。
+- 干员攻击计时器为 **one-shot + 每轮手动武装**（`AttackComponentOperator`），干员场景里 `BulletAttackCdTimer` 必须 `one_shot = true`，否则新旧两套逻辑叠加会双倍触发。
+- 统计干员子弹数量时不要用 `bullets.child_entered_tree` 数节点名：子弹死亡时 `TrailComet.detach_and_fade()` 会把拖尾节点重挂到 `Bullets`（同名兄弟还会被 Godot 自动改名），按 `is BulletXXX` 类判断或直接看发射日志（见 `docs/开发相关.md` 坑 26）。
+
+### 9.1 暂忽略 / 待排查清单（后续回来逐项排查）
+
+> 这些是**当前有意简化/暂缓**的点，改到相关代码或新增干员时先回来核一遍。
+
+- **1080p 攻击范围条纹变细**：**已修复（2026-08）**。根因：canvas_item shader fragment 内置 `VERTEX` 是屏幕/视口像素坐标，`canvas_items` 拉伸下随窗口缩放；修复改为 vertex 阶段用 `MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)` 传世界坐标 varying（见 `shaders/operator_range_stripes.gdshader` 与 `docs/开发相关.md` 坑 31）。
+- **spine 纹理 `res:///` 三斜杠报错**：spine-godot 扩展 `GodotSpineTextureLoader::fix_path` 对 `res://assets/...`（双斜杠）会拼成 `res:///assets/...`（三斜杠），编辑器扫描/preload 时会 `Can't load texture`；但 `--script` 模式下 atlas 纹理能加载（count=1）。**非致命、未阻塞游戏**（kroos/wisdel 同样存在），但若出现干员形象透明先查这里。根治需改 `bin/` 扩展 C++ 源码（`SpineAtlasResource.cpp` 的 `fix_path`）后重编译。
+- **桃金娘天赋"所有先锋回血"只回自身**：目前仅桃金娘是先锋，`operator_003_myrtle._process` 简化为自身回血；新增第二个先锋干员时需改成遍历场上所有先锋干员回血。
+- **干员撤退不重置卡片冷却**：与铲子一致（`docs/明日方舟干员系统.md` §7 已知取舍），完整"再部署时间重置"留待后续。
+- **干员防御/法术抗性未参与伤害计算**：`character_registry` 只登记了 HP/攻击，防御/法抗暂不用于 PVZ 减伤（`docs/明日方舟干员系统.md` §3.1 注）。
+- **执旗手"技能期间阻挡数0"只覆盖桃金娘**：桃金娘用 `_set_blocking()` 禁用受击盒实现；其他未来执旗手需各自实现相同逻辑（`hurt_box_component.disable_component(Character)`）。
+- **阻挡数机制未对普通植物生效**：只对 `Operator000Base` 判断（`component_detect.gd` 里 `enemy is Operator000Base`），普通植物仍"来多少僵尸都停下"（原版 PVZ 行为）。
+- **`test/myrtle_spine_check.gd` 只验证 skel/动画不验证纹理**：冒烟测试 `is_skeleton_data_loaded()` 不检查 atlas 纹理加载，需补 `atlas.textures.size()` 断言。
 
 ## 10. 明日方舟 Spine 素材管线（提取 → 转换 → 导入 → 运行）
 
@@ -254,7 +306,7 @@ Character000Base (scenes/character/character_000_base.tscn)
 - 游戏目录：`D:\Program Files\Hypergryph Launcher\games\Arknights\Arknights_Data\StreamingAssets\AB\Windows\`
 - 战斗模型在 `chararts/char_<id>.ab`（克洛斯 = `char_124_kroos.ab`）；同一包内含基建模型（`build_char_124_kroos.*`）。
 - 步骤：
-  1. `python tools/spine_extract/extract_ab.py <ab路径> <输出目录>` —— 脚本内置方舟自定义压缩修复（伪 LZHAM = 字节序交换的 LZ4，官方 UnityPy 不支持）。
+  1. **推荐用 ArkUnpacker**：`tools/ArkUnpacker-v5.1.0.exe -m ab -i <ab路径> -o <输出目录> --spine --image --text` —— 直接导出 `BattleFront/`（正）/`BattleBack/`（背）/`Building/`（基建）三套三件套，无需 UnityPy。`extract_ab.py` 需 UnityPy 且同名覆盖只留正面，仅在无 ArkUnpacker 时用。
   2. 配对规则（同一角色包内多套资源）：**战斗模型**选 `F_*` 前缀图集 + 较大 skel（动画 `Start/Idle/Attack/Die`）；`B_*` 前缀是低清变体；`build_*` 是基建（动画 `Default/Interact/Move/Relax/Sit/Sleep`）。
   3. **alpha 合成**：战斗模型主纹理是不透明 DXT1（alpha 缺失），透明通道在独立 `'<名>[alpha]'` 纹理 → `python tools/spine_extract/merge_alpha.py <主>.png <alpha>.png`。基建模型（BC7）自带 alpha，跳过此步。
   4. 质量说明：战斗 = 512×512 DXT1（有损）、基建 = 500×500 BC7（高质量）。这是游戏原始质量，**不存在更高清的图集**（`*_1` 大图是 AVG 立绘，非战斗图集，勿混用）。
@@ -296,3 +348,19 @@ Character000Base (scenes/character/character_000_base.tscn)
 ### 10.6 接入干员（结合 §6.9）
 
 - 干员渲染层约定固定动画名 `idle/attack/skill/die`（AnimationPlayer 管线）。接入 Spine 时把 `SpineSprite` 挂到 `OperatorSprite` 容器替换立绘占位，通过 `get_animation_state()` 播放对应动作，并按 §10.5 的 `set_animation` 与 AnimComponentOperator 的状态机联动（如受击/部署播 `Start`、阵亡播 `Die`）。
+
+## 11. Godot AI MCP（AI 助手操作编辑器/运行中游戏）
+
+项目启用了 **godot-ai** 插件（`addons/godot_ai/`，MCP 服务随编辑器启动），AI 助手可通过 MCP 工具直接操作编辑器与运行中的游戏。常用工作流：
+
+- **连接确认**：`session_manage(list)` 查看会话（本机通常只有本项目 `arkpvz@xxxx`）；`editor_state` 查看编辑器就绪状态与游戏运行状态。
+- **运行场景**：`project_run(mode="custom", scene="res://scenes/main/MainGame01Front.tscn")` —— 直接跑主游戏场景即 **is_test=true 测试模式**（卡片无冷却、阳光满），是干员/角色功能实测首选；`project_manage(stop)` 停止。
+- **运行中脚本执行**：`editor_manage(game_eval)` 在游戏进程里执行 GDScript 并返回结果（可 `await`），用于部署干员、生成僵尸、读取运行态布局与状态（如 `Global.main_game.plant_cell_manager.all_plant_cells`、`zombie_manager.create_norm_zombie(...)`、节点 `get_global_rect()`）。
+- **读取日志**：`logs_read(source="game")` 看运行期日志（`push_error` 会被记录）；`logs_read(source="editor")` 看编辑器报错。
+- **坑（务必注意）**：
+  - `game_eval` 代码一旦抛错，游戏会**停在调试器断点**（后续 eval 报 `EVAL_GAME_NOT_READY`），必须先 `project_manage(stop)` 再 `project_run` 重跑；eval 代码要防御式（判空/`is_instance_valid`），别在 lambda 里访问 `Window` 类属性。
+  - 编辑器运行游戏时**改脚本不会热重载**，验证改动必须停掉游戏重跑。
+  - 独立跑非主游戏场景（如 `card_slot_norm.tscn`）时 `Global.main_game` 为 null、场景根 Control 无父尺寸，锚点布局退化——测量 UI 要先模拟真实父尺寸/调用入场 tween（如 `move_card_slot_candidate(true)`）。
+  - GL Compatibility 下游戏内 `get_viewport().get_texture().get_image()` 拿不到渲染结果（空图）；要验证渲染用编辑器 `editor_screenshot(source="game")`。
+  - headless 验证脚本编译：`Godot_v4.7.1-stable_win64_console.exe --headless --path . --editor --quit`（退出时 spine GDExtension 报加载失败/段错误属既有问题，不影响编译结果）。
+  - 编辑器自动保存会**回写 .tscn**（MCP 改过的属性、删默认值行等），用文件工具编辑 .tscn 时以磁盘当前内容为准（先 Read 再 Edit）。

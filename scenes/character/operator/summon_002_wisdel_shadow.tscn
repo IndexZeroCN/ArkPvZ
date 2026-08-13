@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/character/operator/summon_000_base.tscn" id="1_base"]
+[ext_resource type="Script" path="res://scripts/character/operator/summon_002_wisdel_shadow.gd" id="2_shadow"]
+[ext_resource type="Script" path="res://scripts/character/components/detect_component/component_detect_operator.gd" id="3_det"]
+[ext_resource type="Script" path="res://scripts/character/operator/operator_spine_sprite.gd" id="4_spine"]
+
+[node name="Summon002WisdelShadow" instance=ExtResource("1_base")]
+script = ExtResource("2_shadow")
+operator_id = "wward"
+
+[node name="HpComponent" parent="." index="3"]
+max_hp = 3500
+
+[node name="DetectComponent" type="Node2D" parent="."]
+script = ExtResource("3_det")
+can_attack_zombie_status = 1
+
+[node name="ShadowSpine" type="SpineSprite" parent="Body/BodyCorrect/OperatorSprite"]
+position = Vector2(0, 0)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("4_spine")
+skel_path = "res://assets/image/operator/wisdel/shadow/wward.skel"
+atlas_path = "res://assets/image/operator/wisdel/shadow/wward.atlas"
+
+[node name="PlaceholderSprite" parent="Body/BodyCorrect/OperatorSprite"]
+visible = false
