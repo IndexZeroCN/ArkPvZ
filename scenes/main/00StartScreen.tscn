@@ -1,0 +1,184 @@
+[gd_scene load_steps=9 format=3 uid="uid://b01startscrnx"]
+
+[ext_resource type="Script" path="res://scripts/ui/start_menu/start_screen.gd" id="1_script"]
+[ext_resource type="FontVariation" path="res://assets/fonts/HarmonyOS_Sans_Medium.tres" id="2_fontmed"]
+[ext_resource type="FontVariation" path="res://assets/fonts/HarmonyOS_Sans_Bold.tres" id="3_fontbold"]
+[ext_resource type="AudioStream" uid="uid://bhwjr5o1d2cb8" path="res://assets/audio/BGM/start_menu_bgm.mp3" id="4_bgm"]
+
+[sub_resource type="Gradient" id="Gradient_planet"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0.16, 0.2, 0.27, 1, 0.09, 0.12, 0.17, 1, 0.05, 0.06, 0.09, 0)
+
+[sub_resource type="GradientTexture2D" id="GradTex_planet"]
+gradient = SubResource("Gradient_planet")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1.0, 1.0)
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_normal"]
+bg_color = Color(0.1, 0.12, 0.16, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.34, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_hover"]
+bg_color = Color(0.1, 0.14, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.69, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_pressed"]
+bg_color = Color(0.05, 0.08, 0.12, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.69, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+bgm = ExtResource("4_bgm")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043, 0.05, 0.07, 1)
+
+[node name="Planet" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -290.0
+offset_right = 290.0
+offset_bottom = 290.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradTex_planet")
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TitleBlock" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/TitleBlock"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.69, 1, 0.35)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("3_fontbold")
+theme_override_font_sizes/font_size = 64
+text = "植物大战僵尸"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/TitleBlock"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.69, 1, 0.9)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 18
+text = "GODOTPVZ · DREAM EDITION"
+horizontal_alignment = 1
+
+[node name="PromptLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = -118.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 0.85)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 22
+text = "点击任意位置进入游戏"
+horizontal_alignment = 1
+
+[node name="ButtonBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -96.0
+offset_right = 120.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 26
+alignment = 1
+
+[node name="StartButton" type="Button" parent="ButtonBox"]
+custom_minimum_size = Vector2(190, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("SBF_btn_normal")
+theme_override_styles/hover = SubResource("SBF_btn_hover")
+theme_override_styles/pressed = SubResource("SBF_btn_pressed")
+theme_override_styles/focus = SubResource("SBF_btn_normal")
+text = "开始游戏"
+
+[node name="QuitButton" type="Button" parent="ButtonBox"]
+custom_minimum_size = Vector2(130, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("SBF_btn_normal")
+theme_override_styles/hover = SubResource("SBF_btn_hover")
+theme_override_styles/pressed = SubResource("SBF_btn_pressed")
+theme_override_styles/focus = SubResource("SBF_btn_normal")
+text = "退出"
+
+[connection signal="pressed" from="ButtonBox/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="ButtonBox/QuitButton" to="." method="_on_quit_button_pressed"]

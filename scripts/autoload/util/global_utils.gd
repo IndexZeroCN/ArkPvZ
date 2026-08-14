@@ -5,7 +5,7 @@ class_name GlobalUtilsClass
 #const RandomPicker = preload("random_picker.gd")
 #region 工具方法
 ## plantcell对应的斜面位置与监测位置的差值更新
-func update_plant_cell_slope_y(plant_cell:PlantCell, node_2d:Node2D):
+func update_plant_cell_slope_y(plant_cell: Node, node_2d:Node2D):
 	## 斜面与水平面的差值
 	var diff_slope_flat:float = 0
 	if is_instance_valid(plant_cell):
@@ -14,7 +14,7 @@ func update_plant_cell_slope_y(plant_cell:PlantCell, node_2d:Node2D):
 	if diff_slope_flat != 0:
 		node_2d.position.y -= diff_slope_flat
 
-func update_plant_cell_slope_y_array(plant_cell:PlantCell, node2d_detect_in_slope:Array):
+func update_plant_cell_slope_y_array(plant_cell: Node, node2d_detect_in_slope:Array):
 	## 斜面与水平面的差值
 	var diff_slope_flat:float = 0
 	if is_instance_valid(plant_cell):
@@ -118,14 +118,14 @@ func get_curr_time(curr_time_type:E_CurrTimeType=E_CurrTimeType.String):
 
 #region 特殊僵尸生成函数
 
-func get_special_zombie_callable(zombie_type:CharacterRegistry.ZombieType, plant_cell:PlantCell) -> Callable:
+func get_special_zombie_callable(zombie_type:CharacterRegistry.ZombieType, plant_cell: Node) -> Callable:
 	match zombie_type:
 		CharacterRegistry.ZombieType.Z021Bungi:
 			return create_bungi.bind(plant_cell)
 	return Callable()
 
 ## 蹦极僵尸
-func create_bungi(zombie_bungi:Zombie021Bungi, plant_cell:PlantCell):
+func create_bungi(zombie_bungi: Node, plant_cell: Node):
 	zombie_bungi.plant_cell = plant_cell
 
 #endregion

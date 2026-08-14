@@ -11,11 +11,17 @@ func _get_operator_spine() -> SpineSprite:
 		return (owner as Operator000Base).get_operator_spine()
 	return null
 
-## 播放待机动画
+## 播放待机动画(技能激活期间播技能待机动画, 如维什戴尔二/三技能持续中的待机动作)
 func play_idle():
 	var spine := _get_operator_spine()
 	if is_instance_valid(spine):
-		(spine as OperatorSpineSprite).play_spine((spine as OperatorSpineSprite).get_anim_name("idle"), true)
+		var osp := spine as OperatorSpineSprite
+		var idle_anim := osp.get_anim_name("idle")
+		if owner is Operator000Base and (owner as Operator000Base).skill_component.is_skill_active:
+			var skill_idle: String = (owner as Operator000Base).get_skill_idle_anim()
+			if not skill_idle.is_empty():
+				idle_anim = skill_idle
+		osp.play_spine(idle_anim, true)
 
 ## 播放攻击动画(Spine 攻击动画播完自动接 Idle; 技能激活期间播技能攻击/待机动画)
 func play_attack():

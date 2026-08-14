@@ -14,7 +14,15 @@ signal signal_track_bullet_mouse
 
 @onready var user_manager: UserManager = %UserManager
 
+## 用户个人配置文件（每个用户一份）
 const CURRENT_CONFIG_FILE := "config.ini"
+## 全局配置文件（所有用户共享，与用户个人 config.ini 分离，存放开发者选项等全局选项）
+const GLOBAL_CONFIG_FILE := "config_global.ini"
+
+
+func _ready() -> void:
+	## 开发者选项为全局选项，场景就绪即加载（不依赖用户登录状态）
+	load_global_developer_options()
 
 ## 用户选项（持久化字段）
 var auto_collect_sun := false
@@ -58,6 +66,11 @@ var fog_is_static := false:
 var plant_be_shovel_front := true
 var open_all_level := false
 
+## 开发者选项（透视/画面等调试参数，仅 DEBUG 使用）。
+## 全局选项：所有用户共享，持久化到 user://config_global.ini 的 developer/options，与用户个人 config.ini 分离。
+## 默认值 = 用户 IndexZero 调好的全局数值（新装/文件丢失时回退到该组数值）。
+var developer_options: Dictionary = {}
+
 ##追踪子弹无目标时跟随标
 var track_bullet_mouse := false:
 	set(value):
@@ -72,7 +85,43 @@ func _get_config_path() -> String:
 		return ""
 	return "user://" + user_manager.curr_user_name + "/" + CURRENT_CONFIG_FILE
 
+## 全局配置文件的绝对 user:// 路径（与当前用户无关）
+func _get_global_config_path() -> String:
+	return "user://" + GLOBAL_CONFIG_FILE
+
+## 开发者选项全局默认值（用户 IndexZero 设定，作为全局选项数值）
+const DEFAULT_DEVELOPER_OPTIONS := {
+	"left_angle": 18.5,
+	"right_angle": -30.0,
+	"swing_y": 5.0,
+	"swing_x": 1.5,
+	"cam_fov": 25.0,
+	"cam_dist": 12.5,
+	"cam_height": -0.7,
+	"cam_parallax": 0.5,
+	"left_panel_scale": 1.0,
+	"right_panel_scale": 1.15,
+	"wisdel_cover_scale": 0.8,
+}
+
+## 加载全局开发者选项（与用户无关；文件不存在时回退到 DEFAULT_DEVELOPER_OPTIONS）
+func load_global_developer_options() -> void:
+	var config := ConfigFile.new()
+	if config.load(_get_global_config_path()) == OK:
+		developer_options = config.get_value("developer", "options", DEFAULT_DEVELOPER_OPTIONS.duplicate())
+	else:
+		developer_options = DEFAULT_DEVELOPER_OPTIONS.duplicate()
+
+## 保存全局开发者选项到 user://config_global.ini
+func save_global_developer_options() -> void:
+	var config := ConfigFile.new()
+	config.set_value("developer", "options", developer_options)
+	config.save(_get_global_config_path())
+
 func load_and_apply_config() -> void:
+
+	## 开发者选项为全局选项（所有用户共享），先于用户个人配置加载，与是否登录无关
+	load_global_developer_options()
 
 	var path := _get_config_path()
 	if path.is_empty():
@@ -80,7 +129,7 @@ func load_and_apply_config() -> void:
 
 	var config := ConfigFile.new()
 	# config 不存在时 load 的返回值可能非 OK，此时仍使用默认值应用（不报错可提升兼容性）
-	config.load(path)
+	var load_err := config.load(path)
 
 	# 音量设置
 	SoundManager.set_volume(SoundManager.Bus.MASTER, config.get_value("audio", "master", 1.0))
@@ -96,10 +145,28 @@ func load_and_apply_config() -> void:
 	card_slot_top_mouse_focus = config.get_value("user_control", "card_slot_top_mouse_focus", false)
 	fog_is_static = config.get_value("user_control", "fog_is_static", false)
 	plant_be_shovel_front = config.get_value("user_control", "plant_be_shovel_front", true)
-	open_all_level = config.get_value("user_control", "open_all_level", false)
+	## 新用户（config.ini 不存在）默认所有关卡全部开放；老用户按各自已保存的值
+	open_all_level = config.get_value("user_control", "open_all_level", load_err != OK)
 	track_bullet_mouse = config.get_value("user_control", "track_bullet_mouse", false)
 
 	EventBus.push_event("on_config_update")
+
+
+## 读取开发者选项值
+func get_developer_option(key: String, default_value: float) -> float:
+	return developer_options.get(key, default_value)
+
+
+## 写入开发者选项值并保存（全局选项，保存到 user://config_global.ini，不写入用户个人配置）
+func set_developer_option(key: String, value: float) -> void:
+	developer_options[key] = value
+	save_global_developer_options()
+
+## 新用户初始化个人配置：用户创建后默认所有关卡全部开放（写入该用户的 config.ini）
+func init_new_user_config(user_name: String) -> void:
+	var config := ConfigFile.new()
+	config.set_value("user_control", "open_all_level", true)
+	config.save("user://%s/%s" % [user_name, CURRENT_CONFIG_FILE])
 
 func save_config() -> void:
 	var path := _get_config_path()
@@ -124,5 +191,6 @@ func save_config() -> void:
 	config.set_value("user_control", "plant_be_shovel_front", plant_be_shovel_front)
 	config.set_value("user_control", "open_all_level", open_all_level)
 	config.set_value("user_control", "track_bullet_mouse", track_bullet_mouse)
+	## 开发者选项是全局选项，由 save_global_developer_options 写 user://config_global.ini，不在此保存
 
 	config.save(path)

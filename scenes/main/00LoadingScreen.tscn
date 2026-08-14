@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://b02loadngscrn"]
+
+[ext_resource type="Script" uid="uid://dv2qa1h2xxgbr" path="res://scripts/ui/start_menu/loading_screen.gd" id="1_script"]
+[ext_resource type="FontVariation" path="res://assets/fonts/HarmonyOS_Sans_Medium.tres" id="2_fontmed"]
+
+[node name="LoadingScreen" type="Control" unique_id=234294685]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="." unique_id=2038883989]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043, 0.05, 0.07, 1)
+
+[node name="PercentLabel" type="Label" parent="." unique_id=1212046369]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_left = 477.0
+offset_top = 265.0
+offset_right = 589.0
+offset_bottom = 297.0
+theme_override_colors/font_color = Color(0, 0.69, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 26
+text = "0%"
+horizontal_alignment = 1
+
+[node name="TipLabel" type="Label" parent="." unique_id=1059091525]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -37.0
+offset_right = 56.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6, 0.65, 0.72, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 16
+text = "正在加载资源…"
+horizontal_alignment = 1
+
+[node name="TitleLabel" type="Label" parent="." unique_id=1433890209]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -229.0
+offset_top = -360.0
+offset_right = 231.0
+offset_bottom = -342.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 15
+text = "正在加载…"
+horizontal_alignment = 1
+
+[node name="Track" type="Control" parent="." unique_id=1302439599]
+custom_minimum_size = Vector2(460, 12)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TrackBG" type="ColorRect" parent="Track" unique_id=1800900277]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.19434929, 0.19434926, 0.19434926, 1)
+
+[node name="BarLeft" type="ColorRect" parent="Track" unique_id=774070456]
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+color = Color(1, 0.84313726, 0.015686275, 1)
+
+[node name="BarRight" type="ColorRect" parent="Track" unique_id=261054823]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 0
+color = Color(1, 0.84313726, 0.015686275, 1)

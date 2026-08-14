@@ -7,7 +7,7 @@ class_name Operator003Myrtle
 ## 技能(选卡时选择, operator_skill_id, 见 CardBase.operator_skill_id):
 ##   1 支援号令·β型(自动回复·手动触发): 停止攻击, 8秒内回复总共14点部署费用
 ##   2 治愈之翼(自动回复·手动触发): 停止攻击, 16秒内回复总共16点部署费用,
-##     并每秒治疗周围一名友方单位相当于桃金娘攻击力50%的生命
+##     并每秒给周围九宫格(3×3)范围内的友方干员/植物(含自身)回复相当于桃金娘攻击力50%的生命
 
 ## 技能枚举(与选卡技能选择面板一致)
 enum E_Skill {Skill1 = 1, Skill2 = 2}
@@ -49,7 +49,14 @@ func get_skill_icon() -> Texture2D:
 	return SKILL_ICONS.get(operator_skill_id, SKILL_ICONS[E_Skill.Skill1])
 
 ## 攻击范围形状(执旗手): 自身格 + 前方一格 (OX, O=自身, X=前方)
+## 二技能「治愈之翼」持续期间: 攻击范围预览/检测范围变为九宫格(3×3 治疗范围), 技能结束后恢复
 func get_attack_range_shape() -> Array[Vector2i]:
+	if _skill_operator_active and operator_skill_id == E_Skill.Skill2:
+		var cells: Array[Vector2i] = []
+		for dr in range(-1, 2):
+			for dc in range(-1, 2):
+				cells.append(Vector2i(dr, dc))
+		return cells
 	return [Vector2i(0, 0), Vector2i(0, 1)]
 
 ## 特性: 技能发动期间阻挡数变为0
@@ -172,32 +179,35 @@ func _process(delta: float) -> void:
 			_skill_heal_timer += delta
 			if _skill_heal_timer >= 1.0:
 				_skill_heal_timer -= 1.0
-				_heal_lowest_ally(_skill_heal_amount)
+				_heal_allies_in_range(_skill_heal_amount)
 
-## 治疗生命比例最低的友方单位(不含满血), 优先治疗比例最低者
-func _heal_lowest_ally(heal_amount: int) -> void:
-	if not is_instance_valid(Global.main_game):
+## 二技能「治愈之翼」: 每秒给九宫格范围内的友方干员/植物回血(含自身, 自身格在九宫格中心)
+## 收割者等"无法被友方治疗"的干员跳过(如羽毛笔)
+func _heal_allies_in_range(heal_amount: int) -> void:
+	if not is_instance_valid(Global.main_game) or not is_instance_valid(plant_cell):
 		return
-	var best: Plant000Base = null
-	var best_ratio := 1.0
-	for row in Global.main_game.plant_cell_manager.all_plant_cells:
-		for cell: PlantCell in row:
-			if not is_instance_valid(cell):
+	var rows: Array = Global.main_game.plant_cell_manager.all_plant_cells
+	var base: Vector2i = plant_cell.row_col
+	for cell_offset: Vector2i in get_attack_range_shape():
+		var row: int = base.x + cell_offset.x
+		var col: int = base.y + cell_offset.y
+		if row < 0 or row >= rows.size():
+			continue
+		var row_cells: Array = rows[row]
+		if col < 0 or col >= row_cells.size():
+			continue
+		var cell: PlantCell = row_cells[col]
+		if not is_instance_valid(cell):
+			continue
+		for key in cell.plant_in_cell:
+			var plant: Plant000Base = cell.plant_in_cell[key]
+			if not is_instance_valid(plant) or plant.is_death:
 				continue
-			for key in cell.plant_in_cell:
-				var plant: Plant000Base = cell.plant_in_cell[key]
-				if not is_instance_valid(plant) or plant.is_death:
-					continue
-				if not is_instance_valid(plant.hp_component):
-					continue
-				## 收割者等"无法被友方治疗"的干员跳过(如羽毛笔)
-				if plant.has_method("can_be_healed_by_ally") and not plant.can_be_healed_by_ally():
-					continue
-				var ratio := float(plant.hp_component.curr_hp) / float(maxi(plant.hp_component.max_hp, 1))
-				if ratio >= 1.0:
-					continue
-				if ratio < best_ratio:
-					best_ratio = ratio
-					best = plant
-	if is_instance_valid(best) and is_instance_valid(best.hp_component):
-		best.hp_component.curr_hp = mini(best.hp_component.curr_hp + heal_amount, best.hp_component.max_hp)
+			if not is_instance_valid(plant.hp_component):
+				continue
+			if plant.has_method("can_be_healed_by_ally") and not plant.can_be_healed_by_ally():
+				continue
+			var hp: HpComponent = plant.hp_component
+			if hp.curr_hp >= hp.max_hp:
+				continue
+			hp.curr_hp = mini(hp.curr_hp + heal_amount, hp.max_hp)

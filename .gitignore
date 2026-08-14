@@ -3,18 +3,18 @@
 /android/
 .vscode
 assets
-
 # spine-godot GDExtension 二进制插件(官方下载)
 bin/
-
 # 旧版 Spine 扩展备份(4.3, 已弃用)
 bin_backup_4.3/
-
 # 开发统计工具输出
 .VSCodeCounter/
-
 # Godot 编辑器崩溃/操作残留临时文件
 *.tmp
-
 # 开发文档(不进版本库)
 AGENTS.md
+# Kilo Agent Manager 的项目内 worktree 副本(必须忽略, 否则 Godot 把它当 res:// 扫描,
+# 产生几百条 "Class XX hides a global script class" LSP 报错, 且拖慢编辑器)
+.kilo/
+# 导出产物(windows/android build)
+export/

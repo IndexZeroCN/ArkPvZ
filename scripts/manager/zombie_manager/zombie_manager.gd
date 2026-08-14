@@ -144,6 +144,14 @@ func create_norm_zombie(
 	zombie.position = global_pos - zombie_parent.global_position
 	zombie_parent.add_child(zombie)
 
+	## 危机合约词条: 应用僵尸属性倍率(add_child 后 _ready 已完成, 倍率与原有血量/速度/攻击相乘)
+	if game_para.zombie_hp_mult != 1.0 and zombie.hp_component is HpComponentZombie:
+		(zombie.hp_component as HpComponentZombie).update_zombie_hp_mult(game_para.zombie_hp_mult)
+	if game_para.zombie_speed_mult != 1.0:
+		zombie.signal_update_speed.emit(game_para.zombie_speed_mult)
+	if game_para.zombie_attack_mult != 1.0 and zombie.attack_component is AttackComponentZombieNorm:
+		zombie.attack_component.update_attack_value(game_para.zombie_attack_mult, AttackComponentZombieNorm.E_AttackValueFactor.Contract)
+
 	## 只要创建僵尸，都要连接这两个信号
 	zombie.signal_character_death.connect(_on_zombie_dead.bind(zombie))
 	zombie.signal_character_be_hypno.connect(_on_zombie_hypno.bind(zombie))

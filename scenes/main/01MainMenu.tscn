@@ -1,0 +1,442 @@
+[gd_scene format=3 uid="uid://b03mainmenu0x"]
+
+[ext_resource type="Script" uid="uid://c7t18ayvmkrh2" path="res://scripts/ui/start_menu/main_menu.gd" id="1_script"]
+[ext_resource type="FontVariation" path="res://assets/fonts/HarmonyOS_Sans_Medium.tres" id="2_fontmed"]
+[ext_resource type="FontVariation" uid="uid://76yd5oqc7huq" path="res://assets/fonts/HarmonyOS_Sans_Bold.tres" id="3_fontbold"]
+[ext_resource type="AudioStream" uid="uid://bjv3cj64usxo" path="res://assets/audio/BGM/生命流.mp3" id="4_bgm"]
+[ext_resource type="Script" uid="uid://11sjmyfqrtdn" path="res://scripts/ui/start_menu/main_menu_option_dialog.gd" id="5_optdlg"]
+[ext_resource type="PackedScene" uid="uid://cp0kgnsx20pyh" path="res://scenes/ui/dialog.tscn" id="6_dialog"]
+[ext_resource type="Texture2D" uid="uid://bruwhagll4jy6" path="res://assets/image/arknights_ui/user_level.png" id="7_dpfps"]
+[ext_resource type="PackedScene" path="res://scenes/start_menu/user_panel.tscn" id="7_user"]
+[ext_resource type="PackedScene" uid="uid://cleftpanel001" path="res://scenes/main/left_menu_panel.tscn" id="8_leftpanel"]
+[ext_resource type="PackedScene" uid="uid://crightpanel01" path="res://scenes/main/right_menu_panel.tscn" id="9_rightpanel"]
+[ext_resource type="Texture2D" uid="uid://c885a854erpkr" path="res://assets/image/arknights_ui/UI_HOME_FRONT_BKG.png" id="10_bg"]
+[ext_resource type="Texture2D" uid="uid://cvhxbuh7l14al" path="res://assets/image/arknights_ui/char_010_chen_2b_merged.png" id="11_char"]
+[ext_resource type="Script" uid="uid://dadgs8fg5m1re" path="res://scripts/ui/start_menu/developer_options.gd" id="12_devopt"]
+[ext_resource type="Script" uid="uid://5x6jy0b8ixse" path="res://scripts/ui/start_menu/level_arc.gd" id="13_levelarc"]
+[ext_resource type="Texture2D" uid="uid://cbwosghrd0omc" path="res://assets/image/arknights_ui/chart_bg.png" id="14_chart"]
+[ext_resource type="PackedScene" uid="uid://5v0fdtao52jl" path="res://scenes/main/control_canvas_layer.tscn" id="15_console"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cmixe"]
+font_size = 45
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.6039216)
+
+[sub_resource type="StyleBoxFlat" id="SBF_opt"]
+bg_color = Color(0.09, 0.11, 0.15, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.34, 0.4, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="MainMenu" type="Node3D" unique_id=1553838282]
+script = ExtResource("1_script")
+bgm = ExtResource("4_bgm")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1585433323]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0.3, 15)
+current = true
+fov = 40.0
+
+[node name="BgSprite" type="Sprite3D" parent="." unique_id=1220368814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, -2.6)
+texture = ExtResource("10_bg")
+
+[node name="CharSprite" type="Sprite3D" parent="." unique_id=680747691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3024724, -0.6, -1.5)
+pixel_size = 0.009
+texture = ExtResource("11_char")
+
+[node name="LeftViewport" type="SubViewport" parent="." unique_id=3117666]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(500, 500)
+render_target_update_mode = 4
+
+[node name="LeftContent" parent="LeftViewport" unique_id=918552445 instance=ExtResource("8_leftpanel")]
+
+[node name="RightViewport" type="SubViewport" parent="." unique_id=2091885500]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(783, 700)
+render_target_update_mode = 4
+
+[node name="RightContent" parent="RightViewport" unique_id=918420734 instance=ExtResource("9_rightpanel")]
+
+[node name="LeftSprite" type="Sprite3D" parent="." unique_id=1326965999]
+unique_name_in_owner = true
+transform = Transform3D(0.95105654, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.95105654, -2.7, -0.4, 0)
+
+[node name="RightSprite" type="Sprite3D" parent="." unique_id=571079378]
+unique_name_in_owner = true
+transform = Transform3D(0.95105654, 0, -0.309017, 0, 1, 0, 0.309017, 0, 0.95105654, 2.8, -0.4, 0)
+pixel_size = 0.006
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1301536015]
+
+[node name="LevelBox" type="Control" parent="CanvasLayer" unique_id=995892050]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_top = 210.0
+offset_right = 172.0
+offset_bottom = 406.0
+scale = Vector2(0.918836, 0.918836)
+mouse_filter = 2
+
+[node name="LevelBg" type="TextureRect" parent="CanvasLayer/LevelBox" unique_id=2069335896]
+layout_mode = 0
+offset_top = 91.42001
+offset_right = 166.515
+offset_bottom = 128.42337
+texture = ExtResource("7_dpfps")
+expand_mode = 1
+
+[node name="LevelRing" type="TextureRect" parent="CanvasLayer/LevelBox" unique_id=341392088]
+layout_mode = 0
+offset_left = 51.151672
+offset_top = 14.1483345
+offset_right = 166.15166
+offset_bottom = 129.14833
+mouse_filter = 2
+texture = ExtResource("14_chart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LevelArc" type="Control" parent="CanvasLayer/LevelBox" unique_id=1399512259]
+visible = false
+anchors_preset = 0
+offset_left = 53.236664
+offset_top = 11.911667
+offset_right = 168.23663
+offset_bottom = 126.91167
+script = ExtResource("13_levelarc")
+
+[node name="LevelNum" type="Label" parent="CanvasLayer/LevelBox" unique_id=1214029754]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 53.328342
+offset_top = 32.65001
+offset_right = 168.32834
+offset_bottom = 103.65001
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "120"
+label_settings = SubResource("LabelSettings_cmixe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelName" type="Label" parent="CanvasLayer/LevelBox" unique_id=2109594368]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = 134.0
+offset_right = 227.0
+offset_bottom = 174.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 33
+text = "博士"
+
+[node name="LevelId" type="Label" parent="CanvasLayer/LevelBox" unique_id=1071046441]
+visible = false
+layout_mode = 0
+offset_left = 56.0
+offset_top = 176.0
+offset_right = 228.0
+offset_bottom = 199.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 15
+text = "ID: PVZ-DREAM"
+
+[node name="TopControls" type="HBoxContainer" parent="CanvasLayer" unique_id=1375527802]
+anchors_preset = -1
+offset_top = 16.0
+offset_right = 246.0
+offset_bottom = 48.0
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="OptionBtn" type="Button" parent="CanvasLayer/TopControls" unique_id=1212006468]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 16
+text = "选项"
+
+[node name="UserBtn" type="Button" parent="CanvasLayer/TopControls" unique_id=928403680]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 16
+text = "用户"
+
+[node name="QuitBtn" type="Button" parent="CanvasLayer/TopControls" unique_id=292429210]
+custom_minimum_size = Vector2(70, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 16
+text = "退出"
+
+[node name="OptionDialog" type="Panel" parent="CanvasLayer" unique_id=1500040024]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -150.0
+offset_right = 230.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("SBF_opt")
+script = ExtResource("5_optdlg")
+
+[node name="OptionTitle" type="Label" parent="CanvasLayer/OptionDialog" unique_id=1217562661]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_fontbold")
+theme_override_font_sizes/font_size = 30
+text = "选项设置"
+horizontal_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="CanvasLayer/OptionDialog" unique_id=1582886179]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 78.0
+offset_right = -50.0
+offset_bottom = 116.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionDialog/MusicRow" unique_id=882639648]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "音乐"
+
+[node name="MusicSlider" type="HSlider" parent="CanvasLayer/OptionDialog/MusicRow" unique_id=1059268168]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="SoundRow" type="HBoxContainer" parent="CanvasLayer/OptionDialog" unique_id=1156562459]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 124.0
+offset_right = -50.0
+offset_bottom = 162.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionDialog/SoundRow" unique_id=1662125145]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "音效"
+
+[node name="SoundSlider" type="HSlider" parent="CanvasLayer/OptionDialog/SoundRow" unique_id=1218765040]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="FullScreenRow" type="HBoxContainer" parent="CanvasLayer/OptionDialog" unique_id=1255297629]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 170.0
+offset_right = -50.0
+offset_bottom = 208.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionDialog/FullScreenRow" unique_id=807251673]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "全屏"
+
+[node name="FullScreenCheck" type="CheckButton" parent="CanvasLayer/OptionDialog/FullScreenRow" unique_id=1472038127]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BottomRow" type="HBoxContainer" parent="CanvasLayer/OptionDialog" unique_id=180068435]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -58.0
+offset_right = 220.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="MoreOptionsButton" type="Button" parent="CanvasLayer/OptionDialog/BottomRow" unique_id=2088987003]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "更多选项"
+
+[node name="DevButton" type="Button" parent="CanvasLayer/OptionDialog/BottomRow" unique_id=1150570946]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "开发者选项"
+
+[node name="ReturnButton" type="Button" parent="CanvasLayer/OptionDialog/BottomRow" unique_id=581758678]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 22
+text = "返回"
+
+[node name="Dialog" parent="CanvasLayer" unique_id=1412427622 instance=ExtResource("6_dialog")]
+visible = false
+offset_left = 337.0
+offset_top = 136.0
+offset_right = 337.0
+offset_bottom = 136.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Dialog" unique_id=1303413883]
+layout_mode = 1
+offset_left = 134.0
+offset_top = 128.0
+offset_right = 174.0
+offset_bottom = 151.0
+text = "没做"
+
+[node name="ConsolePanel" parent="." unique_id=2088987004 instance=ExtResource("15_console")]
+unique_name_in_owner = true
+visible = false
+
+[node name="UserPanel" parent="CanvasLayer" unique_id=256708146 instance=ExtResource("7_user")]
+unique_name_in_owner = true
+
+[node name="DevPanel" type="Window" parent="." unique_id=1311410044]
+unique_name_in_owner = true
+title = "开发者选项"
+size = Vector2i(480, 420)
+visible = false
+script = ExtResource("12_devopt")
+
+[node name="Content" type="Control" parent="DevPanel" unique_id=1197406692]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="DevPanel/Content" unique_id=1736626851]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 6.0
+offset_right = -20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_fontbold")
+theme_override_font_sizes/font_size = 20
+text = "开发者选项（透视 / 画面）"
+horizontal_alignment = 1
+
+[node name="Rows" type="VBoxContainer" parent="DevPanel/Content" unique_id=222702887]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 48.0
+offset_right = -20.0
+offset_bottom = -56.0
+grow_horizontal = 2
+theme_override_constants/separation = 4
+
+[node name="ButtonRow" type="HBoxContainer" parent="DevPanel/Content" unique_id=1673050278]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -44.0
+offset_right = 180.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ResetBtn" type="Button" parent="DevPanel/Content/ButtonRow" unique_id=481752691]
+custom_minimum_size = Vector2(130, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 18
+text = "恢复默认"
+
+[node name="ReturnBtn" type="Button" parent="DevPanel/Content/ButtonRow" unique_id=118371568]
+custom_minimum_size = Vector2(130, 32)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 18
+text = "关闭"
+
+[connection signal="pressed" from="CanvasLayer/TopControls/OptionBtn" to="." method="_on_option_pressed"]
+[connection signal="pressed" from="CanvasLayer/TopControls/UserBtn" to="." method="_on_user_pressed"]
+[connection signal="pressed" from="CanvasLayer/TopControls/QuitBtn" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionDialog/BottomRow/MoreOptionsButton" to="CanvasLayer/OptionDialog" method="_on_more_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionDialog/BottomRow/DevButton" to="CanvasLayer/OptionDialog" method="_on_dev_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionDialog/BottomRow/ReturnButton" to="CanvasLayer/OptionDialog" method="_on_return_pressed"]
+[connection signal="pressed" from="DevPanel/Content/ButtonRow/ResetBtn" to="DevPanel" method="_on_reset_pressed"]
+[connection signal="pressed" from="DevPanel/Content/ButtonRow/ReturnBtn" to="DevPanel" method="_on_return_pressed"]

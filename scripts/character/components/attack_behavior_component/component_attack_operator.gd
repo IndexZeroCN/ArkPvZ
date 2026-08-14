@@ -70,6 +70,12 @@ func _next_interval() -> float:
 func _is_cycle_valid() -> bool:
 	return is_instance_valid(owner) and is_enabling and not owner.is_death
 
+## 攻击中途被取消(目标丢失/组件禁用等): 立即把干员动画切回待机
+## (Spine 攻击动画需要播完才会自动接待机, 中途取消若不干预, 干员会一直摆攻击姿势到动画播完)
+func _cancel_attack_to_idle() -> void:
+	if is_instance_valid(owner) and not owner.is_death and owner is Operator000Base:
+		(owner as Operator000Base).anim_operator.play_idle()
+
 ## 执行一轮攻击周期
 func _run_attack_cycle() -> void:
 	if not is_enabling or not is_attack_res:
@@ -111,6 +117,18 @@ func _run_attack_cycle() -> void:
 		await get_tree().create_timer(bullet_spawn_delay).timeout
 		if not _is_cycle_valid():
 			_cycle_running = false
+			_cancel_attack_to_idle()
+			return
+
+	## 目标可能在发射延迟期间被其他干员/召唤物击杀: 重新索敌一次;
+	## 若已无目标则直接结束本轮(get_attack_paras 与 signal_operator_shoot 均不触发, 不浪费技能弹药)
+	if not is_instance_valid(target_zombie) or target_zombie.is_death:
+		if detect_component is DetectComponentOperator:
+			var detect_op_retry := detect_component as DetectComponentOperator
+			detect_op_retry.judge_have_enemy()
+			target_zombie = detect_op_retry.curr_target_zombie
+		if not is_instance_valid(target_zombie) or target_zombie.is_death:
+			_finish_cycle_no_target()
 			return
 
 	## 4) 从干员本体获取本次攻击参数(连射数/伤害倍率/目标列表)
@@ -126,30 +144,43 @@ func _run_attack_cycle() -> void:
 
 	## 5) 依次发射(连射间有间隔)
 	var fired_any := false
-	for t: Zombie000Base in targets:
-		if not is_instance_valid(t) or t.is_death:
+	for t in targets:
+		## 不带类型的循环变量: 目标可能已释放, 带类型遍历会报 "Trying to assign invalid previously freed instance"
+		## 先判有效再转型, 避免对已释放实例做类型检查
+		if not is_instance_valid(t):
+			continue
+		var tz: Zombie000Base = t as Zombie000Base
+		if tz == null or tz.is_death:
 			continue
 		for i in count:
 			if not _is_cycle_valid():
 				if fired_any:
 					signal_operator_shoot.emit()
 				_cycle_running = false
+				_cancel_attack_to_idle()
 				return
-			if t.is_death:
+			if tz.is_death:
 				break
-			shoot_arrow_at_target(t, multiplier, attack_paras)
+			shoot_arrow_at_target(tz, multiplier, attack_paras)
 			fired_any = true
 			## 下一发前间隔(最后一发不用等)
 			if i < count - 1 and burst_interval > 0.0:
 				await get_tree().create_timer(burst_interval).timeout
 
-	## 6) 广播一轮攻击完成(攻击回复技能点等)
-	signal_operator_shoot.emit()
+	## 6) 广播一轮攻击完成(攻击回复技能点等): 仅实际发射了子弹才结算,
+	##    避免目标全部无效(被队友/召唤物抢先击杀)时仍空耗技能弹药
+	if fired_any:
+		signal_operator_shoot.emit()
 	_cycle_running = false
+	## 目标在连射期间死亡(攻击中途取消): 动画立即切回待机, 不等攻击动画自然播完
+	if not is_instance_valid(target_zombie) or target_zombie.is_death:
+		_cancel_attack_to_idle()
 
 ## 本轮无目标: 周期结束; 仍在攻击状态(检测组件尚未上报目标丢失)则快速重试, 否则等 attack_start
+## 若中途已播过攻击动画, 立即切回待机
 func _finish_cycle_no_target() -> void:
 	_cycle_running = false
+	_cancel_attack_to_idle()
 	if is_enabling and is_attack_res:
 		bullet_attack_cd_timer.start(RETRY_INTERVAL)
 

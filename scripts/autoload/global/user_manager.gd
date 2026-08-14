@@ -11,6 +11,10 @@ var all_user_name: Array[String] = []
 ## 当前用户配置文件路径（单独存储用户名）
 const CURRENT_USER_CONFIG_PATH := "user://current_user.ini"
 
+## 用户密码表（本地演示用，明文存于 current_user.ini 的 user/passwords）
+## 旧用户（本字段加入前创建、未存密码）视为"无密码"，登录时忽略密码校验
+var _user_passwords: Dictionary = {}
+
 ## 从单独文件加载当前用户名和用户列表
 func load_current_user() -> bool:
 	var config := ConfigFile.new()
@@ -18,6 +22,7 @@ func load_current_user() -> bool:
 	if err == OK:
 		curr_user_name = config.get_value("user", "current_user", "")
 		all_user_name = config.get_value("user", "all_user", [])
+		_user_passwords = config.get_value("user", "passwords", {})
 		print("✅ 成功加载当前用户: ", curr_user_name)
 		print("✅ 已加载用户列表: ", all_user_name)
 		return true
@@ -25,6 +30,7 @@ func load_current_user() -> bool:
 	print("⚠️ 用户配置文件不存在")
 	curr_user_name = ""
 	all_user_name.clear()
+	_user_passwords.clear()
 	return false
 
 ## 保存当前用户名到单独文件
@@ -32,6 +38,7 @@ func save_user_names() -> void:
 	var config := ConfigFile.new()
 	config.set_value("user", "current_user", curr_user_name)
 	config.set_value("user", "all_user", all_user_name)
+	config.set_value("user", "passwords", _user_passwords)
 	var err := config.save(CURRENT_USER_CONFIG_PATH)
 	if err == OK:
 		print("✅ 当前用户已保存: ", curr_user_name)
@@ -79,7 +86,42 @@ func add_user(new_user_name: String) -> String:
 	save_user_names()
 	## 创建用户存档文件夹
 	ensure_save_directory_exists(new_user_name)
+	## 新用户默认所有关卡全部开放（写入初始个人配置）
+	Global.config_service.init_new_user_config(new_user_name)
 	print("✅ 成功添加用户: ", new_user_name)
+	signal_users_update.emit()
+	return ""
+
+## 登录校验：返回错误串；空串表示成功（已 set_current_user）
+## 旧用户（未存密码）忽略密码校验，任意密码均可登录
+func login_user(user_name: String, password: String) -> String:
+	user_name = user_name.strip_edges()
+	if not all_user_name.has(user_name):
+		return "用户名或密码错误 请重新登录"
+	if _user_passwords.has(user_name) and _user_passwords[user_name] != password:
+		return "用户名或密码错误 请重新登录"
+	set_current_user(user_name)
+	print("✅ 登录成功: ", user_name)
+	return ""
+
+## 注册新用户（带密码）：返回错误串；空串表示成功
+func register_user(user_name: String, password: String) -> String:
+	user_name = user_name.strip_edges()
+	if user_name.length() < 3:
+		return "用户名不得小于三位"
+	if not _is_valid_user_name(user_name):
+		return "用户名不合法（不能包含路径分隔符等特殊字符）"
+	if all_user_name.has(user_name):
+		return "用户已存在"
+	if password.length() < 6 or password.length() > 18:
+		return "密码为6-18位的数字，字母，字符(可包含!#$%&*,.:;^~)"
+	all_user_name.append(user_name)
+	_user_passwords[user_name] = password
+	save_user_names()
+	ensure_save_directory_exists(user_name)
+	## 新用户默认所有关卡全部开放（写入初始个人配置）
+	Global.config_service.init_new_user_config(user_name)
+	print("✅ 注册成功: ", user_name)
 	signal_users_update.emit()
 	return ""
 
@@ -100,6 +142,7 @@ func delete_user(user_name: String) -> String:
 
 	# 从用户列表移除
 	all_user_name.erase(user_name)
+	_user_passwords.erase(user_name)
 	save_user_names()
 	signal_users_update.emit()
 	print("✅ 成功删除用户: ", user_name)
@@ -141,6 +184,11 @@ func rename_user(old_name: String, new_name: String) -> String:
 	# 如果重命名的是当前用户，更新当前用户名
 	if old_name == curr_user_name:
 		curr_user_name = new_name
+
+	# 迁移密码
+	if _user_passwords.has(old_name):
+		_user_passwords[new_name] = _user_passwords[old_name]
+		_user_passwords.erase(old_name)
 
 	# 保存配置
 	save_user_names()

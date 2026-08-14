@@ -108,7 +108,10 @@ func _play_cherry_bomb_effect(enemy: Zombie000Base) -> void:
 ## 溅射: 溅射范围内所有可攻击敌人受余震伤害(技能1时附带眩晕)
 func _splash_all():
 	var enemies: Array = _get_enemies_in_splash()
-	for enemy: Character000Base in enemies:
+	for enemy in enemies:
+		## 目标可能在溅射期间被击杀释放, 先判有效(不带类型循环, 避免遍历已释放实例报错)
+		if not is_instance_valid(enemy):
+			continue
 		if enemy is Zombie000Base and not enemy.curr_be_attack_status & can_attack_zombie_status:
 			continue
 		if enemy is Plant000Base and not enemy.curr_be_attack_status & can_attack_plant_status:
@@ -125,7 +128,9 @@ func _splash_all():
 ## 残影爆炸: 范围内带残影的僵尸被余震影响时 roll 概率, 爆炸对周围所有敌人造成天赋伤害+眩晕
 func _check_residue_explode():
 	var enemies: Array = _get_enemies_in_splash()
-	for enemy: Character000Base in enemies:
+	for enemy in enemies:
+		if not is_instance_valid(enemy):
+			continue
 		if not (enemy is Zombie000Base) or enemy.is_death:
 			continue
 		if not enemy.has_meta("wisdel_residue"):

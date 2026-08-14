@@ -5,6 +5,24 @@ class_name CardBase
 @onready var cost: Label = $CardBg/Cost
 @onready var _cool_mask: ProgressBar = $ProgressBar
 
+## 是否可以点击(原在 card.gd 声明, 移到基类供危机合约禁用状态共用)
+var is_can_click := true
+
+## 危机合约「逐出令」词条: 干员卡牌是否被禁用(选卡界面灰显不可选, 不从列表移除)
+var is_banned := false
+
+## 设置卡牌禁用状态(危机合约词条用): 置灰 + 不可点击; 与冷却遮罩共用, 不修改冷却时间
+func set_card_banned(banned: bool) -> void:
+	is_banned = banned
+	if banned:
+		_cool_mask.max_value = 1.0
+		_cool_mask.value = 1.0
+		_cool_mask.visible = true
+		is_can_click = false
+	else:
+		_cool_mask.visible = false
+		is_can_click = true
+
 enum E_CardBg{
 	CB01Norm,	## 普通卡片背景
 	CB02Purple,	## 紫卡背景

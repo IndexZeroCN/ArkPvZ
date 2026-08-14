@@ -151,6 +151,20 @@ func set_choose_level(curr_game_mode: MainSceneRegistry.MainScenes, curr_level_p
 @export var operator_retreat_refund_ratio: float = 0.7
 #endregion
 
+#region 危机合约参数
+@export_group("危机合约参数")
+## 是否为危机合约关卡(选关时显示词条选择面板, 词条通过 ContractTerms.apply_terms 应用)
+@export var is_contract_level: bool = false
+## 危机合约词条: 僵尸生命值倍率(默认1, 词条应用后于僵尸创建时生效)
+@export var zombie_hp_mult := 1.0
+## 危机合约词条: 僵尸速度倍率(含攻击/动画速度)
+@export var zombie_speed_mult := 1.0
+## 危机合约词条: 僵尸攻击力倍率
+@export var zombie_attack_mult := 1.0
+## 危机合约词条: 禁止出战的干员类型(选卡界面过滤, 由 ContractTerms 词条写入)
+@export var ban_operator_types: Array[CharacterRegistry.PlantType] = []
+#endregion
+
 #region 罐子参数
 @export_group("罐子参数")
 ## 是否为罐子模式，影响胜利条件
@@ -218,6 +232,7 @@ var save_game_data_main_game: ResourceSaveGameMainGame
 ## 出怪: 正常模式下刷新列表会按白名单过滤；禁止在列表中写 Z021Bungi，应使用 is_bungi。
 func init_para() -> void:
 	_apply_card_mode_constraints()
+	_apply_day_night_sun_rule()
 	_pad_prechosen_cards()
 	_init_zombie_refresh_from_whitelist()
 	_normalize_pot_col_range()
@@ -236,6 +251,12 @@ func _apply_card_mode_constraints() -> void:
 	if card_mode != ConstLevelData.E_CardMode.Norm and can_choosed_card:
 		print("warning: 当前卡槽模式无法选卡, 已修改选卡为false")
 		can_choosed_card = false
+
+
+## 夜晚关卡不会天降阳光(原版行为): 夜间天空不会掉阳光, 只靠植物/道具产出
+func _apply_day_night_sun_rule() -> void:
+	if not is_day:
+		is_day_sun = false
 
 
 func _pad_prechosen_cards() -> void:

@@ -89,6 +89,18 @@ func ready_norm():
 	## 部署音效(无专属部署音效的干员用默认)
 	SoundManager.play_character_SFX(get_deploy_sfx())
 
+## 展示模式(选关封面等): 基类 ready_show 不播动画, 这里只播 Spine 待机循环,
+## 不播入场动画、不播部署音效(避免进主界面听到部署音/看到入场动画);
+## 并隐藏脚下阴影(否则封面干员下方显示一条黑色椭圆"黑条")
+func ready_show():
+	super()
+	var shadow_node: Node = get_node_or_null("Shadow")
+	if is_instance_valid(shadow_node):
+		shadow_node.visible = false
+	var spine: SpineSprite = get_operator_spine()
+	if is_instance_valid(spine):
+		(spine as OperatorSpineSprite).play_spine((spine as OperatorSpineSprite).get_anim_name("idle"), true)
+
 ## 入场动画: 有 Spine 形象时直接播放 Spine 入场动画(Start), 播完自动接待机(Idle)
 ## (入场表演完全由 Spine 动画承担, 不使用 tween 淡入升起等旧占位动画)
 func play_enter_animation() -> void:
@@ -268,7 +280,7 @@ func get_targets_in_range() -> Array[Zombie000Base]:
 	var rc_set: Dictionary = {}
 	for target_rc: Vector2i in DetectComponentOperator.get_range_rcs_on_grid(attack_direction, plant_cell, get_attack_range_shape()):
 		rc_set[target_rc] = true
-	var spacing_x: float = detect.get_grid_spacing(plant_cell).x
+	var spacing_x: float = DetectComponentOperator.get_grid_spacing(plant_cell).x
 	var lane_offsets: Array = detect._get_lane_offsets(attack_direction)
 	for zombie: Zombie000Base in Global.main_game.zombie_manager.all_zombies_1d:
 		if not is_instance_valid(zombie) or zombie.is_death or zombie.is_hypno:

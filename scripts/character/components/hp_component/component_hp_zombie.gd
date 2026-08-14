@@ -267,3 +267,13 @@ func update_mini_zombie_hp():
 	curr_hp_armor1 = max_hp_armor1
 	curr_hp_armor2 = max_hp_armor2
 
+## 危机合约词条: 应用僵尸生命值倍率(_ready 之后调用, 本体与防具血量一并缩放)
+func update_zombie_hp_mult(mult: float) -> void:
+	max_hp = int(max_hp * mult)
+	max_hp_armor1 = int(max_hp_armor1 * mult)
+	max_hp_armor2 = int(max_hp_armor2 * mult)
+
+	curr_hp = max_hp
+	curr_hp_armor1 = max_hp_armor1
+	curr_hp_armor2 = max_hp_armor2
+

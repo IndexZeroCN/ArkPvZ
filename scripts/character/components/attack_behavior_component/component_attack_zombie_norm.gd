@@ -12,6 +12,7 @@ enum E_AttackValueFactor{
 	Speed,			## 攻击速度，
 	PaperDrop,		## 报纸掉落，攻击力翻倍
 	JacksonEnter,	## 舞王入场时,攻击值为0
+	Contract,		## 危机合约词条: 攻击力倍率
 }
 
 var attack_value_factor:Dictionary[E_AttackValueFactor, float] = {}

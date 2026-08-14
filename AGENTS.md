@@ -28,7 +28,7 @@
 | 依赖 | 无第三方包管理器依赖，仅依赖引擎 + `addons/` 内置插件 |
 | 导出 | Windows Desktop（`export_presets.cfg` preset.0）、Android（preset.1） |
 
-入口场景：`res://scenes/main/01StartMenu.tscn`（开始菜单）。
+入口场景：`res://scenes/main/00LoadingScreen.tscn`（加载界面，登录/开始界面已暂时移除）。启动流程：**加载界面（进度条，分段加载主菜单/全部卡片，并预热 AllCards、全部音效、种植条件与干员技能图标，约 1.5s）→ 主菜单 `01MainMenu.tscn`**。耗启动时间的加载项全部集中在加载界面完成：`SoundManager`（原 129 处音效 preload）与 `CharacterRegistry`（种植条件 .tres、干员技能图标）均已改为**路径字符串 + 首次访问懒加载**，由加载界面调用 `SoundManager.warm_up()` / `Global.character_registry.warm_up()` 统一预热。**2026-08 起加载界面画面暂时跳过**（`loading_screen.gd` 的 `_ready` 直接 `change_scene_to_file.call_deferred` 到主菜单，不做预热；AllCards/音效/种植数据保持懒加载，首次进选卡页会加载全卡场景——恢复时撤销该 `_ready` 改动即可）。主菜单为**明日方舟主界面 1:1 复刻**（参考 `E:\Projects\arknights-ui-master`，素材在 `assets/image/arknights_ui/`）：**3D 结构**——左面板 = `left_menu_panel.tscn`（LevelBox + LeftMenu）与右面板 = `right_menu_panel.tscn`（RightMenu）各自渲染进 SubViewport，贴到两个 Sprite3D（左 +18°/右 -18° 绕 Y 轴向内凹陷）；**点击用相机射线命中 Sprite3D 并映射回面板 Control 按钮**（`main_menu.gd` 的 `_ray_intersect_sprite`/`_find_button`）；2D 覆盖层（选项/用户/退出、对话框）在 CanvasLayer。原游戏主菜单 `01StartMenu.tscn` 已备份至 `scenes/main/backup/01StartMenu_Backup.tscn`（未被引用，仅作备份）。启动优化说明见 `docs/开发相关.md` 坑 32/33。
 
 ## 3. 运行与构建
 
@@ -109,7 +109,7 @@ Global (global.gd)
 │   └── ItemRegistry        道具注册表
 ├── UserManager     用户管理（user://current_user.ini）
 ├── SaveService     全局存档服务（JSON + 自动存档，见 §6.7）
-├── ConfigService   用户配置（user://<用户>/config.ini，音量/控制台选项）
+├── ConfigService   用户配置（user://<用户>/config.ini，音量/控制台选项，个人选项；开发者选项为全局选项，存 user://config_global.ini，所有用户共享，默认值=用户 IndexZero 设定的全局数值）
 ├── GlobalGameState 金币、花园数据、关卡状态、当前植物/僵尸列表
 └── GlobalReadData  图鉴 JSON、自然刷怪白/黑名单、罐子白/黑名单
 ```
@@ -195,6 +195,7 @@ Character000Base (scenes/character/character_000_base.tscn)
 - **迷你血条/技能条**：头顶 15×2px 蓝色血条 + 紧挨其下的技能条，半透明黑背景，与植物僵尸的大血条样式不同。血条/技能条 `Control` 设 `z_as_relative=false` + `z_index=1000` 全局置顶，避免被其他干员身体覆盖（见 `operator_000_base.tscn` 的 `HpControl`/`SkillControl`）。
 - **动画约定**：固定动画名 `idle/attack/skill/die`，`AnimComponentOperator`（基于 AnimationPlayer）播放，轨道作用于 `Body/BodyCorrect/OperatorSprite` 容器；素材为 Spine 3.8.99，当前用立绘占位，Spine 模型接入/提取/运行全流程见 **§10 明日方舟 Spine 素材管线**。**坑**：干员场景的 `AnimationTree` 仅为满足攻击组件基类的 `$"../AnimationTree"` 引用，必须显式 `active=false`（默认 active 会重置 OperatorSprite 的 modulate 导致形象透明）；动画轨道 `update` 用 0（continuous）否则不插值。
 - 选卡界面干员页：`CardSlotCandidate` 的 `GridContainerOperator`，白名单 `Global.global_game_state.curr_operator`；植物/模仿者页会过滤掉干员类型。
+- **危机合约关卡（冒险第 6 关 `adventure_06_contract.tres`）**：**卡槽 6 全自选**（干员页 4 名干员 + 植物页混编，初始阳光 100、天降阳光开，**夜晚迷雾场景**），开局 DP 8、回复 1.5s、出怪 ×2、30 波、蹦极来袭；选关时弹词条面板（`ContractTerms` + `contract_term_select.gd`，视觉对齐干员技能选择面板）自选难度词条后 clone 参数开战（词条不污染 .tres）。词条含僵尸倍率/经济/防守/**编队类**（减卡槽；逐出令=**禁用干员卡牌**——`CardBase.set_card_banned` 灰显不可选而非从列表移除，选卡时按 `ban_operator_types` 标记）。词条倍率挂钩见 `docs/开发相关.md` 坑 40；通关攻略见 `docs/危机合约攻略.md`。
 
 ### 6.10 添加干员总流程（以克洛丝为模板，详见 docs/明日方舟干员系统.md）
 
@@ -282,12 +283,12 @@ Character000Base (scenes/character/character_000_base.tscn)
 
 - **1080p 攻击范围条纹变细**：**已修复（2026-08）**。根因：canvas_item shader fragment 内置 `VERTEX` 是屏幕/视口像素坐标，`canvas_items` 拉伸下随窗口缩放；修复改为 vertex 阶段用 `MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)` 传世界坐标 varying（见 `shaders/operator_range_stripes.gdshader` 与 `docs/开发相关.md` 坑 31）。
 - **spine 纹理 `res:///` 三斜杠报错**：spine-godot 扩展 `GodotSpineTextureLoader::fix_path` 对 `res://assets/...`（双斜杠）会拼成 `res:///assets/...`（三斜杠），编辑器扫描/preload 时会 `Can't load texture`；但 `--script` 模式下 atlas 纹理能加载（count=1）。**非致命、未阻塞游戏**（kroos/wisdel 同样存在），但若出现干员形象透明先查这里。根治需改 `bin/` 扩展 C++ 源码（`SpineAtlasResource.cpp` 的 `fix_path`）后重编译。
-- **桃金娘天赋"所有先锋回血"只回自身**：目前仅桃金娘是先锋，`operator_003_myrtle._process` 简化为自身回血；新增第二个先锋干员时需改成遍历场上所有先锋干员回血。
-- **干员撤退不重置卡片冷却**：与铲子一致（`docs/明日方舟干员系统.md` §7 已知取舍），完整"再部署时间重置"留待后续。
+- **桃金娘天赋"所有先锋回血"只回自身**：无第二先锋干员，`operator_003_myrtle._process` 保持自身回血（28/秒）；**新增第二个先锋干员时必须改成遍历场上所有先锋回血**。
+- **干员撤退不重置卡片冷却**：**已实现（2026-08 确认）**——`card_slot_battle.gd` 订阅 `operator_retreat`/`operator_death` → `card.card_cool()`，卡片 `cool_time` = 注册表 `CoolTime`（= 再部署时间 66/70/66/60）；`card_use_end` 部署时不冷却（干员只扣 DP）。
 - **干员防御/法术抗性未参与伤害计算**：`character_registry` 只登记了 HP/攻击，防御/法抗暂不用于 PVZ 减伤（`docs/明日方舟干员系统.md` §3.1 注）。
 - **执旗手"技能期间阻挡数0"只覆盖桃金娘**：桃金娘用 `_set_blocking()` 禁用受击盒实现；其他未来执旗手需各自实现相同逻辑（`hurt_box_component.disable_component(Character)`）。
 - **阻挡数机制未对普通植物生效**：只对 `Operator000Base` 判断（`component_detect.gd` 里 `enemy is Operator000Base`），普通植物仍"来多少僵尸都停下"（原版 PVZ 行为）。
-- **`test/myrtle_spine_check.gd` 只验证 skel/动画不验证纹理**：冒烟测试 `is_skeleton_data_loaded()` 不检查 atlas 纹理加载，需补 `atlas.textures.size()` 断言。
+- **`test/myrtle_spine_check.gd` 只验证 skel/动画不验证纹理**：**已修复（2026-08）**——补了 `atlas.textures.size()` 断言（tex_count<=0 即失败）。
 
 ## 10. 明日方舟 Spine 素材管线（提取 → 转换 → 导入 → 运行）
 
@@ -351,8 +352,10 @@ Character000Base (scenes/character/character_000_base.tscn)
 
 ## 11. Godot AI MCP（AI 助手操作编辑器/运行中游戏）
 
-项目启用了 **godot-ai** 插件（`addons/godot_ai/`，MCP 服务随编辑器启动），AI 助手可通过 MCP 工具直接操作编辑器与运行中的游戏。常用工作流：
+项目启用了 **godot-ai** 插件（`addons/godot_ai/`，MCP 服务随编辑器启动），AI 助手可通过 MCP 工具直接操作编辑器与运行中的游戏。**每个会话都要连接它**，常用工作流：
 
+- **连接配置（DeepSeek Harness 侧，已配置好）**：DSH 通过 `mcp-client` 插件接入，配置在 `%DSH_HOME%\profiles\web\cordis.patch.yml`（条目 id `mcp-godot-ai`，serverName `godot-ai`，URL `http://127.0.0.1:8000/mcp`）。该补丁在 DSH 启动时加载——**新会话自动生效，无需重复配置**。服务端由 Godot 编辑器启动插件时自动拉起（默认 HTTP 端口 8000，编辑器设置 `godot_ai/http_port` 可改；改端口后需同步改 cordis.patch.yml 的 URL）。工具名形如 `mcp__godot_ai__xxx`（如 `session_manage`、`project_run`、`editor_screenshot`）。
+- **每次会话开始**：确认 Godot 编辑器已打开（插件随编辑器自动拉起 MCP 服务）；然后 `session_manage(op="list")` 检查会话存在且 `is_active=true`，`editor_state` 检查编辑器就绪。若 DSH 侧工具不存在（`mcp__godot_ai__*` 未注册），说明本 DSH 进程启动早于 cordis.patch.yml 配置——重启 DSH 或等待下次会话即可。
 - **连接确认**：`session_manage(list)` 查看会话（本机通常只有本项目 `arkpvz@xxxx`）；`editor_state` 查看编辑器就绪状态与游戏运行状态。
 - **运行场景**：`project_run(mode="custom", scene="res://scenes/main/MainGame01Front.tscn")` —— 直接跑主游戏场景即 **is_test=true 测试模式**（卡片无冷却、阳光满），是干员/角色功能实测首选；`project_manage(stop)` 停止。
 - **运行中脚本执行**：`editor_manage(game_eval)` 在游戏进程里执行 GDScript 并返回结果（可 `await`），用于部署干员、生成僵尸、读取运行态布局与状态（如 `Global.main_game.plant_cell_manager.all_plant_cells`、`zombie_manager.create_norm_zombie(...)`、节点 `get_global_rect()`）。

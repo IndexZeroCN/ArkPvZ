@@ -1,0 +1,749 @@
+[gd_scene format=3 uid="uid://crightpanel01"]
+
+[ext_resource type="FontVariation" path="res://assets/fonts/HarmonyOS_Sans_Medium.tres" id="2_fontmed"]
+[ext_resource type="FontVariation" uid="uid://76yd5oqc7huq" path="res://assets/fonts/HarmonyOS_Sans_Bold.tres" id="3_fontbold"]
+[ext_resource type="FontVariation" uid="uid://cfmfuey0he15y" path="res://assets/fonts/NotoSerifSC_Black.tres" id="4_notoserif"]
+[ext_resource type="Texture2D" uid="uid://dui2m6ckwig86" path="res://assets/image/arknights_ui/money_icon.png" id="15_money"]
+[ext_resource type="Texture2D" uid="uid://cc66wtosanwn" path="res://assets/image/arknights_ui/battery.png" id="19_battery"]
+[ext_resource type="Texture2D" uid="uid://c6qaoej07qy8r" path="res://assets/image/arknights_ui/intellect_icon.png" id="20_intellect"]
+[ext_resource type="Texture2D" uid="uid://cgebhcradcdh7" path="res://assets/image/arknights_ui/figure.png" id="21_figure"]
+[ext_resource type="Texture2D" uid="uid://bl681ccvljkum" path="res://assets/image/arknights_ui/team_icon.png" id="22_team"]
+[ext_resource type="Texture2D" uid="uid://b5l50h86bcxv0" path="res://assets/image/arknights_ui/member_icon.png" id="23_member"]
+[ext_resource type="Texture2D" uid="uid://c61ah6jx6f7ij" path="res://assets/image/arknights_ui/shop_icon.png" id="24_shop"]
+[ext_resource type="Texture2D" uid="uid://cvqupe28s6cwd" path="res://assets/image/arknights_ui/gamble_top_icon.png" id="25_gambletop"]
+[ext_resource type="Texture2D" uid="uid://dhkprfnswfmrw" path="res://assets/image/arknights_ui/task_icon.png" id="26_task"]
+[ext_resource type="Texture2D" uid="uid://bmdyk7rfjrlxv" path="res://assets/image/arknights_ui/infrastructure_icon.png" id="27_infra"]
+[ext_resource type="Texture2D" uid="uid://bileev4e1wh0t" path="res://assets/image/arknights_ui/beta.png" id="28_beta"]
+[ext_resource type="Texture2D" uid="uid://de5fqxtuu6yum" path="res://assets/image/arknights_ui/warehouse_icon.png" id="29_warehouse"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lyhg4"]
+font_size = 72
+font_color = Color(0.19607843, 0.19607843, 0.19607843, 1)
+shadow_color = Color(0.41215247, 0.41215247, 0.41215247, 0.7647059)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8l88o"]
+bg_color = Color(0.23529412, 0.23529412, 0.23529412, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="RightContent" type="Control" unique_id=909529141]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Pos1" type="Control" parent="." unique_id=371369696]
+anchors_preset = 0
+offset_right = 783.0
+offset_bottom = 80.0
+
+[node name="LineLeft" type="ColorRect" parent="Pos1" unique_id=1079555455]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 140.0
+offset_bottom = 11.0
+mouse_filter = 2
+
+[node name="TimeLabel" type="Label" parent="Pos1" unique_id=1081786310]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 150.0
+offset_right = 370.0
+offset_bottom = 20.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 18
+text = "0000/00/00 00:00"
+horizontal_alignment = 1
+
+[node name="Battery" type="TextureRect" parent="Pos1" unique_id=1352931337]
+modulate = Color(1, 1, 1, 0.85)
+layout_mode = 0
+offset_left = 380.0
+offset_top = 2.0
+offset_right = 414.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("19_battery")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LineRight" type="ColorRect" parent="Pos1" unique_id=1672473818]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 8.0
+offset_right = 920.0
+offset_bottom = 11.0
+mouse_filter = 2
+
+[node name="Strip" type="ColorRect" parent="Pos1" unique_id=388527707]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 783.0
+offset_bottom = 80.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.2)
+
+[node name="MoneyIcon" type="TextureRect" parent="Pos1" unique_id=1177501352]
+modulate = Color(1, 1, 1, 0.9)
+layout_mode = 0
+offset_left = 80.0
+offset_top = 28.0
+offset_right = 160.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = ExtResource("15_money")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MoneyLabel" type="Label" parent="Pos1" unique_id=848580512]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 170.0
+offset_top = 36.0
+offset_right = 553.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 33
+text = "325000"
+
+[node name="Pos2" type="Control" parent="." unique_id=1692357392]
+anchors_preset = 0
+offset_top = 80.0
+offset_right = 783.0
+offset_bottom = 280.0
+
+[node name="IntellectPanel" type="ColorRect" parent="Pos2" unique_id=633928890]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 880.0
+offset_bottom = 188.0
+mouse_filter = 2
+color = Color(0.992, 0.992, 0.984, 1)
+
+[node name="OrangeBar" type="ColorRect" parent="Pos2" unique_id=2082553016]
+layout_mode = 0
+offset_left = 313.0
+offset_top = 185.0
+offset_right = 623.0
+offset_bottom = 191.0
+mouse_filter = 2
+color = Color(1, 0.369, 0.098, 1)
+
+[node name="IntellectIcon" type="TextureRect" parent="Pos2" unique_id=1874035014]
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 0
+offset_left = 440.0
+offset_top = 23.0
+offset_right = 580.0
+offset_bottom = 163.0
+mouse_filter = 2
+texture = ExtResource("20_intellect")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Figure" type="TextureRect" parent="Pos2" unique_id=1756654383]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 28.0
+offset_right = 285.0
+offset_bottom = 158.0
+mouse_filter = 2
+texture = ExtResource("21_figure")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="IntellectValue" type="Label" parent="Pos2" unique_id=1852830647]
+layout_mode = 0
+offset_left = 169.0
+offset_top = 34.0
+offset_right = 270.0
+offset_bottom = 119.0
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_fonts/font = ExtResource("3_fontbold")
+theme_override_font_sizes/font_size = 70
+text = "∞"
+label_settings = SubResource("LabelSettings_lyhg4")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="IntellectTotal" type="Label" parent="Pos2" unique_id=1270558429]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 123.0
+offset_right = 281.0
+offset_bottom = 154.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 25
+text = "/325"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Battle" type="Control" parent="Pos2" unique_id=750981945]
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 28.0
+offset_right = 560.0
+offset_bottom = 158.0
+
+[node name="Bg" type="ColorRect" parent="Pos2/Battle" unique_id=1846111205]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.992, 0.992, 0.984, 1)
+
+[node name="BattleBtn" type="Button" parent="Pos2/Battle" unique_id=1437705904]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="BattleLabel" type="Label" parent="Pos2/Battle" unique_id=811299791]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 132.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 60
+text = "作战"
+
+[node name="CurLabel" type="Label" parent="Pos2/Battle" unique_id=428160241]
+visible = false
+layout_mode = 0
+offset_top = 76.0
+offset_right = 52.0
+offset_bottom = 104.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_8l88o")
+text = "当前"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BattleLevel" type="Label" parent="Pos2/Battle" unique_id=664066469]
+visible = false
+layout_mode = 0
+offset_left = -4.0
+offset_top = 107.0
+offset_right = 196.0
+offset_bottom = 135.0
+theme_override_colors/font_color = Color(0.235, 0.235, 0.235, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "冒险模式 白天"
+
+[node name="Pos3" type="Control" parent="." unique_id=86782850]
+anchors_preset = 0
+offset_top = 280.0
+offset_right = 783.0
+offset_bottom = 410.0
+
+[node name="Team" type="Control" parent="Pos3" unique_id=1347851871]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 320.0
+offset_bottom = 118.0
+
+[node name="Bg" type="ColorRect" parent="Pos3/Team" unique_id=971034511]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TeamBtn" type="Button" parent="Pos3/Team" unique_id=2126348217]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="TeamIcon" type="TextureRect" parent="Pos3/Team" unique_id=299139]
+modulate = Color(0.25, 0.25, 0.28, 0.7)
+layout_mode = 0
+offset_left = 166.0
+offset_top = 13.0
+offset_right = 246.0
+offset_bottom = 93.0
+mouse_filter = 2
+texture = ExtResource("22_team")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TeamLabel" type="Label" parent="Pos3/Team" unique_id=1466842890]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.19607843, 0.19607843, 0.19607843, 0.39215687)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 40
+text = "编队"
+
+[node name="Member" type="Control" parent="Pos3" unique_id=461220822]
+anchors_preset = 0
+offset_left = 336.0
+offset_top = 8.0
+offset_right = 616.0
+offset_bottom = 118.0
+
+[node name="Bg" type="ColorRect" parent="Pos3/Member" unique_id=2118114988]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.922, 0.925, 0.922, 1)
+
+[node name="MemberBtn" type="Button" parent="Pos3/Member" unique_id=1956783006]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="MemberIcon" type="TextureRect" parent="Pos3/Member" unique_id=629592712]
+modulate = Color(0.25, 0.25, 0.28, 0.7)
+layout_mode = 0
+offset_left = 166.0
+offset_top = 13.0
+offset_right = 246.0
+offset_bottom = 93.0
+mouse_filter = 2
+texture = ExtResource("23_member")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MemberLabel" type="Label" parent="Pos3/Member" unique_id=215935669]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 40
+text = "干员"
+
+[node name="MemberDesc" type="Label" parent="Pos3/Member" unique_id=1069959197]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 68.0
+offset_right = 215.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(0.596, 0.596, 0.596, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "角色管理"
+
+[node name="Blank" type="ColorRect" parent="Pos3" unique_id=1187932895]
+layout_mode = 0
+offset_left = 632.0
+offset_top = 8.0
+offset_right = 832.0
+offset_bottom = 118.0
+mouse_filter = 2
+color = Color(0.086, 0.098, 0.098, 1)
+
+[node name="Pos4" type="Control" parent="." unique_id=353360804]
+anchors_preset = 0
+offset_top = 410.0
+offset_right = 783.0
+offset_bottom = 540.0
+
+[node name="Shop" type="Control" parent="Pos4" unique_id=1129871265]
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 8.0
+offset_right = 360.0
+offset_bottom = 118.0
+
+[node name="Bg" type="ColorRect" parent="Pos4/Shop" unique_id=59493032]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="ShopBtn" type="Button" parent="Pos4/Shop" unique_id=74615090]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="ShopIcon" type="TextureRect" parent="Pos4/Shop" unique_id=393717442]
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 0
+offset_left = 136.0
+offset_top = 13.0
+offset_right = 229.0
+offset_bottom = 93.0
+mouse_filter = 2
+texture = ExtResource("24_shop")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ShopLabel" type="Label" parent="Pos4/Shop" unique_id=66442120]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 40.0
+offset_right = 260.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 40
+text = "采购中心"
+
+[node name="Gamble" type="Control" parent="Pos4" unique_id=713761807]
+anchors_preset = 0
+offset_left = 360.0
+offset_top = 8.0
+offset_right = 700.0
+offset_bottom = 118.0
+
+[node name="Bg" type="ColorRect" parent="Pos4/Gamble" unique_id=1652742174]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="GambleBtn" type="Button" parent="Pos4/Gamble" unique_id=1477600260]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="GambleTopStrip" type="ColorRect" parent="Pos4/Gamble" unique_id=1911482813]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 335.0
+offset_bottom = 35.0
+mouse_filter = 2
+color = Color(0.271, 0.271, 0.271, 1)
+
+[node name="GambleTopIcon" type="TextureRect" parent="Pos4/Gamble" unique_id=1473672658]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 30.0
+offset_bottom = 30.0
+mouse_filter = 2
+texture = ExtResource("25_gambletop")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GambleLabel" type="Label" parent="Pos4/Gamble" unique_id=1690503291]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 6.0
+offset_right = 136.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_fontmed")
+theme_override_font_sizes/font_size = 20
+text = "招募"
+vertical_alignment = 1
+
+[node name="GambleLeft" type="Control" parent="Pos4" unique_id=423485034]
+anchors_preset = 0
+offset_left = 365.0
+offset_top = 48.0
+offset_right = 530.0
+offset_bottom = 108.0
+
+[node name="Bg" type="ColorRect" parent="Pos4/GambleLeft" unique_id=1032197956]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="GambleLeftBtn" type="Button" parent="Pos4/GambleLeft" unique_id=402398789]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="GambleLeftLabel" type="Label" parent="Pos4/GambleLeft" unique_id=1639796440]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 12.0
+offset_right = 160.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.39215687)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 30
+text = "公开招募"
+
+[node name="GambleRight" type="Control" parent="Pos4" unique_id=1785984076]
+anchors_preset = 0
+offset_left = 530.0
+offset_top = 48.0
+offset_right = 695.0
+offset_bottom = 108.0
+
+[node name="Bg" type="ColorRect" parent="Pos4/GambleRight" unique_id=1288324732]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="GambleRightBtn" type="Button" parent="Pos4/GambleRight" unique_id=1789586355]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="GambleRightLabel" type="Label" parent="Pos4/GambleRight" unique_id=1919157195]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 12.0
+offset_right = 160.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.39215687)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 30
+text = "干员寻访"
+
+[node name="Pos5" type="Control" parent="." unique_id=940089820]
+anchors_preset = 0
+offset_top = 540.0
+offset_right = 783.0
+offset_bottom = 670.0
+
+[node name="Task" type="Control" parent="Pos5" unique_id=457003029]
+anchors_preset = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 320.0
+offset_bottom = 118.0
+
+[node name="Bg" type="ColorRect" parent="Pos5/Task" unique_id=723906912]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TaskBtn" type="Button" parent="Pos5/Task" unique_id=1482456141]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="TaskBar" type="ColorRect" parent="Pos5/Task" unique_id=862355842]
+layout_mode = 0
+offset_left = 30.0
+offset_top = -3.0
+offset_right = 210.0
+offset_bottom = 3.0
+mouse_filter = 2
+color = Color(1, 0.369, 0.098, 1)
+
+[node name="TaskIcon" type="TextureRect" parent="Pos5/Task" unique_id=330380388]
+modulate = Color(0.28, 0.28, 0.3, 0.7)
+layout_mode = 0
+offset_left = 136.0
+offset_top = 13.0
+offset_right = 208.0
+offset_bottom = 93.0
+mouse_filter = 2
+texture = ExtResource("26_task")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TaskLabel" type="Label" parent="Pos5/Task" unique_id=2002900136]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.19607843, 0.19607843, 0.19607843, 0.39215687)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 40
+text = "任务"
+
+[node name="Infrastructure" type="Control" parent="Pos5" unique_id=178784684]
+anchors_preset = 0
+offset_left = 336.0
+offset_top = 8.0
+offset_right = 576.0
+offset_bottom = 118.0
+
+[node name="Bg" type="ColorRect" parent="Pos5/Infrastructure" unique_id=674648095]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.922, 0.925, 0.922, 1)
+
+[node name="InfrastructureBtn" type="Button" parent="Pos5/Infrastructure" unique_id=917736076]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="InfraIcon" type="TextureRect" parent="Pos5/Infrastructure" unique_id=844068866]
+modulate = Color(0.28, 0.28, 0.3, 0.7)
+layout_mode = 0
+offset_left = 136.0
+offset_top = 13.0
+offset_right = 216.0
+offset_bottom = 93.0
+mouse_filter = 2
+texture = ExtResource("27_infra")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InfraLabel" type="Label" parent="Pos5/Infrastructure" unique_id=1179046282]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 215.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 40
+text = "花园"
+
+[node name="Beta" type="TextureRect" parent="Pos5/Infrastructure" unique_id=498491408]
+visible = false
+modulate = Color(1, 1, 1, 0.9)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 59.0
+offset_right = 57.0
+offset_bottom = 68.0
+mouse_filter = 2
+texture = ExtResource("28_beta")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Warehouse" type="Control" parent="Pos5" unique_id=1528734727]
+anchors_preset = 0
+offset_left = 576.0
+offset_top = 8.0
+offset_right = 666.0
+offset_bottom = 118.0
+
+[node name="Bg" type="ColorRect" parent="Pos5/Warehouse" unique_id=77263195]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.259, 0.259, 0.259, 1)
+
+[node name="WarehouseBtn" type="Button" parent="Pos5/Warehouse" unique_id=157462809]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="WarehouseIcon" type="TextureRect" parent="Pos5/Warehouse" unique_id=13418659]
+modulate = Color(1, 1, 1, 0.5)
+layout_mode = 0
+offset_left = 22.0
+offset_top = 42.0
+offset_right = 72.0
+offset_bottom = 92.0
+mouse_filter = 2
+texture = ExtResource("29_warehouse")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="WarehouseLabel" type="Label" parent="Pos5/Warehouse" unique_id=962500091]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 6.0
+offset_right = 91.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.39215687)
+theme_override_fonts/font = ExtResource("4_notoserif")
+theme_override_font_sizes/font_size = 30
+text = "仓库"
+horizontal_alignment = 1

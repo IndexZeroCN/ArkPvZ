@@ -9,6 +9,11 @@ func _check(skel_path: String, atlas_path: String, anims: Array[String], label: 
 	skel_res.load_from_file(skel_path)
 	var atlas_res = SpineAtlasResource.new()
 	atlas_res.load_from_atlas_file(atlas_path)
+	## 待排查#8: is_skeleton_data_loaded 不检查 atlas 纹理, 补 textures.size() 断言
+	var tex_count: int = atlas_res.textures.size()
+	print("%s: 图集纹理数 = %d" % [label, tex_count])
+	if tex_count <= 0:
+		return false
 	var data_res = SpineSkeletonDataResource.new()
 	data_res.skeleton_file_res = skel_res
 	data_res.atlas_res = atlas_res

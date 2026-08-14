@@ -39,9 +39,8 @@ func reload_session_for_current_user() -> void:
 	save_service.load_global_game_data()
 	config_service.load_and_apply_config()
 
-var main_game:MainGameManager
-var game_para:ResourceLevelData
+var main_game: Node
+var game_para: Resource
 
 ## 游戏倍速
 var time_scale := 1.0
-

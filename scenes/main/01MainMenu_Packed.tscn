@@ -1,0 +1,1466 @@
+[gd_scene format=3 uid="uid://ddx7ycw63br6r"]
+
+[ext_resource type="Script" uid="uid://c7t18ayvmkrh2" path="res://scripts/ui/start_menu/main_menu.gd" id="1_0t051"]
+[ext_resource type="AudioStream" uid="uid://bhwjr5o1d2cb8" path="res://assets/audio/BGM/start_menu_bgm.mp3" id="2_uge04"]
+[ext_resource type="Script" uid="uid://11sjmyfqrtdn" path="res://scripts/ui/start_menu/main_menu_option_dialog.gd" id="3_qyspl"]
+[ext_resource type="FontVariation" uid="uid://cuadgcbabpm37" path="res://assets/fonts/MiSans_Bold.tres" id="4_p3iat"]
+[ext_resource type="FontVariation" uid="uid://bdrlnt2ui4im1" path="res://assets/fonts/MiSans_Medium.tres" id="5_khsq4"]
+[ext_resource type="PackedScene" uid="uid://cp0kgnsx20pyh" path="res://scenes/ui/dialog.tscn" id="6_07tqr"]
+[ext_resource type="Script" uid="uid://parybxg7tb1k" path="res://scripts/ui/PVZ_button_base.gd" id="9_jckht"]
+[ext_resource type="PackedScene" path="res://scenes/start_menu/user_panel.tscn" id="10_rbr1n"]
+[ext_resource type="Texture2D" uid="uid://dsobv4ixy06yp" path="res://assets/image/ui/ui_main_game_menu/UI_BG/combined_result.png" id="12_etqa2"]
+[ext_resource type="Script" uid="uid://bubdoydqtlc6d" path="res://scripts/start_menu/panel_create_new_user.gd" id="18_1bwq2"]
+[ext_resource type="Script" uid="uid://cwusfudks6mhf" path="res://scripts/ui/dialog_error.gd" id="19_clhm1"]
+[ext_resource type="Script" uid="uid://b6dhsamdijupk" path="res://scripts/start_menu/panel_rename_user.gd" id="20_il7hy"]
+[ext_resource type="PackedScene" uid="uid://cngkuh03v6yty" path="res://scenes/ui/dialog_confirm.tscn" id="21_uwxg1"]
+[ext_resource type="Texture2D" uid="uid://c885a854erpkr" path="res://assets/image/arknights_ui/UI_HOME_FRONT_BKG.png" id="23_jmp6e"]
+[ext_resource type="Texture2D" uid="uid://cvhxbuh7l14al" path="res://assets/image/arknights_ui/char_010_chen_2b_merged.png" id="24_u30ao"]
+[ext_resource type="Shader" uid="uid://brkikp7v6nusy" path="res://shaders/arknights_perspective.gdshader" id="25_gyy3f"]
+[ext_resource type="Texture2D" uid="uid://dgftnaqugwvv0" path="res://assets/image/arknights_ui/activity_banner.png" id="26_0kipg"]
+[ext_resource type="Texture2D" uid="uid://2jjndko0lfs1" path="res://assets/image/arknights_ui/friends_icon.png" id="27_47j7i"]
+[ext_resource type="Texture2D" uid="uid://cc66wtosanwn" path="res://assets/image/arknights_ui/battery.png" id="28_fn6h1"]
+[ext_resource type="Texture2D" uid="uid://dui2m6ckwig86" path="res://assets/image/arknights_ui/money_icon.png" id="29_ssu3w"]
+[ext_resource type="Texture2D" uid="uid://ctp5actgcules" path="res://assets/image/arknights_ui/jasper_icon.png" id="30_jhgow"]
+[ext_resource type="Texture2D" uid="uid://dpihvfq5b3pc5" path="res://assets/image/arknights_ui/more.png" id="31_71a40"]
+[ext_resource type="Texture2D" uid="uid://c2pxvq6muwqhf" path="res://assets/image/arknights_ui/stone_icon.png" id="32_ivhr4"]
+[ext_resource type="Texture2D" uid="uid://c6qaoej07qy8r" path="res://assets/image/arknights_ui/intellect_icon.png" id="33_0ifm0"]
+[ext_resource type="Texture2D" uid="uid://cgebhcradcdh7" path="res://assets/image/arknights_ui/figure.png" id="34_7nunr"]
+[ext_resource type="Texture2D" uid="uid://bl681ccvljkum" path="res://assets/image/arknights_ui/team_icon.png" id="35_vymb5"]
+[ext_resource type="Texture2D" uid="uid://b5l50h86bcxv0" path="res://assets/image/arknights_ui/member_icon.png" id="36_3fdtf"]
+[ext_resource type="Texture2D" uid="uid://c61ah6jx6f7ij" path="res://assets/image/arknights_ui/shop_icon.png" id="37_ljos3"]
+[ext_resource type="Texture2D" uid="uid://cvqupe28s6cwd" path="res://assets/image/arknights_ui/gamble_top_icon.png" id="38_4k4lv"]
+[ext_resource type="Texture2D" uid="uid://dhkprfnswfmrw" path="res://assets/image/arknights_ui/task_icon.png" id="39_4ar77"]
+[ext_resource type="Texture2D" uid="uid://bmdyk7rfjrlxv" path="res://assets/image/arknights_ui/infrastructure_icon.png" id="40_vv8ci"]
+[ext_resource type="Texture2D" uid="uid://bileev4e1wh0t" path="res://assets/image/arknights_ui/beta.png" id="41_uavbj"]
+[ext_resource type="Texture2D" uid="uid://de5fqxtuu6yum" path="res://assets/image/arknights_ui/warehouse_icon.png" id="42_ro1h8"]
+[ext_resource type="Texture2D" uid="uid://cbwosghrd0omc" path="res://assets/image/arknights_ui/chart_bg.png" id="43_6qr0o"]
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_normal"]
+bg_color = Color(0.1, 0.12, 0.16, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.34, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_pressed"]
+bg_color = Color(0.05, 0.08, 0.12, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.69, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="SBF_btn_hover"]
+bg_color = Color(0.1, 0.14, 0.2, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0.69, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_altii"]
+texture = ExtResource("12_etqa2")
+texture_margin_left = 60.0
+texture_margin_top = 60.0
+texture_margin_right = 60.0
+texture_margin_bottom = 130.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kywy7"]
+shader = ExtResource("25_gyy3f")
+shader_parameter/angle_deg = 10.0
+shader_parameter/tilt_deg = 0.0
+shader_parameter/mouse_x = 0.0
+shader_parameter/mouse_y = 0.0
+shader_parameter/mouse_range = 5.0
+shader_parameter/focal = 460.0
+shader_parameter/u_center = Vector2(198.53125, 487.97827)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pbhw"]
+shader = ExtResource("25_gyy3f")
+shader_parameter/angle_deg = -10.0
+shader_parameter/tilt_deg = 0.0
+shader_parameter/mouse_x = 0.0
+shader_parameter/mouse_y = 0.0
+shader_parameter/mouse_range = 5.0
+shader_parameter/focal = 460.0
+shader_parameter/u_center = Vector2(789.5115, 305.29184)
+
+[sub_resource type="GDScript" id="GDScript_4qh35"]
+
+[node name="MainMenu" type="Control" unique_id=2032654665]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0t051")
+bgm = ExtResource("2_uge04")
+
+[node name="OptionDialog" type="Panel" parent="." unique_id=1087268434]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -150.0
+offset_right = 230.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("SBF_btn_normal")
+script = ExtResource("3_qyspl")
+
+[node name="OptionTitle" type="Label" parent="OptionDialog" unique_id=842222471]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 16.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 30
+text = "选项设置"
+horizontal_alignment = 1
+
+[node name="MusicRow" type="HBoxContainer" parent="OptionDialog" unique_id=994655419]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 78.0
+offset_right = -50.0
+offset_bottom = 116.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="OptionDialog/MusicRow" unique_id=1839573181]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 20
+text = "音乐"
+
+[node name="MusicSlider" type="HSlider" parent="OptionDialog/MusicRow" unique_id=1794793045]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SoundRow" type="HBoxContainer" parent="OptionDialog" unique_id=794400082]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 124.0
+offset_right = -50.0
+offset_bottom = 162.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="OptionDialog/SoundRow" unique_id=213833299]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 20
+text = "音效"
+
+[node name="SoundSlider" type="HSlider" parent="OptionDialog/SoundRow" unique_id=1025270309]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="FullScreenRow" type="HBoxContainer" parent="OptionDialog" unique_id=1743454846]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 170.0
+offset_right = -50.0
+offset_bottom = 208.0
+grow_horizontal = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="OptionDialog/FullScreenRow" unique_id=784821847]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 20
+text = "全屏"
+
+[node name="FullScreenCheck" type="CheckButton" parent="OptionDialog/FullScreenRow" unique_id=1330681267]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReturnButton" type="Button" parent="OptionDialog" unique_id=2133807180]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -58.0
+offset_right = 100.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("SBF_btn_normal")
+theme_override_styles/pressed = SubResource("SBF_btn_pressed")
+theme_override_styles/hover = SubResource("SBF_btn_hover")
+theme_override_styles/focus = SubResource("SBF_btn_normal")
+text = "返回"
+
+[node name="Dialog" parent="." unique_id=616760554 instance=ExtResource("6_07tqr")]
+visible = false
+layout_mode = 0
+offset_left = 337.0
+offset_top = 136.0
+offset_right = 337.0
+offset_bottom = 136.0
+
+[node name="Panel2" type="Panel" parent="Dialog" unique_id=1487189543]
+layout_mode = 0
+offset_right = 321.0
+offset_bottom = 313.0
+mouse_filter = 1
+theme_type_variation = &"PanelDialogBG"
+
+[node name="PVZButton2" type="BaseButton" parent="Dialog" unique_id=881723864]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = true
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+oversampling_with_scale = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+custom_minimum_size = Vector2(0, 40)
+custom_maximum_size = Vector2(-1, -1)
+propagate_maximum_size = false
+clip_contents = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 75.0
+offset_top = 233.0
+offset_right = 235.0
+offset_bottom = 273.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+offset_transform_enabled = false
+offset_transform_position = Vector2(0, 0)
+offset_transform_position_ratio = Vector2(0, 0)
+offset_transform_scale = Vector2(1, 1)
+offset_transform_rotation = 0.0
+offset_transform_pivot = Vector2(0, 0)
+offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+offset_transform_visual_only = true
+localize_numeral_system = true
+layout_direction = 0
+translation_context = &""
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 1
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("9_jckht")
+metadata/_custom_type_script = "uid://parybxg7tb1k"
+
+[node name="Label" type="Label" parent="Dialog" unique_id=1647557510]
+layout_mode = 1
+offset_left = 134.0
+offset_top = 128.0
+offset_right = 174.0
+offset_bottom = 151.0
+text = "没做"
+
+[node name="UserPanel" parent="." unique_id=1890290931 instance=ExtResource("10_rbr1n")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="Panel2" type="Panel" parent="UserPanel" unique_id=1871533740]
+custom_minimum_size = Vector2(617, 492)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.0
+offset_top = -233.0
+offset_right = 310.0
+offset_bottom = 267.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_altii")
+
+[node name="PanelCreateNewUser2" type="Panel" parent="UserPanel" unique_id=2081992980]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -157.0
+offset_right = 238.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_altii")
+script = ExtResource("18_1bwq2")
+
+[node name="PanelRenameUser2" type="Panel" parent="UserPanel" unique_id=87163964]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -157.0
+offset_right = 238.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_altii")
+script = ExtResource("20_il7hy")
+
+[node name="DialogError2" parent="UserPanel" unique_id=215320428 instance=ExtResource("6_07tqr")]
+visible = false
+layout_mode = 0
+offset_left = -156.0
+offset_top = -179.0
+offset_right = -156.0
+offset_bottom = -179.0
+script = ExtResource("19_clhm1")
+
+[node name="DialogConfirmDel2" parent="UserPanel" unique_id=402269584 instance=ExtResource("21_uwxg1")]
+visible = false
+layout_mode = 0
+offset_left = -191.0
+offset_top = -178.0
+offset_right = -191.0
+offset_bottom = -178.0
+
+[node name="BgLayer" type="TextureRect" parent="." unique_id=303621025]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -57.188835
+offset_top = -40.147953
+offset_right = 62.811157
+offset_bottom = 39.85205
+mouse_filter = 2
+texture = ExtResource("23_jmp6e")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CharLayer" type="TextureRect" parent="." unique_id=1322914565]
+layout_mode = 0
+offset_left = 59.01595
+offset_top = -64.236725
+offset_right = 809.0159
+offset_bottom = 685.7633
+mouse_filter = 2
+texture = ExtResource("24_u30ao")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LeftMenu" type="Control" parent="." unique_id=500627029]
+material = SubResource("ShaderMaterial_kywy7")
+use_parent_material = true
+anchors_preset = 0
+offset_left = 21.236681
+offset_top = 403.5522
+offset_right = 407.1479
+offset_bottom = 587.31964
+scale = Vector2(0.9188361, 0.9188361)
+
+[node name="@ColorRect@5" type="ColorRect" parent="LeftMenu" unique_id=830098412]
+use_parent_material = true
+layout_mode = 0
+offset_right = 420.0
+offset_bottom = 57.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="@ColorRect@6" type="ColorRect" parent="LeftMenu" unique_id=1089035280]
+use_parent_material = true
+layout_mode = 0
+offset_left = -10.0
+offset_top = -14.0
+offset_right = 70.0
+offset_bottom = 2.0
+color = Color(1, 1, 1, 0.7)
+
+[node name="@Label@7" type="Label" parent="LeftMenu" unique_id=482299385]
+use_parent_material = true
+layout_mode = 0
+offset_left = -8.0
+offset_top = -10.0
+offset_right = 72.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 10
+text = "VOICE"
+
+[node name="@Label@8" type="Label" parent="LeftMenu" unique_id=572545381]
+use_parent_material = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 14.0
+offset_right = 388.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 13
+text = "博士？睡着了？哼，真没紧张感。"
+
+[node name="@TextureRect@9" type="TextureRect" parent="LeftMenu" unique_id=1001403056]
+use_parent_material = true
+layout_mode = 0
+offset_left = 4.0
+offset_top = 70.0
+offset_right = 255.0
+offset_bottom = 185.0
+mouse_filter = 2
+texture = ExtResource("26_0kipg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Control@10" type="Control" parent="LeftMenu" unique_id=1130515652]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 252.0
+offset_top = 70.0
+offset_right = 420.0
+offset_bottom = 200.0
+
+[node name="Friends" type="Control" parent="LeftMenu/@Control@10" unique_id=1027491058]
+use_parent_material = true
+anchors_preset = 0
+offset_right = 160.0
+offset_bottom = 62.0
+
+[node name="@ColorRect@11" type="ColorRect" parent="LeftMenu/@Control@10/Friends" unique_id=631816806]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.259, 0.259, 0.259, 1)
+
+[node name="FriendsBtn" type="Button" parent="LeftMenu/@Control@10/Friends" unique_id=1271648577]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@TextureRect@12" type="TextureRect" parent="LeftMenu/@Control@10" unique_id=1682555876]
+modulate = Color(1, 1, 1, 0.9)
+use_parent_material = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 43.0
+offset_bottom = 43.0
+mouse_filter = 2
+texture = ExtResource("27_47j7i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@13" type="Label" parent="LeftMenu/@Control@10" unique_id=1555809419]
+use_parent_material = true
+layout_mode = 0
+offset_left = 60.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 25
+text = "好友"
+
+[node name="Information" type="Control" parent="LeftMenu/@Control@10" unique_id=506322025]
+use_parent_material = true
+anchors_preset = 0
+offset_top = 67.0
+offset_right = 160.0
+offset_bottom = 129.0
+
+[node name="@ColorRect@14" type="ColorRect" parent="LeftMenu/@Control@10/Information" unique_id=96766140]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.914, 0.914, 0.914, 1)
+
+[node name="InformationBtn" type="Button" parent="LeftMenu/@Control@10/Information" unique_id=322865748]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@Label@15" type="Label" parent="LeftMenu/@Control@10" unique_id=545662207]
+use_parent_material = true
+layout_mode = 0
+offset_left = 60.0
+offset_top = 77.0
+offset_right = 160.0
+offset_bottom = 107.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 25
+text = "情报"
+
+[node name="RightMenu" type="Control" parent="." unique_id=493850013]
+material = SubResource("ShaderMaterial_6pbhw")
+use_parent_material = true
+anchors_preset = 0
+offset_left = 429.788
+offset_top = 11.264287
+offset_right = 1212.7861
+offset_bottom = 651.2643
+scale = Vector2(0.9188361, 0.9188361)
+
+[node name="Pos1" type="Control" parent="RightMenu" unique_id=1708800328]
+use_parent_material = true
+anchors_preset = 0
+offset_right = 783.0
+offset_bottom = 80.0
+
+[node name="@ColorRect@16" type="ColorRect" parent="RightMenu/Pos1" unique_id=108526745]
+use_parent_material = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 140.0
+offset_bottom = 11.0
+
+[node name="TimeLabel" type="Label" parent="RightMenu/Pos1" unique_id=862984909]
+use_parent_material = true
+layout_mode = 0
+offset_left = 150.0
+offset_right = 370.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 18
+text = "2026/08/13 22:53"
+horizontal_alignment = 1
+
+[node name="@TextureRect@18" type="TextureRect" parent="RightMenu/Pos1" unique_id=1861999191]
+modulate = Color(1, 1, 1, 0.85)
+use_parent_material = true
+layout_mode = 0
+offset_left = 380.0
+offset_top = 2.0
+offset_right = 414.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("28_fn6h1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@ColorRect@19" type="ColorRect" parent="RightMenu/Pos1" unique_id=1865185662]
+use_parent_material = true
+layout_mode = 0
+offset_left = 420.0
+offset_top = 8.0
+offset_right = 920.0
+offset_bottom = 11.0
+
+[node name="@ColorRect@20" type="ColorRect" parent="RightMenu/Pos1" unique_id=681152539]
+use_parent_material = true
+layout_mode = 0
+offset_top = 40.0
+offset_right = 783.0
+offset_bottom = 80.0
+color = Color(0, 0, 0, 0.2)
+
+[node name="@TextureRect@21" type="TextureRect" parent="RightMenu/Pos1" unique_id=1345670198]
+modulate = Color(1, 1, 1, 0.9)
+use_parent_material = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 28.0
+offset_right = 160.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = ExtResource("29_ssu3w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MoneyLabel" type="Label" parent="RightMenu/Pos1" unique_id=1131838070]
+use_parent_material = true
+layout_mode = 0
+offset_left = 170.0
+offset_top = 36.0
+offset_right = 250.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 33
+text = "34940"
+
+[node name="@TextureRect@23" type="TextureRect" parent="RightMenu/Pos1" unique_id=1202024253]
+modulate = Color(1, 1, 1, 0.9)
+use_parent_material = true
+layout_mode = 0
+offset_left = 190.0
+offset_top = 28.0
+offset_right = 240.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = ExtResource("30_jhgow")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="JasperLabel" type="Label" parent="RightMenu/Pos1" unique_id=366995519]
+use_parent_material = true
+layout_mode = 0
+offset_left = 250.0
+offset_top = 36.0
+offset_right = 330.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 33
+text = "0"
+
+[node name="@TextureRect@25" type="TextureRect" parent="RightMenu/Pos1" unique_id=1562438374]
+modulate = Color(1, 1, 1, 0.9)
+use_parent_material = true
+layout_mode = 0
+offset_left = 330.0
+offset_top = 36.0
+offset_right = 366.0
+offset_bottom = 72.0
+mouse_filter = 2
+texture = ExtResource("31_71a40")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@TextureRect@26" type="TextureRect" parent="RightMenu/Pos1" unique_id=1030381379]
+modulate = Color(1, 1, 1, 0.9)
+use_parent_material = true
+layout_mode = 0
+offset_left = 270.0
+offset_top = 28.0
+offset_right = 320.0
+offset_bottom = 78.0
+mouse_filter = 2
+texture = ExtResource("32_ivhr4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StoneLabel" type="Label" parent="RightMenu/Pos1" unique_id=895529881]
+use_parent_material = true
+layout_mode = 0
+offset_left = 330.0
+offset_top = 36.0
+offset_right = 410.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 33
+text = "0"
+
+[node name="@TextureRect@28" type="TextureRect" parent="RightMenu/Pos1" unique_id=815679750]
+modulate = Color(1, 1, 1, 0.9)
+use_parent_material = true
+layout_mode = 0
+offset_left = 410.0
+offset_top = 36.0
+offset_right = 446.0
+offset_bottom = 72.0
+mouse_filter = 2
+texture = ExtResource("31_71a40")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Pos2" type="Control" parent="RightMenu" unique_id=102322518]
+use_parent_material = true
+anchors_preset = 0
+offset_top = 80.0
+offset_right = 783.0
+offset_bottom = 280.0
+
+[node name="@ColorRect@29" type="ColorRect" parent="RightMenu/Pos2" unique_id=1704440305]
+use_parent_material = true
+layout_mode = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 880.0
+offset_bottom = 188.0
+color = Color(0.992, 0.992, 0.984, 1)
+
+[node name="@ColorRect@30" type="ColorRect" parent="RightMenu/Pos2" unique_id=278815010]
+use_parent_material = true
+layout_mode = 0
+offset_left = 310.0
+offset_top = 5.0
+offset_right = 620.0
+offset_bottom = 11.0
+color = Color(1, 0.369, 0.098, 1)
+
+[node name="@TextureRect@31" type="TextureRect" parent="RightMenu/Pos2" unique_id=1599944700]
+modulate = Color(1, 1, 1, 0.5)
+use_parent_material = true
+layout_mode = 0
+offset_left = 440.0
+offset_top = 23.0
+offset_right = 580.0
+offset_bottom = 163.0
+mouse_filter = 2
+texture = ExtResource("33_0ifm0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@TextureRect@32" type="TextureRect" parent="RightMenu/Pos2" unique_id=1625926663]
+use_parent_material = true
+layout_mode = 0
+offset_left = 90.0
+offset_top = 28.0
+offset_right = 285.0
+offset_bottom = 158.0
+mouse_filter = 2
+texture = ExtResource("34_7nunr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@33" type="Label" parent="RightMenu/Pos2" unique_id=467255226]
+use_parent_material = true
+layout_mode = 0
+offset_left = 90.0
+offset_top = 28.0
+offset_right = 285.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 70
+text = "125"
+horizontal_alignment = 2
+
+[node name="@Label@34" type="Label" parent="RightMenu/Pos2" unique_id=1351011771]
+use_parent_material = true
+layout_mode = 0
+offset_left = 90.0
+offset_top = 100.0
+offset_right = 285.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 25
+text = "/125"
+horizontal_alignment = 2
+
+[node name="Battle" type="Control" parent="RightMenu/Pos2" unique_id=608935461]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 320.0
+offset_top = 28.0
+offset_right = 560.0
+offset_bottom = 158.0
+
+[node name="@ColorRect@35" type="ColorRect" parent="RightMenu/Pos2/Battle" unique_id=1682411240]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.992, 0.992, 0.984, 1)
+
+[node name="BattleBtn" type="Button" parent="RightMenu/Pos2/Battle" unique_id=566707376]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@Label@36" type="Label" parent="RightMenu/Pos2" unique_id=2039192421]
+use_parent_material = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 24.0
+offset_right = 460.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 60
+text = "作战"
+
+[node name="@ColorRect@37" type="ColorRect" parent="RightMenu/Pos2" unique_id=419907561]
+use_parent_material = true
+layout_mode = 0
+offset_left = 320.0
+offset_top = 98.0
+offset_right = 372.0
+offset_bottom = 126.0
+color = Color(0.235, 0.235, 0.235, 1)
+
+[node name="@Label@38" type="Label" parent="RightMenu/Pos2" unique_id=44360370]
+use_parent_material = true
+layout_mode = 0
+offset_left = 324.0
+offset_top = 98.0
+offset_right = 376.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 20
+text = "当前"
+horizontal_alignment = 1
+
+[node name="@Label@39" type="Label" parent="RightMenu/Pos2" unique_id=1024807413]
+use_parent_material = true
+layout_mode = 0
+offset_left = 380.0
+offset_top = 102.0
+offset_right = 580.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.235, 0.235, 0.235, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 20
+text = "5-10 长夜终尽"
+
+[node name="Pos3" type="Control" parent="RightMenu" unique_id=55218785]
+use_parent_material = true
+anchors_preset = 0
+offset_top = 280.0
+offset_right = 783.0
+offset_bottom = 410.0
+
+[node name="Team" type="Control" parent="RightMenu/Pos3" unique_id=1121170636]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 8.0
+offset_right = 320.0
+offset_bottom = 118.0
+
+[node name="@ColorRect@40" type="ColorRect" parent="RightMenu/Pos3/Team" unique_id=785186268]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="TeamBtn" type="Button" parent="RightMenu/Pos3/Team" unique_id=944763611]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@TextureRect@41" type="TextureRect" parent="RightMenu/Pos3" unique_id=1996032945]
+modulate = Color(0.25, 0.25, 0.28, 0.7)
+use_parent_material = true
+layout_mode = 0
+offset_left = 206.0
+offset_top = 21.0
+offset_right = 286.0
+offset_bottom = 101.0
+mouse_filter = 2
+texture = ExtResource("35_vymb5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@42" type="Label" parent="RightMenu/Pos3" unique_id=371054426]
+use_parent_material = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = 23.0
+offset_right = 255.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 40
+text = "编队"
+
+[node name="Member" type="Control" parent="RightMenu/Pos3" unique_id=302324067]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 336.0
+offset_top = 8.0
+offset_right = 616.0
+offset_bottom = 118.0
+
+[node name="@ColorRect@43" type="ColorRect" parent="RightMenu/Pos3/Member" unique_id=1794840962]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.922, 0.925, 0.922, 1)
+
+[node name="MemberBtn" type="Button" parent="RightMenu/Pos3/Member" unique_id=810451258]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@TextureRect@44" type="TextureRect" parent="RightMenu/Pos3" unique_id=1631684001]
+modulate = Color(0.25, 0.25, 0.28, 0.7)
+use_parent_material = true
+layout_mode = 0
+offset_left = 502.0
+offset_top = 21.0
+offset_right = 582.0
+offset_bottom = 101.0
+mouse_filter = 2
+texture = ExtResource("36_3fdtf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@45" type="Label" parent="RightMenu/Pos3" unique_id=1246075788]
+use_parent_material = true
+layout_mode = 0
+offset_left = 351.0
+offset_top = 23.0
+offset_right = 551.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 40
+text = "干员"
+
+[node name="@Label@46" type="Label" parent="RightMenu/Pos3" unique_id=1651861663]
+use_parent_material = true
+layout_mode = 0
+offset_left = 351.0
+offset_top = 76.0
+offset_right = 551.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.596, 0.596, 0.596, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 20
+text = "角色管理"
+
+[node name="@ColorRect@47" type="ColorRect" parent="RightMenu/Pos3" unique_id=570639406]
+use_parent_material = true
+layout_mode = 0
+offset_left = 632.0
+offset_top = 8.0
+offset_right = 832.0
+offset_bottom = 118.0
+color = Color(0.086, 0.098, 0.098, 1)
+
+[node name="Pos4" type="Control" parent="RightMenu" unique_id=1189900749]
+use_parent_material = true
+anchors_preset = 0
+offset_top = 410.0
+offset_right = 783.0
+offset_bottom = 540.0
+
+[node name="Shop" type="Control" parent="RightMenu/Pos4" unique_id=313617087]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 8.0
+offset_right = 360.0
+offset_bottom = 118.0
+
+[node name="@ColorRect@48" type="ColorRect" parent="RightMenu/Pos4/Shop" unique_id=2075232120]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="ShopBtn" type="Button" parent="RightMenu/Pos4/Shop" unique_id=1929827530]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@TextureRect@49" type="TextureRect" parent="RightMenu/Pos4" unique_id=399391282]
+modulate = Color(1, 1, 1, 0.5)
+use_parent_material = true
+layout_mode = 0
+offset_left = 256.0
+offset_top = 21.0
+offset_right = 349.0
+offset_bottom = 101.0
+mouse_filter = 2
+texture = ExtResource("37_ljos3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@50" type="Label" parent="RightMenu/Pos4" unique_id=492870149]
+use_parent_material = true
+layout_mode = 0
+offset_left = 180.0
+offset_top = 48.0
+offset_right = 380.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 40
+text = "采购中心"
+
+[node name="Gamble" type="Control" parent="RightMenu/Pos4" unique_id=1088012651]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 360.0
+offset_top = 8.0
+offset_right = 700.0
+offset_bottom = 118.0
+
+[node name="@ColorRect@51" type="ColorRect" parent="RightMenu/Pos4/Gamble" unique_id=1395241224]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="GambleBtn" type="Button" parent="RightMenu/Pos4/Gamble" unique_id=1318099774]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@ColorRect@52" type="ColorRect" parent="RightMenu/Pos4" unique_id=2025137814]
+use_parent_material = true
+layout_mode = 0
+offset_left = 365.0
+offset_top = 13.0
+offset_right = 695.0
+offset_bottom = 43.0
+color = Color(0.271, 0.271, 0.271, 1)
+
+[node name="@TextureRect@53" type="TextureRect" parent="RightMenu/Pos4" unique_id=642974516]
+modulate = Color(1, 1, 1, 0.7)
+use_parent_material = true
+layout_mode = 0
+offset_left = 370.0
+offset_top = 18.0
+offset_right = 390.0
+offset_bottom = 38.0
+mouse_filter = 2
+texture = ExtResource("38_4k4lv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@54" type="Label" parent="RightMenu/Pos4" unique_id=1537104428]
+use_parent_material = true
+layout_mode = 0
+offset_left = 396.0
+offset_top = 14.0
+offset_right = 496.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 20
+text = "招募"
+
+[node name="GambleLeft" type="Control" parent="RightMenu/Pos4" unique_id=590992764]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 365.0
+offset_top = 48.0
+offset_right = 530.0
+offset_bottom = 108.0
+
+[node name="@ColorRect@55" type="ColorRect" parent="RightMenu/Pos4/GambleLeft" unique_id=1939232415]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="GambleLeftBtn" type="Button" parent="RightMenu/Pos4/GambleLeft" unique_id=887532293]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@Label@56" type="Label" parent="RightMenu/Pos4" unique_id=1782124936]
+use_parent_material = true
+layout_mode = 0
+offset_left = 385.0
+offset_top = 60.0
+offset_right = 525.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 30
+text = "公开招募"
+
+[node name="GambleRight" type="Control" parent="RightMenu/Pos4" unique_id=1285604978]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 530.0
+offset_top = 48.0
+offset_right = 695.0
+offset_bottom = 108.0
+
+[node name="@ColorRect@57" type="ColorRect" parent="RightMenu/Pos4/GambleRight" unique_id=1479449806]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.02, 0.655, 0.863, 1)
+
+[node name="GambleRightBtn" type="Button" parent="RightMenu/Pos4/GambleRight" unique_id=900987688]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@Label@58" type="Label" parent="RightMenu/Pos4" unique_id=131929026]
+use_parent_material = true
+layout_mode = 0
+offset_left = 550.0
+offset_top = 60.0
+offset_right = 690.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 30
+text = "干员寻访"
+
+[node name="Pos5" type="Control" parent="RightMenu" unique_id=126292442]
+use_parent_material = true
+anchors_preset = 0
+offset_top = 540.0
+offset_right = 783.0
+offset_bottom = 670.0
+
+[node name="Task" type="Control" parent="RightMenu/Pos5" unique_id=188961186]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 80.0
+offset_top = 8.0
+offset_right = 320.0
+offset_bottom = 118.0
+
+[node name="@ColorRect@59" type="ColorRect" parent="RightMenu/Pos5/Task" unique_id=366192663]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="TaskBtn" type="Button" parent="RightMenu/Pos5/Task" unique_id=1119453789]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@ColorRect@60" type="ColorRect" parent="RightMenu/Pos5" unique_id=2146702150]
+use_parent_material = true
+layout_mode = 0
+offset_left = 110.0
+offset_top = 5.0
+offset_right = 290.0
+offset_bottom = 11.0
+color = Color(1, 0.369, 0.098, 1)
+
+[node name="@TextureRect@61" type="TextureRect" parent="RightMenu/Pos5" unique_id=1746681447]
+modulate = Color(0.28, 0.28, 0.3, 0.7)
+use_parent_material = true
+layout_mode = 0
+offset_left = 216.0
+offset_top = 21.0
+offset_right = 288.0
+offset_bottom = 101.0
+mouse_filter = 2
+texture = ExtResource("39_4ar77")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@62" type="Label" parent="RightMenu/Pos5" unique_id=149567747]
+use_parent_material = true
+layout_mode = 0
+offset_left = 95.0
+offset_top = 23.0
+offset_right = 295.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 40
+text = "任务"
+
+[node name="Infrastructure" type="Control" parent="RightMenu/Pos5" unique_id=40500442]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 336.0
+offset_top = 8.0
+offset_right = 576.0
+offset_bottom = 118.0
+
+[node name="@ColorRect@63" type="ColorRect" parent="RightMenu/Pos5/Infrastructure" unique_id=402715816]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.922, 0.925, 0.922, 1)
+
+[node name="InfrastructureBtn" type="Button" parent="RightMenu/Pos5/Infrastructure" unique_id=830585486]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@TextureRect@64" type="TextureRect" parent="RightMenu/Pos5" unique_id=2124645633]
+modulate = Color(0.28, 0.28, 0.3, 0.7)
+use_parent_material = true
+layout_mode = 0
+offset_left = 472.0
+offset_top = 21.0
+offset_right = 552.0
+offset_bottom = 101.0
+mouse_filter = 2
+texture = ExtResource("40_vv8ci")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@65" type="Label" parent="RightMenu/Pos5" unique_id=2015129453]
+use_parent_material = true
+layout_mode = 0
+offset_left = 351.0
+offset_top = 23.0
+offset_right = 551.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.196, 0.196, 0.196, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 40
+text = "基建"
+
+[node name="@TextureRect@66" type="TextureRect" parent="RightMenu/Pos5" unique_id=1401751263]
+modulate = Color(1, 1, 1, 0.9)
+use_parent_material = true
+layout_mode = 0
+offset_left = 351.0
+offset_top = 7.0
+offset_right = 391.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("41_uavbj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Warehouse" type="Control" parent="RightMenu/Pos5" unique_id=991122108]
+use_parent_material = true
+anchors_preset = 0
+offset_left = 576.0
+offset_top = 8.0
+offset_right = 666.0
+offset_bottom = 118.0
+
+[node name="@ColorRect@67" type="ColorRect" parent="RightMenu/Pos5/Warehouse" unique_id=1958388352]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.259, 0.259, 0.259, 1)
+
+[node name="WarehouseBtn" type="Button" parent="RightMenu/Pos5/Warehouse" unique_id=159205590]
+use_parent_material = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="@TextureRect@68" type="TextureRect" parent="RightMenu/Pos5" unique_id=993165033]
+modulate = Color(1, 1, 1, 0.5)
+use_parent_material = true
+layout_mode = 0
+offset_left = 598.0
+offset_top = 50.0
+offset_right = 648.0
+offset_bottom = 100.0
+mouse_filter = 2
+texture = ExtResource("42_ro1h8")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="@Label@69" type="Label" parent="RightMenu/Pos5" unique_id=1604311790]
+use_parent_material = true
+layout_mode = 0
+offset_left = 591.0
+offset_top = 15.0
+offset_right = 681.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_p3iat")
+theme_override_font_sizes/font_size = 30
+text = "仓库"
+
+[node name="LevelBox" type="Control" parent="." unique_id=2088380347]
+anchors_preset = 0
+offset_top = 209.95406
+offset_right = 172.0
+offset_bottom = 405.95404
+scale = Vector2(0.9188361, 0.9188361)
+
+[node name="LevelRing" type="TextureRect" parent="LevelBox" unique_id=2101680176]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 13.0
+offset_right = 153.0
+offset_bottom = 128.0
+texture = ExtResource("43_6qr0o")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LevelArc" type="Control" parent="LevelBox" unique_id=2024997483]
+anchors_preset = 0
+offset_left = 38.0
+offset_top = 13.0
+offset_right = 153.0
+offset_bottom = 128.0
+script = SubResource("GDScript_4qh35")
+
+[node name="LevelNum" type="Label" parent="LevelBox" unique_id=2101762119]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 31.0
+offset_right = 153.0
+offset_bottom = 101.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 60
+text = "1"
+horizontal_alignment = 1
+
+[node name="@Label@71" type="Label" parent="LevelBox" unique_id=1043229815]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 134.0
+offset_right = 227.0
+offset_bottom = 174.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 33
+text = "IndexZero"
+
+[node name="@Label@72" type="Label" parent="LevelBox" unique_id=651714623]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 171.0
+offset_right = 233.0
+offset_bottom = 194.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_khsq4")
+theme_override_font_sizes/font_size = 15
+text = "ID: PVZ-DREAM"
+
+[connection signal="pressed" from="OptionDialog/ReturnButton" to="OptionDialog" method="_on_return_pressed"]

@@ -11,7 +11,7 @@ var is_almanac_card:bool= false
 var _is_cooling : bool = false		# 是否正在冷却
 var is_sun_enough: bool = true		# 阳光是否足够
 var _cool_timer : float				# 冷却计时器
-var is_can_click := true		## 是否可以点击
+## 是否可以点击(基类 CardBase 声明)
 var tween_blink:Tween
 #region 开局选卡相关
 ## 开局选择卡片时 是否被选中

@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="GodotPVZ-Dream_me"
-run/main_scene="uid://dc1xvxus2co66"
+run/main_scene="res://scenes/main/00LoadingScreen.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://dxvlqvahfmjaa"
 config/windows_native_icon="res://pvz_icon.ico"
@@ -26,7 +26,7 @@ SoundManager="*res://scenes/autoload/sound_manager.tscn"
 EventBus="*res://scripts/autoload/event_bus.gd"
 Global="*res://scenes/autoload/global.tscn"
 SceneRegistry="*res://scripts/autoload/scene_registry.gd"
-AllCards="*res://scenes/autoload/all_cards.tscn"
+AllCards="*res://scripts/autoload/all_cards_lazy.gd"
 GlobalUtils="*res://scripts/autoload/util/global_utils.gd"
 TreePauseManager="*res://scripts/autoload/tree_pause_manager.gd"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
@@ -35,6 +35,7 @@ _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 window/size/viewport_width=1066
 window/size/viewport_height=600
+window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
 
 [dotnet]
@@ -44,6 +45,10 @@ project/assembly_name="GodotPVZ2025"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/DragNDropNodes/plugin.cfg", "res://addons/R2Ga_PVZ/plugin.cfg", "res://addons/anim_free_common_tracks/plugin.cfg", "res://addons/anim_player_refactor/plugin.cfg", "res://addons/godot_ai/plugin.cfg", "res://addons/todo_controller/plugin.cfg")
+
+[gui]
+
+theme/custom_font="res://assets/fonts/HarmonyOS_Sans_Medium.tres"
 
 [input]
 

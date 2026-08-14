@@ -190,6 +190,10 @@ func _init_card_slot_candidate_operator():
 	## 当前页面的所有卡片占位
 	var all_card_selected_placeholder:Array
 	var curr_num_page:int = -1
+	## 危机合约词条「逐出令」: 干员卡牌保留在列表但禁用(灰显不可选), 而非从列表移除
+	var banned_list: Array[CharacterRegistry.PlantType] = []
+	if Global.game_para != null:
+		banned_list = Global.game_para.ban_operator_types
 	for i:int in Global.global_game_state.curr_operator.size():
 		var page_i:int = int(float(i) / num_card_every_page)
 		if curr_num_page < page_i:
@@ -213,6 +217,10 @@ func _init_card_slot_candidate_operator():
 		all_card_selected_placeholder[i % num_card_every_page].add_child(card_candidate_container)
 		all_card_candidate_containers_operator[curr_operator_card.card_id] = card_candidate_container
 
+		## 危机合约「逐出令」: 被禁干员灰显不可选(容器与内层卡都禁用, 点击在内层 Card 上)
+		if banned_list.has(curr_operator_type):
+			card_candidate_container.set_card_banned(true)
+			card_candidate_container.card.set_card_banned(true)
 		card_candidate_container.visible = false
 
 	for operator_type:CharacterRegistry.PlantType in Global.global_game_state.curr_operator:
@@ -326,7 +334,11 @@ func _build_skill_buttons(operator_type: CharacterRegistry.PlantType):
 		button.add_theme_constant_override("icon_max_width", 44)
 		button.add_theme_font_size_override("font_size", 15)
 		button.text = str(skill.get("name", "")) + "\n" + str(skill.get("desc", ""))
-		button.icon = skill.get("icon", null)
+		var skill_icon: Variant = skill.get("icon", null)
+		## 图标登记为路径字符串，按需懒加载（避免启动时预加载全部干员图标）
+		if skill_icon is String:
+			skill_icon = load(skill_icon)
+		button.icon = skill_icon
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		var pressed_skill_id: int = int(skill_id)
 		button.pressed.connect(_on_skill_button_pressed.bind(pressed_skill_id))

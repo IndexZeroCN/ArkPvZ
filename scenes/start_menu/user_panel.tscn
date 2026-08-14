@@ -1,0 +1,627 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/start_menu/user.gd" id="1_et7jn"]
+[ext_resource type="Texture2D" path="res://assets/image/ui/ui_main_game_menu/UI_BG/combined_result.png" id="2_sc0ay"]
+[ext_resource type="Texture2D" path="res://assets/image/ui/ui_main_game_menu/UI_BG_original/dialog_header.png" id="3_nsg0n"]
+[ext_resource type="FontVariation" path="res://assets/fonts/MiSans_Medium.tres" id="4_ige7v"]
+[ext_resource type="Texture2D" path="res://assets/image/ui/ui_main_game_menu/UI_BG/button_BG.png" id="5_a5jeg"]
+[ext_resource type="Script" path="res://scripts/ui/PVZ_button_base.gd" id="6_i35d3"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog.tscn" id="7_jtvc6"]
+[ext_resource type="Theme" path="res://data/PVZ_theme.tres" id="8_k32o6"]
+[ext_resource type="Script" path="res://scripts/ui/dialog.gd" id="9_h2qaj"]
+[ext_resource type="Script" path="res://scripts/start_menu/panel_create_new_user.gd" id="10_32r4k"]
+[ext_resource type="Script" path="res://scripts/ui/dialog_error.gd" id="11_3t07n"]
+[ext_resource type="Script" path="res://scripts/start_menu/panel_rename_user.gd" id="12_ctgxi"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_confirm.tscn" id="13_73ads"]
+[ext_resource type="Script" path="res://scripts/ui/dialog_confirm.gd" id="14_jh4mu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_altii"]
+texture = ExtResource("2_sc0ay")
+texture_margin_left = 60.0
+texture_margin_top = 60.0
+texture_margin_right = 60.0
+texture_margin_bottom = 130.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_ito2j"]
+font = ExtResource("4_ige7v")
+font_size = 34
+font_color = Color(0.9071311, 0.7868838, 7.70092e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_altii"]
+bg_color = Color(0.09019608, 0.09411765, 0.13725491, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gis02"]
+font = ExtResource("4_ige7v")
+font_size = 24
+font_color = Color(1, 1, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_altii"]
+font = ExtResource("4_ige7v")
+font_size = 21
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dj5t5"]
+font = ExtResource("4_ige7v")
+font_size = 24
+font_color = Color(0.9071311, 0.7868838, 7.70092e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xqlaa"]
+bg_color = Color(0.3882353, 0.25490198, 0.0627451, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.87058824, 0.79607844, 0.41960785, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 6.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[node name="UserPanel" type="Control" unique_id=2121767396]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_et7jn")
+
+[node name="Panel" type="Panel" parent="." unique_id=1871533740]
+custom_minimum_size = Vector2(617, 492)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.0
+offset_top = -233.0
+offset_right = 310.0
+offset_bottom = 267.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_altii")
+
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=864959868]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_top = -37.0
+offset_right = 94.0
+offset_bottom = 27.0
+grow_horizontal = 2
+texture = ExtResource("3_nsg0n")
+
+[node name="Label" type="Label" parent="Panel" unique_id=293228927]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 54.0
+offset_bottom = 94.0
+grow_horizontal = 2
+text = "你叫啥？"
+label_settings = SubResource("LabelSettings_ito2j")
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Panel" unique_id=1066714024]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.5
+offset_top = -142.0
+offset_right = 225.5
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_altii")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/PanelContainer" unique_id=1195160765]
+custom_minimum_size = Vector2(350, 260)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/PanelContainer/ScrollContainer" unique_id=1851056741]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ButtonCreate" type="Button" parent="Panel/PanelContainer/ScrollContainer/VBoxContainer" unique_id=1899630750]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/PanelContainer/ScrollContainer/VBoxContainer/ButtonCreate" unique_id=31457117]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "（建立一位新用户）"
+label_settings = SubResource("LabelSettings_gis02")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="@TextureRect@3" type="TextureRect" parent="Panel/PanelContainer/ScrollContainer" unique_id=1287794647]
+visible = false
+use_parent_material = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+
+[node name="@TextureRect@4" type="TextureRect" parent="Panel/PanelContainer/ScrollContainer" unique_id=1757071366]
+visible = false
+use_parent_material = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1099630912]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -246.0
+offset_top = -90.0
+offset_right = 246.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureButtonRename" type="TextureButton" parent="Panel/HBoxContainer" unique_id=1692958317]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/TextureButtonRename" unique_id=465898074]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "重命名"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButtonOk" type="TextureButton" parent="Panel/HBoxContainer" unique_id=2142719227]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/TextureButtonOk" unique_id=1011742938]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "好"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButtonDel" type="TextureButton" parent="Panel/HBoxContainer" unique_id=1225145302]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/TextureButtonDel" unique_id=1282864098]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "删除"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButtonCancel" type="TextureButton" parent="Panel/HBoxContainer" unique_id=4519486]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/TextureButtonCancel" unique_id=1970012816]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "取消"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogCreateUser" type="Control" parent="Panel" unique_id=789252051 instance=ExtResource("7_jtvc6")]
+visible = false
+anchors_preset = 0
+offset_left = 164.0
+offset_top = 65.0
+offset_right = 164.0
+offset_bottom = 65.0
+theme = ExtResource("8_k32o6")
+script = ExtResource("9_h2qaj")
+
+[node name="Label" type="Label" parent="Panel/DialogCreateUser" unique_id=969183321]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 92.0
+offset_top = 136.0
+offset_right = 218.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "请选择一个用户，
+并点击“好”"
+horizontal_alignment = 1
+
+[node name="DialogChooseNull" type="Control" parent="Panel" unique_id=1872292194 instance=ExtResource("7_jtvc6")]
+visible = false
+anchors_preset = 0
+offset_left = 164.0
+offset_top = 65.0
+offset_right = 164.0
+offset_bottom = 65.0
+theme = ExtResource("8_k32o6")
+script = ExtResource("9_h2qaj")
+
+[node name="Label" type="Label" parent="Panel/DialogChooseNull" unique_id=1023560869]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 92.0
+offset_top = 136.0
+offset_right = 218.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "请选择一个用户"
+horizontal_alignment = 1
+
+[node name="PanelCreateNewUser" type="Panel" parent="." unique_id=2081992980]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -157.0
+offset_right = 238.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_altii")
+script = ExtResource("10_32r4k")
+
+[node name="TextureRect" type="TextureRect" parent="PanelCreateNewUser" unique_id=625541449]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_top = -37.0
+offset_right = 94.0
+offset_bottom = 27.0
+grow_horizontal = 2
+texture = ExtResource("3_nsg0n")
+
+[node name="Label" type="Label" parent="PanelCreateNewUser" unique_id=1033461859]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -3.0
+offset_top = 50.0
+offset_right = -3.0
+offset_bottom = 90.0
+grow_horizontal = 2
+text = "新用户"
+label_settings = SubResource("LabelSettings_ito2j")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelCreateNewUser" unique_id=1151457453]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = 101.0
+offset_right = 4.0
+offset_bottom = 130.0
+grow_horizontal = 2
+text = "请输入你的名字："
+label_settings = SubResource("LabelSettings_dj5t5")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="PanelCreateNewUser" unique_id=1181719296]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 149.0
+offset_right = 401.0
+offset_bottom = 191.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xqlaa")
+
+[node name="LineEdit" type="LineEdit" parent="PanelCreateNewUser/Panel" unique_id=1316484412]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ige7v")
+theme_override_colors/font_color = Color(0, 1, 0.1882353, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelCreateNewUser" unique_id=1640849571]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -147.0
+offset_top = -89.0
+offset_right = 147.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="ButtonOK" type="TextureButton" parent="PanelCreateNewUser/HBoxContainer" unique_id=1448411939]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="PanelCreateNewUser/HBoxContainer/ButtonOK" unique_id=493310163]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "好"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonCancel" type="TextureButton" parent="PanelCreateNewUser/HBoxContainer" unique_id=1987892322]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="PanelCreateNewUser/HBoxContainer/ButtonCancel" unique_id=331541836]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "取消"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogError" type="Control" parent="PanelCreateNewUser" unique_id=646420338 instance=ExtResource("7_jtvc6")]
+visible = false
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -25.0
+offset_right = 76.0
+offset_bottom = -25.0
+theme = ExtResource("8_k32o6")
+script = ExtResource("11_3t07n")
+
+[node name="Label" type="Label" parent="PanelCreateNewUser/DialogError" unique_id=444968387]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 92.0
+offset_top = 136.0
+offset_right = 218.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "用户名不能为空"
+
+[node name="PanelRenameUser" type="Panel" parent="." unique_id=87163964]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -157.0
+offset_right = 238.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_altii")
+script = ExtResource("12_ctgxi")
+
+[node name="TextureRect" type="TextureRect" parent="PanelRenameUser" unique_id=787805671]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.0
+offset_top = -37.0
+offset_right = 94.0
+offset_bottom = 27.0
+grow_horizontal = 2
+texture = ExtResource("3_nsg0n")
+
+[node name="Label" type="Label" parent="PanelRenameUser" unique_id=457591794]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -3.0
+offset_top = 50.0
+offset_right = -3.0
+offset_bottom = 90.0
+grow_horizontal = 2
+text = "新用户"
+label_settings = SubResource("LabelSettings_ito2j")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="PanelRenameUser" unique_id=387172797]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = 101.0
+offset_right = 4.0
+offset_bottom = 130.0
+grow_horizontal = 2
+text = "请输入你的名字："
+label_settings = SubResource("LabelSettings_dj5t5")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="PanelRenameUser" unique_id=1944936250]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 149.0
+offset_right = 401.0
+offset_bottom = 191.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xqlaa")
+
+[node name="LineEdit" type="LineEdit" parent="PanelRenameUser/Panel" unique_id=816381418]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ige7v")
+theme_override_colors/font_color = Color(0, 1, 0.1882353, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelRenameUser" unique_id=132121645]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -147.0
+offset_top = -89.0
+offset_right = 147.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="ButtonOK" type="TextureButton" parent="PanelRenameUser/HBoxContainer" unique_id=370260510]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="PanelRenameUser/HBoxContainer/ButtonOK" unique_id=1125473963]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "好"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonCancel" type="TextureButton" parent="PanelRenameUser/HBoxContainer" unique_id=262208944]
+layout_mode = 2
+texture_normal = ExtResource("5_a5jeg")
+script = ExtResource("6_i35d3")
+
+[node name="Label" type="Label" parent="PanelRenameUser/HBoxContainer/ButtonCancel" unique_id=736352496]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "取消"
+label_settings = SubResource("LabelSettings_altii")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogError" type="Control" parent="PanelRenameUser" unique_id=721629254 instance=ExtResource("7_jtvc6")]
+visible = false
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -25.0
+offset_right = 76.0
+offset_bottom = -25.0
+theme = ExtResource("8_k32o6")
+script = ExtResource("11_3t07n")
+
+[node name="Label" type="Label" parent="PanelRenameUser/DialogError" unique_id=1535916634]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 92.0
+offset_top = 136.0
+offset_right = 218.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "用户名不能为空"
+
+[node name="DialogError" type="Control" parent="." unique_id=215320428 instance=ExtResource("7_jtvc6")]
+visible = false
+anchors_preset = 0
+offset_left = -156.0
+offset_top = -179.0
+offset_right = -156.0
+offset_bottom = -179.0
+theme = ExtResource("8_k32o6")
+script = ExtResource("11_3t07n")
+
+[node name="Label" type="Label" parent="DialogError" unique_id=658615694]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 92.0
+offset_top = 136.0
+offset_right = 218.0
+offset_bottom = 155.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "用户名不能为空"
+
+[node name="DialogConfirmDel" type="Control" parent="." unique_id=402269584 instance=ExtResource("13_73ads")]
+visible = false
+anchors_preset = 0
+offset_left = -191.0
+offset_top = -178.0
+offset_right = -191.0
+offset_bottom = -178.0
+theme = ExtResource("8_k32o6")
+script = ExtResource("14_jh4mu")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://mcad1jl5d1ui"]
+[gd_scene format=3 uid="uid://mcad1jl5d1ui"]
 
 [ext_resource type="Texture2D" uid="uid://bwevuvs5nnwfx" path="res://assets/image/ui/ui_challenge/Challenge_Background.jpg" id="1_77tr5"]
 [ext_resource type="Theme" uid="uid://cx302yraw066y" path="res://data/ChooesLevel.tres" id="1_dw7cd"]
@@ -41,6 +41,9 @@
 [ext_resource type="Texture2D" uid="uid://dmmcjbsd028oj" path="res://assets/reanim/LilyPad_blink1.png" id="33_nodl8"]
 [ext_resource type="Resource" uid="uid://0vrftjy7v4a2" path="res://resources/level_date_resource/mode_minigame/minigame_05_column.tres" id="35_j86es"]
 [ext_resource type="Texture2D" uid="uid://ddq8w41grl3re" path="res://assets/image/choose_level/111.png" id="38_7hqj2"]
+[ext_resource type="Resource" path="res://resources/level_date_resource/mode_adventure/adventure_06_contract.tres" id="41_contract"]
+[ext_resource type="Texture2D" uid="uid://0lgiccjf1gu5" path="res://assets/image/operator/wisdel/wisdel_card_full.png" id="42_wisdelcard"]
+[ext_resource type="PackedScene" path="res://scenes/character/operator/operator_002_wisdel.tscn" id="43_wisdelspine"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1i0xb"]
 
@@ -106,7 +109,7 @@ font_weight = 500
 hinting = 2
 subpixel_positioning = 0
 
-[node name="ChooseLevel" type="Control"]
+[node name="ChooseLevel" type="Control" unique_id=882944087]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,7 +120,7 @@ theme = ExtResource("1_dw7cd")
 script = ExtResource("1_qbhvk")
 game_mode = 101
 
-[node name="BG" type="TextureRect" parent="."]
+[node name="BG" type="TextureRect" parent="." unique_id=267725068]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,7 +129,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_77tr5")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=746670822]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -148,7 +151,7 @@ text = "冒 险 模 式"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AllPage" type="Control" parent="."]
+[node name="AllPage" type="Control" parent="." unique_id=345731454]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,7 +159,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="AllPage"]
+[node name="GridContainer" type="GridContainer" parent="AllPage" unique_id=542693644]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -170,11 +173,11 @@ theme_override_constants/h_separation = 85
 theme_override_constants/v_separation = 20
 columns = 4
 
-[node name="ChooseLevelButton" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton" parent="AllPage/GridContainer" unique_id=631445009 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("9_ykbb6")
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton" unique_id=1132623320]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -189,7 +192,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1i0xb")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton/Panel" unique_id=519333358]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -206,19 +209,19 @@ scale = Vector2(0.6, 0.6)
 mouse_filter = 2
 texture = ExtResource("5_2o48a")
 
-[node name="Plant001PeaShooterSingle" parent="AllPage/GridContainer/ChooseLevelButton/Panel/TextureRect" node_paths=PackedStringArray("node_no_change_direction") instance=ExtResource("5_k1h2l")]
+[node name="Plant001PeaShooterSingle" parent="AllPage/GridContainer/ChooseLevelButton/Panel/TextureRect" unique_id=2135678059 node_paths=PackedStringArray("node_no_change_direction") instance=ExtResource("5_k1h2l")]
 position = Vector2(89.166626, 88.11499)
 node_no_change_direction = [NodePath("HpComponent"), NodePath("SleepComponent"), null]
 character_init_type = 1
 
-[node name="ChooseLevelButton2" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton2" parent="AllPage/GridContainer" unique_id=675347052 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("12_43bok")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton2/TextureButton" index="0"]
 text = "黑夜"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton2"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton2" unique_id=325611645]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -233,7 +236,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ddvl6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton2/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton2/Panel" unique_id=1499884363]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -249,18 +252,18 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("7_7gy53")
 
-[node name="Plant009Puff" parent="AllPage/GridContainer/ChooseLevelButton2/Panel/TextureRect" instance=ExtResource("11_k1h2l")]
+[node name="Plant009Puff" parent="AllPage/GridContainer/ChooseLevelButton2/Panel/TextureRect" unique_id=165557289 instance=ExtResource("11_k1h2l")]
 position = Vector2(92.5, 94.166664)
 character_init_type = 1
 
-[node name="ChooseLevelButton3" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton3" parent="AllPage/GridContainer" unique_id=1971875662 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("11_0fwuh")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton3/TextureButton" index="0"]
 text = "泳池"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton3"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton3" unique_id=302888953]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -275,7 +278,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ddvl6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton3/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton3/Panel" unique_id=1123401933]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -291,18 +294,18 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("11_ddvl6")
 
-[node name="Plant017LilyPad" parent="AllPage/GridContainer/ChooseLevelButton3/Panel/TextureRect" instance=ExtResource("14_dw7cd")]
+[node name="Plant017LilyPad" parent="AllPage/GridContainer/ChooseLevelButton3/Panel/TextureRect" unique_id=1865797344 instance=ExtResource("14_dw7cd")]
 position = Vector2(98.6383, 129.902)
 character_init_type = 1
 
-[node name="ChooseLevelButton4" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton4" parent="AllPage/GridContainer" unique_id=1177292509 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("14_i8cvr")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton4/TextureButton" index="0"]
 text = "浓雾"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton4"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton4" unique_id=1357472964]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -317,7 +320,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ddvl6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton4/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton4/Panel" unique_id=969313781]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -333,18 +336,18 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("16_5nyce")
 
-[node name="Plant025SeaShroom" parent="AllPage/GridContainer/ChooseLevelButton4/Panel/TextureRect" instance=ExtResource("17_i3mhq")]
+[node name="Plant025SeaShroom" parent="AllPage/GridContainer/ChooseLevelButton4/Panel/TextureRect" unique_id=377268475 instance=ExtResource("17_i3mhq")]
 position = Vector2(93.6383, 116.569)
 character_init_type = 1
 
-[node name="ChooseLevelButton5" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton5" parent="AllPage/GridContainer" unique_id=403256652 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("17_7hqj2")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton5/TextureButton" index="0"]
 text = "保龄球"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton5"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton5" unique_id=888746934]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -359,7 +362,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_a108d")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton5/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton5/Panel" unique_id=2090064716]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -375,65 +378,63 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_2o48a")
 
-[node name="Plant1001WallNutBowling" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect"]
+[node name="Plant1001WallNutBowling" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect" unique_id=477206000]
 position = Vector2(92.32933, 94.35751)
 
-[node name="Body" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling"]
+[node name="Body" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling" unique_id=1864210482]
 
-[node name="BowlingCenter" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body"]
+[node name="BowlingCenter" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body" unique_id=423869774]
 position = Vector2(0, -28)
 
-[node name="BodyCorrect" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter"]
+[node name="BodyCorrect" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter" unique_id=1069644067]
 position = Vector2(0, 30)
 
-[node name="_ground" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect"]
+[node name="_ground" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect" unique_id=617782451]
 position = Vector2(-42, -71)
 centered = false
 
-[node name="Anim_idle" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect"]
+[node name="Anim_idle" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect" unique_id=652978093]
 position = Vector2(-42, -71)
 centered = false
 
-[node name="Anim_face" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect"]
+[node name="Anim_face" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect" unique_id=874692307]
 position = Vector2(-38.163, -62.7476)
 rotation = -0.0454682
 scale = Vector2(0.7, 0.68937)
 texture = ExtResource("18_7hqj2")
 centered = false
 
-[node name="Anim_blink_twitch" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect"]
+[node name="Anim_blink_twitch" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect" unique_id=405375000]
 visible = false
 position = Vector2(-14.5894, -8.3159)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("19_x6sup")
 centered = false
 
-[node name="Anim_blink_twice" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect"]
+[node name="Anim_blink_twice" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling/Body/BowlingCenter/BodyCorrect" unique_id=1953171824]
 visible = false
 position = Vector2(-15.7894, -22.3159)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("20_nodl8")
 centered = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling"]
-libraries = {
-&"": SubResource("AnimationLibrary_7lapw")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling" unique_id=1257429292]
+libraries/ = SubResource("AnimationLibrary_7lapw")
 
-[node name="AnimationTree" type="AnimationTree" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling"]
+[node name="AnimationTree" type="AnimationTree" parent="AllPage/GridContainer/ChooseLevelButton5/Panel/TextureRect/Plant1001WallNutBowling" unique_id=327860473]
 tree_root = SubResource("AnimationNodeBlendTree_5nwtl")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/TimeScale/scale = 1.0
 
-[node name="ChooseLevelButton6" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton6" parent="AllPage/GridContainer" unique_id=1530234181 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("19_om7pm")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton6/TextureButton" index="0"]
 text = "锤僵尸"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton6"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton6" unique_id=597227814]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -448,7 +449,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ykbb6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton6/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton6/Panel" unique_id=1133286360]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -464,42 +465,42 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("7_7gy53")
 
-[node name="Hammer" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel"]
+[node name="Hammer" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel" unique_id=664285513]
 position = Vector2(45.241, 35.5121)
 scale = Vector2(0.51, 0.51)
 
-[node name="Body" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer"]
+[node name="Body" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer" unique_id=1936655387]
 position = Vector2(-62, -11)
 
-[node name="Hammer_3" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer/Body"]
+[node name="Hammer_3" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer/Body" unique_id=1165589665]
 position = Vector2(57.9, -19.3)
 rotation = 1.11527
 scale = Vector2(0.797, 0.797)
 texture = ExtResource("12_1i0xb")
 centered = false
 
-[node name="Hammer_2" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer/Body"]
+[node name="Hammer_2" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer/Body" unique_id=27090213]
 position = Vector2(74.6, -29.3)
 rotation = 1.11527
 scale = Vector2(0.797, 0.797)
 texture = ExtResource("13_ddvl6")
 centered = false
 
-[node name="Hammer1" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer/Body"]
+[node name="Hammer1" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton6/Panel/Hammer/Body" unique_id=1831191501]
 position = Vector2(65.3, 4.1)
 rotation = 1.11527
 scale = Vector2(0.797, 0.797)
 texture = ExtResource("14_a108d")
 centered = false
 
-[node name="ChooseLevelButton7" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton7" parent="AllPage/GridContainer" unique_id=413476704 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("23_x6sup")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton7/TextureButton" index="0"]
 text = "小僵尸大麻烦"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton7"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton7" unique_id=61034842]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -514,7 +515,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ddvl6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton7/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton7/Panel" unique_id=1196601776]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -530,24 +531,24 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_2o48a")
 
-[node name="Plant001PeaShooterSingle" parent="AllPage/GridContainer/ChooseLevelButton7/Panel/TextureRect" node_paths=PackedStringArray("node_no_change_direction") instance=ExtResource("5_k1h2l")]
+[node name="Plant001PeaShooterSingle" parent="AllPage/GridContainer/ChooseLevelButton7/Panel/TextureRect" unique_id=39210557 node_paths=PackedStringArray("node_no_change_direction") instance=ExtResource("5_k1h2l")]
 position = Vector2(85.8333, 88.115)
 node_no_change_direction = [NodePath("HpComponent"), NodePath("SleepComponent"), null]
 character_init_type = 1
 
-[node name="Zombie001Norm" parent="AllPage/GridContainer/ChooseLevelButton7/Panel/TextureRect" instance=ExtResource("26_hm51y")]
+[node name="Zombie001Norm" parent="AllPage/GridContainer/ChooseLevelButton7/Panel/TextureRect" unique_id=1304419128 instance=ExtResource("26_hm51y")]
 position = Vector2(151.66666, 93.33333)
 scale = Vector2(0.5, 0.5)
 character_init_type = 1
 
-[node name="ChooseLevelButton8" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton8" parent="AllPage/GridContainer" unique_id=877199696 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("25_nodl8")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton8/TextureButton" index="0"]
 text = "种子雨"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton8"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton8" unique_id=1894979718]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -562,7 +563,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ddvl6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton8/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton8/Panel" unique_id=716896505]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -578,7 +579,7 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("16_5nyce")
 
-[node name="Rain" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect" instance=ExtResource("28_0fwuh")]
+[node name="Rain" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect" unique_id=434532186 instance=ExtResource("28_0fwuh")]
 layout_mode = 0
 offset_left = -16.361694
 offset_top = 38.235676
@@ -588,7 +589,7 @@ offset_bottom = 193.23564
 [node name="rainParticles" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Rain" index="3"]
 position = Vector2(113.33334, -6.6666756)
 
-[node name="Card17" type="Control" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect"]
+[node name="Card17" type="Control" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect" unique_id=1788649906]
 custom_minimum_size = Vector2(50, 70)
 layout_mode = 1
 anchors_preset = 8
@@ -605,7 +606,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("29_bfj22")
 
-[node name="CardBg" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17"]
+[node name="CardBg" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17" unique_id=1013656196]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -617,7 +618,7 @@ texture = ExtResource("30_7hqj2")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="Cost" type="Label" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg"]
+[node name="Cost" type="Label" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg" unique_id=527475435]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.05
@@ -634,51 +635,51 @@ text = "100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="CharacterStatic" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg"]
+[node name="CharacterStatic" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg" unique_id=204651051]
 position = Vector2(24, 30)
 
-[node name="Plant017LilyPad" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic"]
+[node name="Plant017LilyPad" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic" unique_id=636482956]
 position = Vector2(3, 15)
 scale = Vector2(0.5, 0.5)
 
-[node name="Shadow" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad"]
+[node name="Shadow" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad" unique_id=573012722]
 visible = false
 texture = ExtResource("31_om7pm")
 
-[node name="Body" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad"]
+[node name="Body" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad" unique_id=1906164690]
 
-[node name="BodyCorrect" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body"]
+[node name="BodyCorrect" type="Node2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body" unique_id=1878931836]
 position = Vector2(-44, -67)
 
-[node name="shadow" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body/BodyCorrect"]
+[node name="shadow" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body/BodyCorrect" unique_id=489969880]
 visible = false
 position = Vector2(40, 61)
 texture = ExtResource("31_om7pm")
 
-[node name="Anim_idle" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body/BodyCorrect"]
+[node name="Anim_idle" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body/BodyCorrect" unique_id=1840527932]
 position = Vector2(-0.2, 5.5)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("32_x6sup")
 centered = false
 
-[node name="Anim_blink" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body/BodyCorrect"]
+[node name="Anim_blink" type="Sprite2D" parent="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Card17/CardBg/CharacterStatic/Plant017LilyPad/Body/BodyCorrect" unique_id=1516542006]
 visible = false
 position = Vector2(46, 50)
 scale = Vector2(0.735294, 0.695652)
 texture = ExtResource("33_nodl8")
 centered = false
 
-[node name="Control" type="Control" parent="AllPage/GridContainer"]
+[node name="Control" type="Control" parent="AllPage/GridContainer" unique_id=612958041]
 layout_mode = 2
 
-[node name="ChooseLevelButton9" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton9" parent="AllPage/GridContainer" unique_id=904806439 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("32_5nwtl")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton9/TextureButton" index="0"]
 text = "屋顶"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton9"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton9" unique_id=332089017]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -693,7 +694,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ykbb6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton9/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton9/Panel" unique_id=2123590079]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -709,18 +710,18 @@ grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("26_dfwdo")
 
-[node name="Plant033CabbagePult" parent="AllPage/GridContainer/ChooseLevelButton9/Panel/TextureRect" instance=ExtResource("27_pcq3e")]
+[node name="Plant033CabbagePult" parent="AllPage/GridContainer/ChooseLevelButton9/Panel/TextureRect" unique_id=645860083 instance=ExtResource("27_pcq3e")]
 position = Vector2(103.233, 113.353)
 character_init_type = 1
 
-[node name="ChooseLevelButton10" parent="AllPage/GridContainer" instance=ExtResource("4_nodl8")]
+[node name="ChooseLevelButton10" parent="AllPage/GridContainer" unique_id=1427079590 instance=ExtResource("4_nodl8")]
 layout_mode = 2
 curr_level_data_game_para = ExtResource("35_j86es")
 
 [node name="Label" parent="AllPage/GridContainer/ChooseLevelButton10/TextureButton" index="0"]
 text = "柱子"
 
-[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton10"]
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton10" unique_id=928176652]
 clip_children = 1
 layout_mode = 1
 anchors_preset = 5
@@ -735,7 +736,7 @@ pivot_offset = Vector2(41, 33.5)
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ykbb6")
 
-[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton10/Panel"]
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton10/Panel" unique_id=1597822540]
 layout_mode = 0
 offset_left = -1.0602112
 offset_top = -4.987915
@@ -745,7 +746,73 @@ texture = ExtResource("38_7hqj2")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="MainMenu" type="TextureButton" parent="."]
+[node name="ChooseLevelButton11" parent="AllPage/GridContainer" unique_id=904362574 instance=ExtResource("4_nodl8")]
+layout_mode = 2
+curr_level_data_game_para = ExtResource("41_contract")
+
+[node name="Label" parent="AllPage/GridContainer/ChooseLevelButton11/TextureButton" index="0"]
+text = "危机合约"
+
+[node name="Panel" type="Panel" parent="AllPage/GridContainer/ChooseLevelButton11" unique_id=420332747]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.93979
+offset_top = 0.98791504
+offset_right = 42.06021
+offset_bottom = 68.9879
+grow_horizontal = 2
+pivot_offset = Vector2(41, 33.5)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ykbb6")
+
+[node name="TextureRect" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton11/Panel" unique_id=69392069]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.0
+offset_top = -51.0
+offset_right = 141.0
+offset_bottom = 149.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+mouse_filter = 2
+texture = ExtResource("7_7gy53")
+
+[node name="WisadelCard" type="TextureRect" parent="AllPage/GridContainer/ChooseLevelButton11/Panel/TextureRect" unique_id=148862138]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -58.0
+offset_right = 52.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("42_wisdelcard")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="WisadelSpine" parent="AllPage/GridContainer/ChooseLevelButton11" unique_id=2111917683 instance=ExtResource("43_wisdelspine")]
+z_index = 1
+position = Vector2(53, 57)
+scale = Vector2(0.8, 0.8)
+operator_skill_id = 1
+block_count = 1
+character_init_type = 1
+
+[node name="MainMenu" type="TextureButton" parent="." unique_id=472094457]
 layout_mode = 0
 offset_left = 669.0
 offset_top = 527.0
@@ -756,7 +823,7 @@ texture_normal = ExtResource("11_y0ybt")
 texture_pressed = ExtResource("12_7gy53")
 texture_click_mask = ExtResource("13_c1hwb")
 
-[node name="Label" type="Label" parent="MainMenu"]
+[node name="Label" type="Label" parent="MainMenu" unique_id=888949512]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -788,3 +855,4 @@ vertical_alignment = 1
 [editable path="AllPage/GridContainer/ChooseLevelButton8/Panel/TextureRect/Rain"]
 [editable path="AllPage/GridContainer/ChooseLevelButton9"]
 [editable path="AllPage/GridContainer/ChooseLevelButton10"]
+[editable path="AllPage/GridContainer/ChooseLevelButton11"]

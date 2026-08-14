@@ -125,7 +125,7 @@ static func _confine_under(path: String, root: String, label: String) -> String:
 ## confirmed `res://`-rooted and traversal-free by the caller.
 ##
 ## Comparisons are case-folded: macOS (APFS) and Windows (NTFS) are
-## case-insensitive by default, so `res://Project.godot` resolves to the real
+## case-insensitive by default, so `res://project.godot` resolves to the real
 ## `project.godot` and must be refused too.
 ##
 ## `.import` sidecars are deliberately NOT blocked — editing an asset's import

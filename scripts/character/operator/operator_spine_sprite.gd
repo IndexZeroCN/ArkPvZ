@@ -56,8 +56,8 @@ func get_anim_name(logic: String) -> String:
 	return logic
 
 ## 设置动画播放速度倍率(攻速变化时调用; 应用到当前 0 号轨道)
-func set_anim_time_scale(scale: float) -> void:
-	anim_time_scale = clampf(scale, 0.01, 10.0)
+func set_anim_time_scale(scale_value: float) -> void:
+	anim_time_scale = clampf(scale_value, 0.01, 10.0)
 	_apply_anim_time_scale()
 
 ## 把 anim_time_scale 应用到当前轨道(0 号轨道)的 SpineTrackEntry
@@ -86,10 +86,13 @@ func load_data() -> void:
 func _load_data_res(skel_p: String, atlas_p: String) -> SpineSkeletonDataResource:
 	if skel_p.is_empty() or atlas_p.is_empty():
 		return null
-	var skel_res := SpineSkeletonFileResource.new()
-	skel_res.load_from_file(skel_p)
-	var atlas_res := SpineAtlasResource.new()
-	atlas_res.load_from_atlas_file(atlas_p)
+	## 用 Godot 资源系统加载(load 经 .import 映射到 .spskel/.spatlas 导入产物):
+	## 不要直接 FileAccess 读源 .skel/.atlas —— 导出后源文件会被导入产物替换, pck 中无源文件,
+	## 直接读取会失败导致 Spine 数据加载不出、动画不显示(导出后实测: FileAccess err=7 + 动画状态 null)
+	var skel_res: SpineSkeletonFileResource = load(skel_p)
+	var atlas_res: SpineAtlasResource = load(atlas_p)
+	if skel_res == null or atlas_res == null:
+		return null
 	var data_res := SpineSkeletonDataResource.new()
 	data_res.skeleton_file_res = skel_res
 	data_res.atlas_res = atlas_res

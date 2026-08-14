@@ -95,7 +95,9 @@ func _fire_beam(target: Zombie000Base):
 	beam_fx.signal_beam_hit.connect(_on_beam_hit.bind(target), CONNECT_ONE_SHOT)
 
 ## 射线命中帧: 结算100%攻击力法术伤害 + 1秒停顿 + 附着残影
-func _on_beam_hit(target: Zombie000Base):
+## 参数不带类型: 目标可能在射线飞行期(0.09s)内被其他干员/召唤物击杀并释放,
+## 带类型 bind 在调用时对已释放实例报 "Cannot convert argument 1 from Object to Object"
+func _on_beam_hit(target):
 	if not is_instance_valid(target) or target.is_death:
 		return
 	## 命中音效(敌人被攻击时发出, 用户选定)

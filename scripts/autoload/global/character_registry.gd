@@ -199,356 +199,356 @@ const PlantInfo = {
 		PlantInfoAttribute.PlantName: "PeaShooterSingle",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 100,
-		PlantInfoAttribute.PlantConditionResource:preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_001_pea_shooter_single.tscn")
+		PlantInfoAttribute.PlantConditionResource:"res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_001_pea_shooter_single.tscn"
 		},
 	PlantType.P002SunFlower: {
 		PlantInfoAttribute.PlantName: "SunFlower",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource:preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_002_sun_flower.tscn")
+		PlantInfoAttribute.PlantConditionResource:"res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_002_sun_flower.tscn"
 		},
 	PlantType.P003CherryBomb: {
 		PlantInfoAttribute.PlantName: "CherryBomb",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 150,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_003_cherry_bomb.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_003_cherry_bomb.tscn"
 		},
 	PlantType.P004WallNut: {
 		PlantInfoAttribute.PlantName: "WallNut",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_004_wall_nut.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_004_wall_nut.tscn"
 		},
 	PlantType.P005PotatoMine: {
 		PlantInfoAttribute.PlantName: "PotatoMine",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 25,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/005_potato_mine.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_005_potato_mine.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/005_potato_mine.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_005_potato_mine.tscn"
 		},
 	PlantType.P006SnowPea: {
 		PlantInfoAttribute.PlantName: "SnowPea",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 175,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_006_snow_pea.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_006_snow_pea.tscn"
 		},
 	PlantType.P007Chomper: {
 		PlantInfoAttribute.PlantName: "Chomper",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 150,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_007_chomper.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_007_chomper.tscn"
 		},
 	PlantType.P008PeaShooterDouble: {
 		PlantInfoAttribute.PlantName: "PeaShooterDouble",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 200,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_008_pea_shooter_double.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_008_pea_shooter_double.tscn"
 		},
 		#
 	PlantType.P009PuffShroom: {
 		PlantInfoAttribute.PlantName: "PuffShroom",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 0,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_009_puff.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_009_puff.tscn"
 		},
 	PlantType.P010SunShroom: {
 		PlantInfoAttribute.PlantName: "SunShroom",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 25,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_010_sun_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_010_sun_shroom.tscn"
 		},
 	PlantType.P011FumeShroom: {
 		PlantInfoAttribute.PlantName: "FumeShroom",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 75,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_011_fume_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_011_fume_shroom.tscn"
 		},
 	PlantType.P012GraveBuster: {
 		PlantInfoAttribute.PlantName: "GraveBuster",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 75,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/012_grave_buster.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_012_grave_buster.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/012_grave_buster.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_012_grave_buster.tscn"
 		},
 	PlantType.P013HypnoShroom: {
 		PlantInfoAttribute.PlantName: "HypnoShroom",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 75,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_013_hypno_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_013_hypno_shroom.tscn"
 		},
 	PlantType.P014ScaredyShroom: {
 		PlantInfoAttribute.PlantName: "ScaredyShroom",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 25,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_014_scaredy_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_014_scaredy_shroom.tscn"
 		},
 	PlantType.P015IceShroom: {
 		PlantInfoAttribute.PlantName: "IceShroom",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 75,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_015_ice_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_015_ice_shroom.tscn"
 		},
 	PlantType.P016DoomShroom: {
 		PlantInfoAttribute.PlantName: "DoomShroom",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_016_doom_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_016_doom_shroom.tscn"
 		},
 	PlantType.P017LilyPad: {
 		PlantInfoAttribute.PlantName: "LilyPad",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 25,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/017_lily_pad.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_017_lily_pad.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/017_lily_pad.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_017_lily_pad.tscn"
 		},
 	PlantType.P018Squash: {
 		PlantInfoAttribute.PlantName: "Squash",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_018_squash.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_018_squash.tscn"
 		},
 	PlantType.P019ThreePeater: {
 		PlantInfoAttribute.PlantName: "ThreePeater",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 325,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_019_three_peater.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_019_three_peater.tscn"
 		},
 	PlantType.P020TangleKelp: {
 		PlantInfoAttribute.PlantName: "TangleKelp",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 25,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/020_tanglekelp.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_020_tanglekelp.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/020_tanglekelp.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_020_tanglekelp.tscn"
 		},
 	PlantType.P021Jalapeno: {
 		PlantInfoAttribute.PlantName: "Jalapeno",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_021_jalapeno.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_021_jalapeno.tscn"
 		},
 	PlantType.P022Caltrop: {
 		PlantInfoAttribute.PlantName: "Caltrop",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/022_caltrop.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_022_caltrop.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/022_caltrop.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_022_caltrop.tscn"
 		},
 	PlantType.P023TorchWood: {
 		PlantInfoAttribute.PlantName: "TorchWood",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 175,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_023_torch_wood.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_023_torch_wood.tscn"
 		},
 	PlantType.P024TallNut: {
 		PlantInfoAttribute.PlantName: "TallNut",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 175,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_024_tall_nut.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_024_tall_nut.tscn"
 		},
 
 	PlantType.P025SeaShroom: {
 		PlantInfoAttribute.PlantName: "SeaShroom",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 0,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/020_tanglekelp.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_025_sea_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/020_tanglekelp.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_025_sea_shroom.tscn"
 		},
 	PlantType.P026Plantern: {
 		PlantInfoAttribute.PlantName: "Plantern",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 25,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_026_plantern.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_026_plantern.tscn"
 		},
 	PlantType.P027Cactus: {
 		PlantInfoAttribute.PlantName: "Cactus",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_027_cactus.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_027_cactus.tscn"
 		},
 	PlantType.P028Blover: {
 		PlantInfoAttribute.PlantName: "Blover",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 100,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_028_blover.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_028_blover.tscn"
 		},
 	PlantType.P029SplitPea: {
 		PlantInfoAttribute.PlantName: "SplitPea",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_029_split_pea.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_029_split_pea.tscn"
 		},
 	PlantType.P030StarFruit: {
 		PlantInfoAttribute.PlantName: "StarFruit",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_030_star_fruit.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_030_star_fruit.tscn"
 		},
 	PlantType.P031Pumpkin: {
 		PlantInfoAttribute.PlantName: "Pumpkin",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/031_Pumpkin.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_031_pumpkin.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/031_Pumpkin.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_031_pumpkin.tscn"
 		},
 	PlantType.P032MagnetShroom: {
 		PlantInfoAttribute.PlantName: "MagnetShroom",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 100,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_032_magnet_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_032_magnet_shroom.tscn"
 		},
 
 	PlantType.P033CabbagePult: {
 		PlantInfoAttribute.PlantName: "CabbagePult",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 100,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_033_cabbage_pult.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_033_cabbage_pult.tscn"
 		},
 	PlantType.P034FlowerPot: {
 		PlantInfoAttribute.PlantName: "FlowerPot",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 25,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/034_flower_pot.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_034_flower_pot.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/034_flower_pot.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_034_flower_pot.tscn"
 		},
 	PlantType.P035CornPult: {
 		PlantInfoAttribute.PlantName: "CornPult",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_035_corn_pult.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_035_corn_pult.tscn"
 		},
 	PlantType.P036CoffeeBean: {
 		PlantInfoAttribute.PlantName: "CoffeeBean",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 75,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/036_coffee_bean.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_036_coffee_bean.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/036_coffee_bean.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_036_coffee_bean.tscn"
 		},
 	PlantType.P037Garlic: {
 		PlantInfoAttribute.PlantName: "Garlic",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_037_garlic.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_037_garlic.tscn"
 		},
 	PlantType.P038UmbrellaLeaf: {
 		PlantInfoAttribute.PlantName: "UmbrellaLeaf",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 100,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_038_umbrella_leaf.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_038_umbrella_leaf.tscn"
 		},
 	PlantType.P039MariGold: {
 		PlantInfoAttribute.PlantName: "MariGold",
 		PlantInfoAttribute.CoolTime: 30.0,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_039_mari_gold.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_039_mari_gold.tscn"
 		},
 	PlantType.P040MelonPult: {
 		PlantInfoAttribute.PlantName: "MelonPult",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 300,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_040_melon_pult.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_040_melon_pult.tscn"
 		},
 
 	PlantType.P041GatlingPea: {
 		PlantInfoAttribute.PlantName: "GatlingPea",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 250,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_purple.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_041_gatling_pea.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_purple.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_041_gatling_pea.tscn"
 		},
 
 	PlantType.P042TwinSunFlower: {
 		PlantInfoAttribute.PlantName: "TwinSunFlower",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 150,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_purple.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_042_twin_sun_flower.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_purple.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_042_twin_sun_flower.tscn"
 		},
 
 	PlantType.P043GloomShroom: {
 		PlantInfoAttribute.PlantName: "GloomShroom",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 150,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_purple.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_043_gloom_shroom.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_purple.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_043_gloom_shroom.tscn"
 		},
 
 	PlantType.P044Cattail: {
 		PlantInfoAttribute.PlantName: "Cattail",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 225,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_purple.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_044_cattail.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_purple.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_044_cattail.tscn"
 		},
 
 	PlantType.P045WinterMelon: {
 		PlantInfoAttribute.PlantName: "WinterMelon",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 200,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_purple.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_045_winter_melon.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_purple.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_045_winter_melon.tscn"
 		},
 
 	PlantType.P046GoldMagnet: {
 		PlantInfoAttribute.PlantName: "GoldMagnet",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_purple.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_046_gold_magnet.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_purple.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_046_gold_magnet.tscn"
 		},
 
 	PlantType.P047SpikeRock: {
 		PlantInfoAttribute.PlantName: "SpikeRock",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 125,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_purple.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_047_spike_rock.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_purple.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_047_spike_rock.tscn"
 		},
 
 	PlantType.P048CobCannon: {
 		PlantInfoAttribute.PlantName: "CobCannon",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 500,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/048_cob_cannon.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_048_cob_cannon.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/048_cob_cannon.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_048_cob_cannon.tscn"
 		},
 
 	PlantType.P049PeaShooterDoubleReverse: {
 		PlantInfoAttribute.PlantName: "PeaShooterDoubleReverse",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 200,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_049_pea_shooter_double_reverse.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_049_pea_shooter_double_reverse.tscn"
 		},
 
 	## 明日方舟干员
@@ -559,10 +559,10 @@ const PlantInfo = {
 		PlantInfoAttribute.OperatorDisplayName: "克洛丝",
 		PlantInfoAttribute.CoolTime: 66.0,
 		PlantInfoAttribute.SunCost: 8,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/050_kroos_operator.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_001_kroos.tscn"),
-		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/kroos/kroos_card_full.png"),
-		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_101_kroos_arrow.tscn"),
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/050_kroos_operator.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/operator/operator_001_kroos.tscn",
+		PlantInfoAttribute.OperatorCardBg : "res://assets/image/operator/kroos/kroos_card_full.png",
+		PlantInfoAttribute.OperatorBulletScene : "res://scenes/bullet/bullet_101_kroos_arrow.tscn",
 		PlantInfoAttribute.OperatorAttackAnims : ["Attack"],
 		PlantInfoAttribute.OperatorAttackModes : {
 			"普通": {"count": 1, "mult": 1.0},
@@ -576,10 +576,10 @@ const PlantInfo = {
 		PlantInfoAttribute.OperatorDisplayName: "维什戴尔",
 		PlantInfoAttribute.CoolTime: 70.0,
 		PlantInfoAttribute.SunCost: 23,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/051_wisdel_operator.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_002_wisdel.tscn"),
-		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/wisdel/wisdel_card_full.png"),
-		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_102_wisdel_shell.tscn"),
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/051_wisdel_operator.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/operator/operator_002_wisdel.tscn",
+		PlantInfoAttribute.OperatorCardBg : "res://assets/image/operator/wisdel/wisdel_card_full.png",
+		PlantInfoAttribute.OperatorBulletScene : "res://scenes/bullet/bullet_102_wisdel_shell.tscn",
 		PlantInfoAttribute.OperatorAttackAnims : ["Attack_A", "Attack_B", "Attack_C"],
 		PlantInfoAttribute.OperatorAttackModes : {
 			"普通": {"count": 1, "mult": 1.0},
@@ -592,17 +592,17 @@ const PlantInfo = {
 			1: {
 				"name": "定点清算",
 				"desc": "攻击回复·自动触发\n下次攻击额外2次余震并晕眩1.5秒\n溅射扩大，余震伤害提升至120%",
-				"icon": preload("res://assets/image/operator/wisdel/skill_icon_1.png"),
+				"icon": "res://assets/image/operator/wisdel/skill_icon_1.png",
 			},
 			2: {
 				"name": "饱和复仇",
 				"desc": "自动回复·手动触发·可随时关闭\n攻击力+35%，攻击间隔缩短，攻击3名敌人\n过载：80%攻击力4连发随机索敌",
-				"icon": preload("res://assets/image/operator/wisdel/skill_icon_2.png"),
+				"icon": "res://assets/image/operator/wisdel/skill_icon_2.png",
 			},
 			3: {
 				"name": "爆裂黎明",
 				"desc": "自动回复·手动触发·可随时停止\n攻击力+180%，召唤2个魂灵之影\n6发弹药，攻击时攻击力提升至220%",
-				"icon": preload("res://assets/image/operator/wisdel/skill_icon_3.png"),
+				"icon": "res://assets/image/operator/wisdel/skill_icon_3.png",
 			},
 		},
 		},
@@ -613,10 +613,10 @@ const PlantInfo = {
 		PlantInfoAttribute.OperatorDisplayName: "桃金娘",
 		PlantInfoAttribute.CoolTime: 66.0,
 		PlantInfoAttribute.SunCost: 8,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/052_myrtle_operator.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_003_myrtle.tscn"),
-		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/myrtle/myrtle_card_full.png"),
-		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_104_myrtle_hit.tscn"),
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/052_myrtle_operator.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/operator/operator_003_myrtle.tscn",
+		PlantInfoAttribute.OperatorCardBg : "res://assets/image/operator/myrtle/myrtle_card_full.png",
+		PlantInfoAttribute.OperatorBulletScene : "res://scenes/bullet/bullet_104_myrtle_hit.tscn",
 		PlantInfoAttribute.OperatorAttackAnims : ["Attack"],
 		PlantInfoAttribute.OperatorAttackModes : {
 			"普通": {"count": 1, "mult": 1.0},
@@ -626,12 +626,12 @@ const PlantInfo = {
 			1: {
 				"name": "支援号令·β型",
 				"desc": "自动回复·手动触发\n停止攻击，8秒内回复14点部署费用",
-				"icon": preload("res://assets/image/operator/myrtle/skill_icon_1.png"),
+				"icon": "res://assets/image/operator/myrtle/skill_icon_1.png",
 			},
 			2: {
 				"name": "治愈之翼",
 				"desc": "自动回复·手动触发\n停止攻击，16秒内回复16点部署费用\n并每秒治疗一名友方50%攻击力",
-				"icon": preload("res://assets/image/operator/myrtle/skill_icon_2.png"),
+				"icon": "res://assets/image/operator/myrtle/skill_icon_2.png",
 			},
 		},
 		},
@@ -642,10 +642,10 @@ const PlantInfo = {
 		PlantInfoAttribute.OperatorDisplayName: "羽毛笔",
 		PlantInfoAttribute.CoolTime: 60.0,
 		PlantInfoAttribute.SunCost: 20,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/053_crow_operator.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/operator/operator_004_crow.tscn"),
-		PlantInfoAttribute.OperatorCardBg : preload("res://assets/image/operator/crow/crow_card_full.png"),
-		PlantInfoAttribute.OperatorBulletScene : preload("res://scenes/bullet/bullet_105_crow_slash.tscn"),
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/053_crow_operator.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/operator/operator_004_crow.tscn",
+		PlantInfoAttribute.OperatorCardBg : "res://assets/image/operator/crow/crow_card_full.png",
+		PlantInfoAttribute.OperatorBulletScene : "res://scenes/bullet/bullet_105_crow_slash.tscn",
 		PlantInfoAttribute.OperatorAttackAnims : ["Attack"],
 		PlantInfoAttribute.OperatorAttackModes : {
 			"普通": {"count": 1, "mult": 1.0},
@@ -657,12 +657,12 @@ const PlantInfo = {
 			1: {
 				"name": "高速切割",
 				"desc": "攻击回复·自动触发\n下次攻击攻击力提升至165%\n并连续攻击两次",
-				"icon": preload("res://assets/image/operator/crow/skill_icon_1.png"),
+				"icon": "res://assets/image/operator/crow/skill_icon_1.png",
 			},
 			2: {
 				"name": "收割",
 				"desc": "自动回复·手动触发\n攻击力+70%，攻击间隔缩短\n对低于50%生命敌人伤害额外+50%",
-				"icon": preload("res://assets/image/operator/crow/skill_icon_2.png"),
+				"icon": "res://assets/image/operator/crow/skill_icon_2.png",
 			},
 		},
 	},
@@ -672,8 +672,8 @@ const PlantInfo = {
 		PlantInfoAttribute.PlantName: "Imitater",
 		PlantInfoAttribute.CoolTime: 50.0,
 		PlantInfoAttribute.SunCost: 0,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/999_imitater.tres"),
-		PlantInfoAttribute.PlantScenes :  preload("res://scenes/character/plant/plant_999_imitater.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/999_imitater.tres",
+		PlantInfoAttribute.PlantScenes :  "res://scenes/character/plant/plant_999_imitater.tscn"
 		},
 
 
@@ -682,8 +682,8 @@ const PlantInfo = {
 		PlantInfoAttribute.PlantName: "Sprout",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes :  preload("res://scenes/character/plant/plant_1000_sprout.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes :  "res://scenes/character/plant/plant_1000_sprout.tscn"
 		},
 
 	## 保龄球
@@ -691,25 +691,53 @@ const PlantInfo = {
 		PlantInfoAttribute.PlantName: "WallNutBowling",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes :  preload("res://scenes/character/plant/plant_1001_wall_nut_bowling.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes :  "res://scenes/character/plant/plant_1001_wall_nut_bowling.tscn"
 		},
 	PlantType.P1002WallNutBowlingBomb: {
 		PlantInfoAttribute.PlantName: "WallNutBowlingBomb",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource :  preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes :  preload("res://scenes/character/plant/plant_1002_wall_nut_bowling.tscn")
+		PlantInfoAttribute.PlantConditionResource :  "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes :  "res://scenes/character/plant/plant_1002_wall_nut_bowling.tscn"
 		},
 	PlantType.P1003WallNutBowlingBig: {
 		PlantInfoAttribute.PlantName: "WallNutBowlingBig",
 		PlantInfoAttribute.CoolTime: 7.5,
 		PlantInfoAttribute.SunCost: 50,
-		PlantInfoAttribute.PlantConditionResource : preload("res://resources/character_resource/plant_condition/000_common_plant_land.tres"),
-		PlantInfoAttribute.PlantScenes : preload("res://scenes/character/plant/plant_1003_wall_nut_bowling.tscn")
+		PlantInfoAttribute.PlantConditionResource : "res://resources/character_resource/plant_condition/000_common_plant_land.tres",
+		PlantInfoAttribute.PlantScenes : "res://scenes/character/plant/plant_1003_wall_nut_bowling.tscn"
 		},
 }
 
+
+#region 懒加载
+## 场景/贴图懒加载缓存（按路径缓存，避免启动时预加载全部植物/僵尸场景，显著加快启动速度）
+var _lazy_resource_cache: Dictionary = {}
+
+## 懒加载资源：首次按路径 load，之后命中缓存
+func _lazy_load_resource(resource_path: String):
+	if not _lazy_resource_cache.has(resource_path):
+		_lazy_resource_cache[resource_path] = load(resource_path)
+	return _lazy_resource_cache[resource_path]
+
+## 预热种植条件资源与干员技能图标（加载界面进入主菜单前调用，
+## 避免首次种植/选卡时按需加载卡顿；启动本身不再预加载这些资源）
+func warm_up() -> void:
+	for plant_type in PlantInfo:
+		var info: Dictionary = PlantInfo[plant_type]
+		var condition: Variant = info.get(PlantInfoAttribute.PlantConditionResource, null)
+		if condition is String:
+			_lazy_load_resource(condition)
+		var skills: Variant = info.get(PlantInfoAttribute.OperatorSkills, null)
+		if skills is Dictionary:
+			for skill_id in skills:
+				var skill: Variant = (skills as Dictionary)[skill_id]
+				if skill is Dictionary:
+					var icon: Variant = (skill as Dictionary).get("icon", null)
+					if icon is String:
+						_lazy_load_resource(icon)
+#endregion
 
 ## 获取植物属性方法
 func get_plant_info(plant_type:PlantType, info_attribute:PlantInfoAttribute):
@@ -717,7 +745,11 @@ func get_plant_info(plant_type:PlantType, info_attribute:PlantInfoAttribute):
 		print("warning:获取空植物信息")
 		return null
 	var curr_plant_info = PlantInfo[plant_type]
-	return curr_plant_info[info_attribute]
+	var value = curr_plant_info[info_attribute]
+	## 场景/整卡贴图/子弹场景/种植条件为路径字符串，按需懒加载
+	if info_attribute in [PlantInfoAttribute.PlantScenes, PlantInfoAttribute.OperatorCardBg, PlantInfoAttribute.OperatorBulletScene, PlantInfoAttribute.PlantConditionResource] and value is String:
+		return _lazy_load_resource(value)
+	return value
 
 #endregion
 
@@ -728,35 +760,35 @@ const ZombieInfo = {
 		ZombieInfoAttribute.ZombieName: "ZombieNorm",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 50,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_001_norm.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_001_norm.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 	ZombieType.Z002Flag:{
 		ZombieInfoAttribute.ZombieName: "ZombieFlag",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 50,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_002_flag.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_002_flag.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 	ZombieType.Z003Cone:{
 		ZombieInfoAttribute.ZombieName: "ZombieCone",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 75,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_003_cone.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_003_cone.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 	ZombieType.Z004PoleVaulter:{
 		ZombieInfoAttribute.ZombieName: "ZombiePoleVaulter",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 75,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_004_pole_vaulter.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_004_pole_vaulter.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z005Bucket:{
 		ZombieInfoAttribute.ZombieName: "ZombieBucket",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 125,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_005_bucket.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_005_bucket.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 
@@ -764,140 +796,140 @@ const ZombieInfo = {
 		ZombieInfoAttribute.ZombieName: "ZombiePaper",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 125,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_006_paper.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_006_paper.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z007ScreenDoor:{
 		ZombieInfoAttribute.ZombieName: "ZombieScreenDoor",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 125,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_007_screendoor.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_007_screendoor.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z008Football:{
 		ZombieInfoAttribute.ZombieName: "ZombieFootball",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 175,
-		ZombieInfoAttribute.ZombieScenes: preload("res://scenes/character/zombie/zombie_008_football.tscn"),
+		ZombieInfoAttribute.ZombieScenes: "res://scenes/character/zombie/zombie_008_football.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z009Jackson:{
 		ZombieInfoAttribute.ZombieName: "ZombieJackson",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 300,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_009_jackson.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_009_jackson.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z010Dancer:{
 		ZombieInfoAttribute.ZombieName: "ZombieDancer",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 50,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_010_dancer.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_010_dancer.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z011Duckytube:{
 		ZombieInfoAttribute.ZombieName: "ZombieDuckytube",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 50,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_011_duckytube.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_011_duckytube.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 	ZombieType.Z012Snorkle:{
 		ZombieInfoAttribute.ZombieName: "ZombieSnorkle",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 75,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_012_snorkle.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_012_snorkle.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Pool
 	},
 	ZombieType.Z013Zamboni:{
 		ZombieInfoAttribute.ZombieName: "ZombieZamboni",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 250,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_013_zamboni.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_013_zamboni.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z014Bobsled:{
 		ZombieInfoAttribute.ZombieName: "ZombieBobsled",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 200,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_014_bobsled.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_014_bobsled.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z015Dolphinrider:{
 		ZombieInfoAttribute.ZombieName: "ZombieDolphinrider",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 150,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_015_dolphinrider.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_015_dolphinrider.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Pool
 	},
 	ZombieType.Z016Jackbox:{
 		ZombieInfoAttribute.ZombieName: "ZombieJackbox",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 75,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_016_jackbox.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_016_jackbox.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z017Balloon:{
 		ZombieInfoAttribute.ZombieName: "ZombieBallon",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 75,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_017_balloon.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_017_balloon.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 	ZombieType.Z018Digger:{
 		ZombieInfoAttribute.ZombieName: "ZombieDigger",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 125,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_018_digger.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_018_digger.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z019Pogo:{
 		ZombieInfoAttribute.ZombieName: "ZombiePogo",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 125,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_019_pogo.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_019_pogo.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z020Yeti:{
 		ZombieInfoAttribute.ZombieName: "ZombieYeti",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 100,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_020_yeti.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_020_yeti.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z021Bungi:{
 		ZombieInfoAttribute.ZombieName: "ZombieBungi",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 125,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_021_bungi.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_021_bungi.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 	ZombieType.Z022Ladder:{
 		ZombieInfoAttribute.ZombieName: "ZombieLadder",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 150,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_022_ladder.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_022_ladder.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z023Catapult:{
 		ZombieInfoAttribute.ZombieName: "ZombieCatapult",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 200,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_023_catapult.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_023_catapult.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z024Gargantuar:{
 		ZombieInfoAttribute.ZombieName: "ZombieGargantuar",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 300,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_024_gargantuar.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_024_gargantuar.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 	ZombieType.Z025Imp:{
 		ZombieInfoAttribute.ZombieName: "ZombieImp",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 50,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_025_imp.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_025_imp.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 
@@ -906,7 +938,7 @@ const ZombieInfo = {
 		ZombieInfoAttribute.ZombieName: "ZombieRedEye",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 100,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_026_red_eye.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_026_red_eye.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Both
 	},
 
@@ -915,7 +947,7 @@ const ZombieInfo = {
 		ZombieInfoAttribute.ZombieName: "ZombieBobsledSingle",
 		ZombieInfoAttribute.CoolTime: 0.0,
 		ZombieInfoAttribute.SunCost: 50,
-		ZombieInfoAttribute.ZombieScenes:preload("res://scenes/character/zombie/zombie_1001_bobsled_signle.tscn"),
+		ZombieInfoAttribute.ZombieScenes:"res://scenes/character/zombie/zombie_1001_bobsled_signle.tscn",
 		ZombieInfoAttribute.ZombieRowType:CharacterRegistry.ZombieRowType.Land
 	},
 }
@@ -926,4 +958,8 @@ func get_zombie_info(zombie_type:ZombieType, info_attribute:ZombieInfoAttribute)
 		print("warning: 获取空僵尸信息")
 		return null
 	var curr_zombie_info = ZombieInfo[zombie_type]
-	return curr_zombie_info[info_attribute]
+	var value = curr_zombie_info[info_attribute]
+	## 僵尸场景为路径字符串，按需懒加载
+	if info_attribute == ZombieInfoAttribute.ZombieScenes and value is String:
+		return _lazy_load_resource(value)
+	return value

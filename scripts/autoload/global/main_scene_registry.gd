@@ -26,7 +26,7 @@ enum MainScenes{
 	MainScenes.MainGameBack: "res://scenes/main/MainGame02Back.tscn",
 	MainScenes.MainGameRoof: "res://scenes/main/MainGame03Roof.tscn",
 
-	MainScenes.StartMenu: "res://scenes/main/01StartMenu.tscn",
+	MainScenes.StartMenu: "res://scenes/main/01MainMenu.tscn",
 	MainScenes.ChooseLevelAdventure: "res://scenes/main/02AdventureChooesLevel.tscn",
 	MainScenes.ChooseLevelMiniGame: "res://scenes/main/03MiniGameChooesLevel.tscn",
 	MainScenes.ChooseLevelPuzzle: "res://scenes/main/04PuzzleChooesLevel.tscn",

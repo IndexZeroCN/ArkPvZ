@@ -48,7 +48,9 @@ func _init() -> void:
 		"res://scenes/main/MainGame01Front.tscn",
 		"res://scenes/autoload/all_cards.tscn",
 		"res://scenes/autoload/global.tscn",
-		"res://scenes/main/01StartMenu.tscn",
+		"res://scenes/main/00StartScreen.tscn",
+		"res://scenes/main/00LoadingScreen.tscn",
+		"res://scenes/main/01MainMenu.tscn",
 	]
 	for f: String in scenes:
 		var s = load(f)
